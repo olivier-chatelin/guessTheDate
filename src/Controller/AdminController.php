@@ -9,9 +9,9 @@
 
 namespace App\Controller;
 
-use App\Model\HomeManager;
+use App\Model\AdminManager;
 
-class HomeController extends AbstractController
+class AdminController extends AbstractController
 {
     /**
      * Display home page
@@ -23,16 +23,6 @@ class HomeController extends AbstractController
      */
     public function index()
     {
-        return $this->twig->render('Home/index.html.twig');
-    }
-
-    public function signup()
-    {
-        return $this->twig->render('Home/signup.html.twig');
-    }
-
-    public function profile()
-    {
-        return $this->twig->render('Home/profile.html.twig');
+        return $this->twig->render('Admin/index.html.twig');
     }
 }
