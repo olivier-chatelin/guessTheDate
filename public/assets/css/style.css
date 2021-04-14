@@ -1,5 +1,14 @@
 @import "header.css";
 
+.btn-danger {
+    background-color: #e4002b !important;
+}
+
+.btn-danger:hover {
+    color: #fff;
+    background-color: #cd0027 !important;
+    border-color: #cd0027 !important;
+
 h1 {
     font-family: 'DM Serif Text', serif;
     font-size: 54px;

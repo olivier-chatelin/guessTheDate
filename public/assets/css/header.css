@@ -1,5 +1,5 @@
 .bg-danger {
-    background-color: #e4002b;
+    background-color: #e4002b !important;
 }
 
 .menu a:hover {
