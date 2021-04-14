@@ -5,4 +5,22 @@
     justify-content: center;
     margin: 5px;
 }
+
+.point-win {
+    position: absolute;
+    top: 2%;
+    left: 2%;
+    width: 20%;
+    height: 300px;
+}
+.point-win img{
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+
+
+
+
 /*        backg       quizz end                           */
