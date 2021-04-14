@@ -1,0 +1,7 @@
+.bg-danger {
+    background-color: #e4002b;
+}
+
+.menu a:hover {
+    border-bottom: 3px solid white;
+}
