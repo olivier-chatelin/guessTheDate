@@ -3,6 +3,7 @@
     {{ parent() }} - department
 {% endblock %}
 {% block content %}
+<div class="container-fluid d-none d-lg-block">
     <div class="card card-aside " >
         <img src="/assets/images/departments/dept.jpg" id="card-img" class="card-img-top" alt="">
         <div class="card-body bg-danger align-self-end">
@@ -17,108 +18,19 @@
             {% endfor %}
         </map>
     </div>
-
-    </div>
-    <!--Partie md-->
-    <div class="container d-sm-none d-md-block d-lg-none " >
+</div>
+    <div class="container d-sm-none d-md-block d-lg-none mb-5 p-5" >
         <div class="row">
-            <div class="col-4">
+            {% for department in departments|slice(0,12) %}
+            <div class="col-4 my-2">
                 <div class="card">
-                    <img src="departements/dept1.jpg" class="card-img-top" alt="...">
-                    <div class="card-body ">
-                        <a class="card-title btn bg-danger text-light text-center ">The American Wing</a>
-                    </div>
+                    <img src="/assets/images/departments/dept{{department['dept_nb']}}.jpg" class="card-img-top" alt="{{ department['title'] }}">
+                    <a href="/" class="card-body text-danger">
+                        <p class=" text-bold ">{{ department['title'] }}</p>
+                    </a>
                 </div>
             </div>
-            <div class="col-4">
-                <div class="card">
-                    <img src="departements/dept3.jpg" class="card-img-top" alt="...">
-                    <div class="card-body ">
-                        <a class="card-title btn bg-danger text-light  text-center">Ancient Near Eastern Art</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="card">
-                    <img src="departements/dept4.jpg" class="card-img-top" alt="...">
-                    <div class="card-body ">
-                        <a class="card-title btn bg-danger text-light  text-center">Arms and Armor</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="card">
-                    <img src="departements/dept5.jpg" class="card-img-top" alt="...">
-                    <div class="card-body ">
-                        <a class="card-title btn bg-danger text-light  text-center">Arts of Africa, Oceania, and the Americas</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="card">
-                    <img src="departements/dept6.jpg" class="card-img-top" alt="...">
-                    <div class="card-body ">
-                        <a class="card-title btn bg-danger text-light  text-center">Asian Art</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="card">
-                    <img src="departements/dept10.jpg" class="card-img-top" alt="...">
-                    <div class="card-body ">
-                        <a class="card-title btn bg-danger text-light  text-center">Egyptian Art</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="card">
-                    <img src="departements/dept11.jpg" class="card-img-top" alt="...">
-                    <div class="card-body ">
-                        <a class="card-title btn bg-danger text-light  text-center">European Paintings</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="card">
-                    <img src="departements/dept12.jpg" class="card-img-top" alt="...">
-                    <div class="card-body ">
-                        <a class="card-title btn bg-danger text-light  text-center">European Sculpture and Decorative Arts</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="card">
-                    <img src="departements/dept13.jpg" class="card-img-top" alt="...">
-                    <div class="card-body ">
-                        <a class="card-title btn bg-danger text-light  text-center">Greek and Roman Art</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="card">
-                    <img src="departements/dept14.jpg" class="card-img-top" alt="...">
-                    <div class="card-body ">
-                        <a class="card-title btn bg-danger text-light  text-center">Islamic Art</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="card">
-                    <img src="departements/dept17.jpg" class="card-img-top" alt="...">
-                    <div class="card-body ">
-                        <a class="card-title btn bg-danger text-light  text-center">Medieval Art</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="card">
-                    <img src="departements/dept19.jpg" class="card-img-top" alt="...">
-                    <div class="card-body ">
-                        <a class="card-title btn bg-danger text-light  text-center">Photographs</a>
-                    </div>
-                </div>
-            </div>
-
+            {% endfor %}
         </div>
     </div>
     <!--partie portable-->
