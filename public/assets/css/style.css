@@ -1,7 +1,14 @@
 @import "header.css";
 
+.form-quizz{
+    display: flex;
+    justify-content: center;
+    margin: 5px;
+}
+
 h1 {
     font-family: 'DM Serif Text', serif;
     font-size: 54px;
     color: #333333;
 }
+
