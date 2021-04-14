@@ -1,4 +1,4 @@
-/*                     quizz start                    */
+@import "header.css";
 
 .form-quizz{
     display: flex;
@@ -19,8 +19,8 @@
     object-fit: cover;
 }
 
-
-
-
-
-/*        backg       quizz end                           */
+h1 {
+    font-family: 'DM Serif Text', serif;
+    font-size: 54px;
+    color: #333333;
+}
