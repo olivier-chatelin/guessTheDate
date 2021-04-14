@@ -11,10 +11,10 @@ class GameController extends AbstractController
     {
         $departmentManager = new DepartmentManager();
         $departments = $departmentManager->selectAll();
-        return $this->twig->render('Game/department.html.twig',['departments'=> $departments]);
+        return $this->twig->render('Game/department.html.twig', ['departments' => $departments]);
     }
 
-    public function quizz($id)
+    public function quizz()
     {
 
         return $this->twig->render('Game/quizz.html.twig');
