@@ -16,10 +16,22 @@
     margin: 5px;
 }
 
+.point-win {
+    position: absolute;
+    top: 2%;
+    left: 2%;
+    width: 20%;
+    height: 300px;
+}
+.point-win img{
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
 
 h1 {
     font-family: 'DM Serif Text', serif;
     font-size: 54px;
     color: #333333;
 }
-
