@@ -34,7 +34,6 @@ class GameController extends AbstractController
             'artistEndDate' => $pickedObjectData['artistEndDate'],
             'objectEndDate' => $pickedObjectData['objectEndDate']]
         );
-
     }
 
     public function rules()
