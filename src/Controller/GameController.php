@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Controller;
+
 use App\Model\GameManager;
 use App\Model\DepartmentManager;
-use App\Service\connexionAPI;
+use App\Service\ConnexionAPI;
 
 class GameController extends AbstractController
 {
@@ -16,19 +17,21 @@ class GameController extends AbstractController
 
     public function quizz()
     {
-        $connexionAPI = new connexionAPI();
+        $connexionAPI = new ConnexionAPI();
         $pickedObjectData = $connexionAPI->showRandArtPiece(1);
 
 
-        return $this->twig->render('Game/quizz.html.twig',
-            ['primaryImg'=> $pickedObjectData['primaryImageSmall'],
-        'additionalImages' => $pickedObjectData['additionalImages'],
-        'department' => $pickedObjectData['department'],
-        'title' => $pickedObjectData['title'],
-        'artistDisplayName' => $pickedObjectData['artistDisplayName'],
-        'artistBeginDate' => $pickedObjectData['artistBeginDate'],
-        'artistEndDate' => $pickedObjectData['artistEndDate'],
-        'objectEndDate' => $pickedObjectData['objectEndDate']]);
+        return $this->twig->render(
+            'Game/quizz.html.twig',
+            ['primaryImg' => $pickedObjectData['primaryImageSmall'],
+            'additionalImages' => $pickedObjectData['additionalImages'],
+            'department' => $pickedObjectData['department'],
+            'title' => $pickedObjectData['title'],
+            'artistDisplayName' => $pickedObjectData['artistDisplayName'],
+            'artistBeginDate' => $pickedObjectData['artistBeginDate'],
+            'artistEndDate' => $pickedObjectData['artistEndDate'],
+            'objectEndDate' => $pickedObjectData['objectEndDate']]
+        );
     }
 
     public function rules()

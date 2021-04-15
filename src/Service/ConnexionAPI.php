@@ -1,11 +1,13 @@
 <?php
+
 namespace App\Service;
+
 use Symfony\Component\HttpClient\HttpClient;
 
-class connexionAPI
+class ConnexionAPI
 {
 
-    public function showRandArtPiece(int $department_nb): array
+    public function showRandArtPiece(int $departmentNb): array
     {
         $randLetter = chr(rand(97, 122));
         $pickedObjectData = [];
@@ -14,10 +16,10 @@ class connexionAPI
             'headers' => [
                 'User-Agent' => 'Wild Code School',
             ]]);
-
-        $response = $client->request('GET', 'https://collectionapi.metmuseum.org/public/collection/v1/search', [
+        $requestURL = 'https://collectionapi.metmuseum.org/public/collection/v1/search';
+        $response = $client->request('GET', $requestURL, [
             'query' => [
-                'departmentId' => $department_nb,
+                'departmentId' => $departmentNb,
                 'hasImages' => 'true',
                 'q' => $randLetter,
             ],
@@ -26,7 +28,8 @@ class connexionAPI
 
         $selectedObjectId = $allObjectIds['objectIDs'][rand(1, $allObjectIds['total'])];
 
-        $response = $client->request('GET', 'https://collectionapi.metmuseum.org/public/collection/v1/objects/' . $selectedObjectId);
+        $requestURL = 'https://collectionapi.metmuseum.org/public/collection/v1/objects/';
+        $response = $client->request('GET', $requestURL . $selectedObjectId);
         $pickedObject = $response->toArray();
 
 
@@ -42,7 +45,3 @@ class connexionAPI
         return  $pickedObjectData;
     }
 }
-
-
-
-?>
