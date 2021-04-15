@@ -69,7 +69,9 @@ class GameController extends AbstractController
             return $this->twig->render(
                 'Game/solution.html.twig',
                 ['answer' => $_POST['answer'],
-                'objectData' => $objectData]
+                'objectData' => $objectData,
+                'deptId' => $_POST['department'],
+                    ]
             );
         }
         header('Location: /');
