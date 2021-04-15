@@ -1,0 +1,12 @@
+.bg-danger{
+    background-color: #e4002b !important;
+
+}
+.text-danger{
+    color: #e4002b !important;
+}
+.card-aside{
+    position: fixed;
+    z-index: 1;
+    width: 15vw;
+}
