@@ -3,8 +3,10 @@
     {{ parent() }} - Solution
 {% endblock %}
 {% block content %}
-    <h1>Solution</h1>
     <div class="container w-25" >
+        <form action="quizz" method="post" class="container center">
+            <button class="btn btn-outline-danger">Question suivante</button>
+        </form>
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
                 <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -31,16 +33,18 @@
                 <span class="sr-only">Next</span>
             </a>
         </div>
-        <form action="" method="post">
-            <div class="form-quizz">
-                <input type="datetime-local" class="w-75">
-                <button type="submit" class="border-0 w-25" >
-                    <a href="">
-                        <i class="fas fa-check"></i>
-                    </a>
-                </button>
-            </div>
-        </form>
+        <div class="container ">
+            <p class="text-center h1 text-danger">
+              1991
+            </p>
+        </div>
     </div>
-
+    <div class="container  w-75 ">
+        <p class="text-break" >
+            FQDSGFQDSFKJHFLKDSQJHFLDKFJHLKdjhflkdsqfjhdsqkljfhdskjfhdskljfhKJFHLKJFHLKDSJFHLKSQfhlkfdjhDSKJHFDSLKJHLKSJFDHfdgfdgfdgsdfgfdgdsgsqgdsqlfhfkjlhdsfhLKHFLKDQJHFLKJDSHFSQLKJDHFLKSQJFHLDKFJHQSLKDFJHDLKFJHSQLKDFJHDLKJQFHQSLKDJFHQSLKDJHFLKDSQJHFLKSDJHFLKQSJDHFKLJSQDHFKDJHFSLKQSJDFHLKDSQJFHQLKSJ
+        </p>
+    </div>
+    <div class="point-win">
+        <img src="https://www.color-stickers.com/1910-large_default/sticker-ocean-etoile-de-mer-rouge.jpg" alt="">
+    </div>
 {% endblock %}

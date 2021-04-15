@@ -1,6 +1,16 @@
 @import "score.css";
 @import "header.css";
+@import "department.css";
 
+.btn-danger {
+    background-color: #e4002b !important;
+}
+
+.btn-danger:hover {
+    color: #fff;
+    background-color: #cd0027 !important;
+    border-color: #cd0027 !important;
+}
 
 .form-quizz{
     display: flex;
@@ -8,12 +18,24 @@
     margin: 5px;
 }
 
-body {
-    min-height: 100vh;
-}
 
 container {
     min-height: 100%;
+}
+
+
+.point-win {
+    position: absolute;
+    top: 2%;
+    left: 2%;
+    width: 20%;
+    height: 300px;
+}
+
+.point-win img{
+    width: 100%;
+    height: auto;
+    object-fit: cover;
 }
 
 h1 {
@@ -21,4 +43,3 @@ h1 {
     font-size: 54px;
     color: #333333;
 }
-

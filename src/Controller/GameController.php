@@ -3,16 +3,20 @@
 namespace App\Controller;
 
 use App\Model\GameManager;
+use App\Model\DepartmentManager;
 
 class GameController extends AbstractController
 {
     public function department()
     {
-        return $this->twig->render('Game/department.html.twig');
+        $departmentManager = new DepartmentManager();
+        $departments = $departmentManager->selectAll();
+        return $this->twig->render('Game/department.html.twig', ['departments' => $departments]);
     }
 
     public function quizz()
     {
+
         return $this->twig->render('Game/quizz.html.twig');
     }
 
