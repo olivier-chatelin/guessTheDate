@@ -14,7 +14,7 @@ class GameController extends AbstractController
         return $this->twig->render('Game/department.html.twig', ['departments' => $departments]);
     }
 
-    public function quizz()
+    public function quizz($id)
     {
 
         return $this->twig->render('Game/quizz.html.twig');
