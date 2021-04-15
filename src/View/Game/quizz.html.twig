@@ -3,17 +3,17 @@
     {{ parent() }} - Quizz
 {% endblock %}
 {% block content %}
-    <div class="container">
+    <div class="container mt-5">
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             {% if additionalImages is not empty %}
-            <ol class="carousel-indicators">
-                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                {% if additionalImages is not empty %}
-                {% for img in additionalImages %}
-                <li data-target="#carouselExampleIndicators" data-slide-to="{{ loop.index }}"></li>
-                {% endfor %}
-                {%  endif %}
-            </ol>
+                <ol class="carousel-indicators">
+                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                    {% if additionalImages is not empty %}
+                        {% for img in additionalImages %}
+                            <li data-target="#carouselExampleIndicators" data-slide-to="{{ loop.index }}"></li>
+                        {% endfor %}
+                    {%  endif %}
+                </ol>
             {%  endif %}
             <div class="carousel-inner">
                 <div class="carousel-item active">
@@ -27,7 +27,6 @@
                         </div>
                     {% endfor %}
                 {%  endif %}
-
             </div>
         </div>
         {% if additionalImages is not empty %}
@@ -39,13 +38,12 @@
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="sr-only">Next</span>
             </a>
-            {%  endif %}
-
-        </div>
+        {%  endif %}
         <form action="/Game/solution" method="post">
-            <div class="form-quizz">
+            <div class="form-quizz w-25 m-auto">
                 <input name="answer" type="number" value="" class="w-75">
                 <input name="objectId" type="hidden" value="{{objectId }}" >
+                <input name="department" type="hidden" value="{{ id }}" >
                 <button type="submit" class="btn btn-outline-danger w-25 " >
                     <i class="fas fa-check"></i>
                 </button>
