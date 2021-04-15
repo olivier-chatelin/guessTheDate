@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Model\GameManager;
 use App\Model\DepartmentManager;
+use App\Model\ScoreManager;
 use App\Service\ConnexionAPI;
 
 class GameController extends AbstractController
@@ -41,9 +42,22 @@ class GameController extends AbstractController
         return $this->twig->render('Game/rules.html.twig');
     }
 
-    public function score()
+    public function score($idSelected)
     {
-        return $this->twig->render('Game/score.html.twig');
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            //TODO POST data to secure
+            header('Location: /Game/score/' . $_POST['idDepartmentSelected']);
+        }
+
+        $departmentManager = new DepartmentManager();
+        $departments = $departmentManager->selectAll();
+        $scoreManager = new ScoreManager();
+        $scores = $scoreManager->getScoresByDepartment($idSelected);
+        return $this->twig->render('Game/score.html.twig', [
+            'departments' => $departments,
+            'idSelected' => $idSelected,
+            'scores' => $scores
+        ]);
     }
 
     public function solution()
