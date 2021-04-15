@@ -44,16 +44,20 @@ class GameController extends AbstractController
 
     public function score($idSelected)
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             //TODO POST data to secure
-            header('Location: /Game/score/'.$_POST['idDepartmentSelected']);
+            header('Location: /Game/score/' . $_POST['idDepartmentSelected']);
         }
 
         $departmentManager = new DepartmentManager();
         $departments = $departmentManager->selectAll();
         $scoreManager = new ScoreManager();
         $scores = $scoreManager->getScoresByDepartment($idSelected);
-        return $this->twig->render('Game/score.html.twig', ['departments' => $departments, 'idSelected' => $idSelected, 'scores' => $scores]);
+        return $this->twig->render('Game/score.html.twig', [
+            'departments' => $departments,
+            'idSelected' => $idSelected,
+            'scores' => $scores
+        ]);
     }
 
     public function solution()
