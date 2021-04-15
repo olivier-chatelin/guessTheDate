@@ -15,16 +15,18 @@ class GameController extends AbstractController
         return $this->twig->render('Game/department.html.twig', ['departments' => $departments]);
     }
 
-    public function quizz()
+    public function quizz($id)
     {
+
         $connexionAPI = new ConnexionAPI();
-        $pickedObjectData = $connexionAPI->showRandArtPiece(1);
+        $pickedObjectData = $connexionAPI->showRandArtPiece($id);
 
 
         return $this->twig->render(
             'Game/quizz.html.twig',
             ['primaryImg' => $pickedObjectData['primaryImageSmall'],
             'additionalImages' => $pickedObjectData['additionalImages'],
+            'id' => $id,
             'department' => $pickedObjectData['department'],
             'title' => $pickedObjectData['title'],
             'artistDisplayName' => $pickedObjectData['artistDisplayName'],
@@ -32,6 +34,7 @@ class GameController extends AbstractController
             'artistEndDate' => $pickedObjectData['artistEndDate'],
             'objectEndDate' => $pickedObjectData['objectEndDate']]
         );
+
     }
 
     public function rules()
