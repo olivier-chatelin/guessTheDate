@@ -4,7 +4,7 @@
 {% endblock %}
 {% block content %}
     <h1>Quizz</h1>
-    <div class="container w-25" >
+    <div class="container w-25 h-75" >
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
                 <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -13,14 +13,17 @@
             </ol>
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWViBekkC3Xwr_CcNURSz6P1O9tGLh7H4jKQ&usqp=CAU" class="d-block w-100 img-fluid" alt="...">
+                    <img src="{{ primaryImg }}" class="d-block w-100 img-fluid" alt="...">
                 </div>
-                <div class="carousel-item">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2uc8UnPFF2J1viw3r4X1hgny8N6_GNhXU-A&usqp=CAU" class="d-block w-100 img-fluid" alt="...">
-                </div>
-                <div class="carousel-item">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6BJeuzGEY4ZLq7cnOUzZeB38XNceXa0zPfg&usqp=CAU" class="d-block w-100 img-fluid" alt="...">
-                </div>
+
+                {% if additionalImages is not empty %}
+                    {% for img in additionalImages %}
+                        <div class="carousel-item">
+                            <img src="{{ img }}" class="d-block w-100 img-fluid" alt="...">
+                        </div>
+                    {% endfor %}
+                {%  endif %}
+
             </div>
             <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -31,16 +34,16 @@
                 <span class="sr-only">Next</span>
             </a>
         </div>
-            <form action="solution" method="post">
-                <div class="form-quizz">
-                    <input type="datetime-local" class="w-75">
-                        <button type="submit" class="btn btn-outline-danger w-25 " >
-                                <i class="fas fa-check"></i>
-                        </button>
-                    </a>
+        <form action="solution" method="post">
+            <div class="form-quizz">
+                <input type="number" value="{{ objectEndDate }}" class="w-75">
+                <button type="submit" class="btn btn-outline-danger w-25 " >
+                    <i class="fas fa-check"></i>
+                </button>
+                </a>
 
-                </div>
-            </form>
+            </div>
+        </form>
     </div>
 
 {% endblock %}
