@@ -1,3 +1,4 @@
+@import "score.css";
 @import "header.css";
 @import "department.css";
 
@@ -9,12 +10,19 @@
     color: #fff;
     background-color: #cd0027 !important;
     border-color: #cd0027 !important;
+}
 
 .form-quizz{
     display: flex;
     justify-content: center;
     margin: 5px;
 }
+
+
+container {
+    min-height: 100%;
+}
+
 
 .point-win {
     position: absolute;
@@ -23,12 +31,12 @@
     width: 20%;
     height: 300px;
 }
+
 .point-win img{
     width: 100%;
     height: auto;
     object-fit: cover;
 }
-
 
 h1 {
     font-family: 'DM Serif Text', serif;
