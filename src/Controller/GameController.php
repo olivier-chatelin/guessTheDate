@@ -18,8 +18,8 @@ class GameController extends AbstractController
 
     public function quizz($id)
     {
-
         $connexionAPI = new ConnexionAPI();
+
         $pickedObjectData = $connexionAPI->showRandArtPiece($id);
 
 
@@ -33,7 +33,8 @@ class GameController extends AbstractController
             'artistDisplayName' => $pickedObjectData['artistDisplayName'],
             'artistBeginDate' => $pickedObjectData['artistBeginDate'],
             'artistEndDate' => $pickedObjectData['artistEndDate'],
-            'objectEndDate' => $pickedObjectData['objectEndDate']]
+            'objectEndDate' => $pickedObjectData['objectEndDate'],
+            'objectId' => $pickedObjectData['objectId'],]
         );
     }
 
@@ -62,6 +63,15 @@ class GameController extends AbstractController
 
     public function solution()
     {
-        return $this->twig->render('Game/solution.html.twig');
+        if ($_SERVER['REQUEST_METHOD'] === "POST") {
+            $connexionApi = new ConnexionAPI();
+            $objectData = $connexionApi->showObjectById($_POST['objectId']);
+            return $this->twig->render(
+                'Game/solution.html.twig',
+                ['answer' => $_POST['answer'],
+                'objectData' => $objectData]
+            );
+        }
+        header('Location: /');
     }
 }

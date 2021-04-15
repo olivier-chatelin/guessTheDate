@@ -41,7 +41,17 @@ class ConnexionAPI
         $pickedObjectData['artistBeginDate'] = $pickedObject['artistBeginDate'];
         $pickedObjectData['artistEndDate'] = $pickedObject['artistEndDate'];
         $pickedObjectData['objectEndDate'] = $pickedObject['objectEndDate'];
-
+        $pickedObjectData['objectId'] = $selectedObjectId;
         return  $pickedObjectData;
+    }
+    public function showObjectById(int $objectId): array
+    {
+        $client = HttpClient::create([
+            'headers' => [
+                'User-Agent' => 'Wild Code School',
+            ]]);
+        $requestURL = 'https://collectionapi.metmuseum.org/public/collection/v1/objects/' . $objectId;
+        $response = $client -> request('GET', $requestURL);
+        return  $response->toArray();
     }
 }
