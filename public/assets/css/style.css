@@ -1,25 +1,37 @@
 @import "score.css";
 @import "header.css";
 @import "department.css";
+@import "quizz.css";
 
 .btn-danger {
-    background-color: #e4002b !important;
+    background-color: #E4002B !important;
+}
+
+.bg-danger{
+    background-color: #E4002B !important;
+}
+
+.bg-light{
+    background-color: #F2F2F2 !important;
+}
+
+.text-danger{
+    color : #01ACBA !important;
+}
+
+.btn-outline-danger{
+    background-color: #E4002B !important;
 }
 
 .btn-danger:hover {
     color: #fff;
-    background-color: #cd0027 !important;
-    border-color: #cd0027 !important;
-}
-
-.form-quizz{
-    display: flex;
-    justify-content: center;
-    margin: 5px;
+    background-color: #01ACBA !important;
+    border-color: #01ACBA !important;
 }
 
 
-container {
+
+.container {
     min-height: 100%;
 }
 
