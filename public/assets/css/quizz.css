@@ -1,0 +1,11 @@
+.form-quizz{
+    display: flex;
+    justify-content: center;
+    margin: 5px;
+}
+
+.carousel-control-next,
+.carousel-control-prev /*, .carousel-indicators */ {
+    filter: invert(100%);
+}
+
