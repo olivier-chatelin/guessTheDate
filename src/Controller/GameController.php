@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Model\GameManager;
 use App\Model\DepartmentManager;
+use App\Service\ConnexionAPI;
 
 class GameController extends AbstractController
 {
@@ -17,7 +18,22 @@ class GameController extends AbstractController
     public function quizz($id)
     {
 
-        return $this->twig->render('Game/quizz.html.twig', ['id' => $id]);
+        $connexionAPI = new ConnexionAPI();
+        $pickedObjectData = $connexionAPI->showRandArtPiece($id);
+
+
+        return $this->twig->render(
+            'Game/quizz.html.twig',
+            ['primaryImg' => $pickedObjectData['primaryImageSmall'],
+            'additionalImages' => $pickedObjectData['additionalImages'],
+            'id' => $id,
+            'department' => $pickedObjectData['department'],
+            'title' => $pickedObjectData['title'],
+            'artistDisplayName' => $pickedObjectData['artistDisplayName'],
+            'artistBeginDate' => $pickedObjectData['artistBeginDate'],
+            'artistEndDate' => $pickedObjectData['artistEndDate'],
+            'objectEndDate' => $pickedObjectData['objectEndDate']]
+        );
     }
 
     public function rules()
