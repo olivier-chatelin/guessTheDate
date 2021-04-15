@@ -1,9 +1,19 @@
+@import "score.css";
 @import "header.css";
+
 
 .form-quizz{
     display: flex;
     justify-content: center;
     margin: 5px;
+}
+
+body {
+    min-height: 100vh;
+}
+
+container {
+    min-height: 100%;
 }
 
 h1 {
