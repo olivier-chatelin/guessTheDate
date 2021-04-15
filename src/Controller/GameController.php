@@ -19,7 +19,7 @@ class GameController extends AbstractController
     {
 
         $connexionAPI = new ConnexionAPI();
-        $pickedObjectData = $connexionAPI->showRandArtPiece(1);
+        $pickedObjectData = $connexionAPI->showRandArtPiece($id);
 
 
         return $this->twig->render(
