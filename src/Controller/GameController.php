@@ -25,4 +25,9 @@ class GameController extends AbstractController
     {
         return $this->twig->render('Game/score.html.twig');
     }
+
+    public function solution()
+    {
+        return $this->twig->render('Game/solution.html.twig');
+    }
 }
