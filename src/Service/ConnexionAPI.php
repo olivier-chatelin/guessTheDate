@@ -42,10 +42,9 @@ class ConnexionAPI
         $pickedObjectData['artistEndDate'] = $pickedObject['artistEndDate'];
         $pickedObjectData['objectEndDate'] = $pickedObject['objectEndDate'];
         $pickedObjectData['objectId'] = $selectedObjectId;
-
         return  $pickedObjectData;
     }
-    public function showObjectById(int $objectId) : array
+    public function showObjectById(int $objectId): array
     {
         $client = HttpClient::create([
             'headers' => [
@@ -54,8 +53,5 @@ class ConnexionAPI
         $requestURL = 'https://collectionapi.metmuseum.org/public/collection/v1/objects/' . $objectId;
         $response = $client -> request('GET', $requestURL);
         return  $response->toArray();
-
     }
-
-
 }

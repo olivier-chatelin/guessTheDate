@@ -49,10 +49,14 @@ class GameController extends AbstractController
 
     public function solution()
     {
-        if ($_SERVER['REQUEST_METHOD'] === "POST" ) {
+        if ($_SERVER['REQUEST_METHOD'] === "POST") {
             $connexionApi = new ConnexionAPI();
             $objectData = $connexionApi->showObjectById($_POST['objectId']);
-            return $this->twig->render('Game/solution.html.twig', ['answer'=>$_POST['answer'], 'objectData' => $objectData]);
+            return $this->twig->render(
+                'Game/solution.html.twig',
+                ['answer' => $_POST['answer'],
+                'objectData' => $objectData]
+            );
         }
         header('Location: /');
     }
