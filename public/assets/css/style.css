@@ -51,6 +51,7 @@
 }
 
 h1 {
+    justify-content: center;
     font-family: 'DM Serif Text', serif;
     font-size: 54px;
     color: #333333;
