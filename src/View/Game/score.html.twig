@@ -43,7 +43,7 @@
         <table class="table table-sm mt-5 table-danger">
 
             <tbody>
-                {% for score in scores %}
+                {% for score in scores|slice(3,50) %}
                     <tr>
                         <th scope="row">{{ loop.index +3 }}</th>
                         <td><img src="/assets/images/avatar{{ score['avatar_id'] }}.png" class="w-25"></td>
