@@ -4,15 +4,15 @@
 {% endblock %}
 {% block content %}
     <div class="container mt-5  w-25 " >
-        <img class="img-thumbnail" style="height: 50vh" src="{{ objectData['primaryImageSmall'] }}" alt="{{ objectData['title']}} " >
+        <img class="img-thumbnail img-car"  src="{{ objectData['primaryImageSmall'] }}" alt="{{ objectData['title']}} " >
     </div>
     <div class="container text-center w-75">
-        <p class="text-center h3 text-danger">
+        <p class="text-center h3 text-primary">
             {{ objectData['objectEndDate'] }}
         </p>
         <p class="text-break" >
             {{ objectData['artistDisplayName'] }}
         </p>
-            <a class="btn btn-outline-danger" href="/Game/quizz/{{ deptId }}">Question suivante</a>
+            <a class="btn btn-primary" href="/Game/quizz/{{ deptId }}">Question suivante</a>
         </div>
 {% endblock %}

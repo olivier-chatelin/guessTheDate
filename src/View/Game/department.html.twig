@@ -6,15 +6,15 @@
 <div class="container-fluid d-none d-lg-block">
     <div class="card card-aside " >
         <img src="/assets/images/departments/dept.jpg" id="card-img" class="card-img-top" alt="">
-        <div class="card-body bg-danger align-self-end">
-            <p id ="card-text" class="card-text text-white font-weight-bold text-center">Bienvenue. Veuillez choisir un département </p>
+        <div class="card-body bg-primary align-self-end">
+            <p id ="card-text" class="card-text text-secondary" font-weight-bold text-center">Bienvenue. Veuillez choisir un département </p>
         </div>
     </div>
     <div>
         <img id="Image-Maps-Com-image-maps"  src="/assets/images/maps/met.png"  class='image-map justify-content-center' usemap="#image-maps" alt="met" />
         <map name="image-maps" id="ImageMapsCom-image-maps">
             {% for department in departments %}
-            <area  alt="met{{department['dept_nb']}}"  id="dept{{department['dept_nb']}}" class="area" href="quizz/{{department['dept_nb']}}" shape="poly" coords="{{department['map_coords']}}" target="_self" title="{{department['description']}}"/>
+            <area  alt="met{{department.dept_nb}}"  id="dept{{department.dept_nb}}" class="area" href="quizz/{{department.dept_nb}}" shape="poly" coords="{{department.map_coords}}" target="_self" title="{{department.description}}"/>
             {% endfor %}
         </map>
     </div>
@@ -24,29 +24,28 @@
             {% for department in departments|slice(0,12) %}
             <div class="col-4 my-2">
                 <div class="card">
-                    <img src="/assets/images/departments/dept{{department['dept_nb']}}.jpg" class="card-img-top" alt="{{ department['title'] }}">
-                    <a href="quizz/{{department['dept_nb']}}" class="card-body text-danger">
-                        <p class=" text-bold ">{{ department['title'] }}</p>
+                    <img src="/assets/images/departments/dept{{department.dept_nb}}.jpg" class="card-img-top" alt="{{ department.title }}">
+                    <a href="quizz/{{department.dept_nb}}" class="card-body text-secondary bg-primary">
+                        <p class=" text-bold ">{{ department.title }}</p>
                     </a>
                 </div>
             </div>
             {% endfor %}
         </div>
     </div>
-    <!--partie portable-->
     <div class="container d-sm-block d-md-none">
         <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="/assets/images/departments/dept{{departments[0]['dept_nb']}}.jpg" class="d-block w-100" alt="{{departments[0]['title']}}.">
-                    <a class="btn bg-danger text-white" href="quizz/{{department['dept_nb']}}/{{departments[0]['dept_nb']}}">{{departments[0]['title']}}.</a>
-                    <p class="text-danger">{{departments[0]['description']}}.</p>
+                    <img src="/assets/images/departments/dept{{departments.0.dept_nb}}.jpg" class="d-block w-100" alt="{{departments.0.title}}.">
+                    <a class="btn bg-primary text-secondary" href="quizz/{{department.dept_nb}}/{{departments.0.dept_nb}}">{{departments.0.title}}.</a>
+                    <p class="text-primary">{{departments.0.description}}.</p>
                 </div>
                 {% for department in departments|slice(1,11)%}
                 <div class="carousel-item" >
-                    <img src="/assets/images/departments/dept{{department['dept_nb']}}.jpg"  class="d-block w-100" alt="{{ department['title'] }}">
-                    <a class="btn bg-danger text-white self" href="quizz/{{department['dept_nb']}}">{{ department['title'] }}</a>
-                    <p class="text-danger">{{ department['description'] }}</p>
+                    <img src="/assets/images/departments/dept{{department.dept_nb}}.jpg"  class="d-block w-100" alt=" {{ department.title }}">
+                    <a class="btn bg-primary text-secondary self" href="quizz/{{department.dept_nb}}">{{ department.title }}</a>
+                    <p class="text-primary">{{ department['description'] }}</p>
                 </div>
                 {% endfor %}
                        </div>

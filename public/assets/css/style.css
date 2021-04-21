@@ -2,31 +2,51 @@
 @import "header.css";
 @import "department.css";
 @import "quizz.css";
+:root{
+    --primary-color:#285A6E;
+    --light-color:#F2F2F2;
+    --primary-hover: #d9d9d4;;
+    --secondary-color: #d9d9d4;
+    --dark-color:#333;
 
-.btn-danger {
-    background-color: #E4002B !important;
 }
 
-.bg-danger{
-    background-color: #E4002B !important;
+.fas{
+    font-size: 50px;
+    color: var(--secondary-color);
+}
+.btn-primary {
+    background-color: var(--primary-color);
+    color: var(--secondary-color) !important;
+
 }
 
+.bg-primary{
+    background-color: var(--primary-color) !important;
+}
+.bg-secondary{
+    background-color: var(--secondary-color) !important;
+
+}
 .bg-light{
-    background-color: #F2F2F2 !important;
+    background-color: var(--light-color) !important;
 }
 
-.text-danger{
-    color : #01ACBA !important;
+.text-primary{
+    color : var(--primary-color) !important;
+}
+.text-secondary{
+    color : var(--secondary-color) !important;
 }
 
-.btn-outline-danger{
-    background-color: #E4002B !important;
+.btn-outline-primary{
+    background-color: var(--primary-color);
 }
 
-.btn-danger:hover {
-    color: #fff;
-    background-color: #01ACBA !important;
-    border-color: #01ACBA !important;
+.btn-primary:hover {
+    color: var(--secondary-color);
+    background-color: var(--primary-hover) ;
+    border-color:var(--primary-hover);
 }
 
 
@@ -54,5 +74,13 @@ h1 {
     justify-content: center;
     font-family: 'DM Serif Text', serif;
     font-size: 54px;
-    color: #333333;
+    color: var(--dark-color);
+}
+a.text-secondary:hover{
+    color: var(--light-color) !important;
+
+}
+.footer-fa{
+    color:var(--dark-color);
+    font-size: 30px;
 }
