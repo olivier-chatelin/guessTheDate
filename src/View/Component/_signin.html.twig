@@ -1,27 +1,26 @@
+
+
+
 <div class="container">
     <div class="row">
         <div class="col-sm pt-5">
-        <img src="/assets/images/van_portrait.png" class="img-responsive" alt="Portrait de Vincent Van Gogh" width="100%">
+            <img src="/assets/images/van_portrait.png" class="img-responsive" alt="Portrait de Vincent Van Gogh" width="100%">
         </div>
-            <div class="col-sm pt-5">
-<text class="text-center">
-<form class="form-signin">
-    <img src="/assets/images/logo_art.png" class="mb-4 img-responsive" alt="Logo artistique" width="300" height="300">
-    <h1 class="h3 mb-3 font-weight-bold">Please sign in</h1>
-    <label for="pseudo" class="h4 text-danger">Pseudo :</label>
-    <input type="text" id="pseudo" class="form-control" placeholder="Pseudo" required autofocus>
-    <label for="inputPassword" class="h4 text-danger">Password :</label>
-    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-    <div class="checkbox mb-3">
-        <label>
-            <input type="checkbox" value="remember-me" class=""> Remember me
-        </label>
+        <div class="col-sm pt-5 d-flex flex-column align-items-center">
+            <img src="/assets/images/logo_art.png" class="mb-4 img-responsive" alt="Logo artistique" width="300" height="300">
+
+            <form class="form-signin" method="post">
+                <input type="text" id="pseudo" class="form-control"  name="pseudo" maxlength="100" placeholder="Pseudo" autofocus>
+                {{ errors.pseudo }}
+                <br>
+                <input type="password" id="inputPassword" class="form-control" name="password" maxlength="255" placeholder="Password">
+                {{ errors.password }}
+                <br>
+                <button class="btn btn-lg btn-danger btn-block h3 text-white font-weight-bold" type="submit">Sign in</button>
+            </form>
+                <a href="/Home/signup" class="text-danger text-decoration-none">Or Sign Up...</a>
+                <p class="mt-5 mb-3 text-muted">&copy; Team JOON</p>
+
+        </div>
     </div>
-    <button class="btn btn-lg btn-danger btn-block h3 text-white font-weight-bold" type="submit">Sign in</button>
-    <a href="/Home/signup" class="text-danger text-decoration-none">Or Sign Up...</a>
-    <p class="mt-5 mb-3 text-muted">&copy; Team JOON</p>
-</form>
-</text>
-        </div>
-</div>
 </div>
