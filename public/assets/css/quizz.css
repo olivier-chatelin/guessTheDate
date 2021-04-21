@@ -8,4 +8,7 @@
 .carousel-control-prev {
     filter: invert(100%);
 }
+.img-car{
+    height: 50vh;
+}
 

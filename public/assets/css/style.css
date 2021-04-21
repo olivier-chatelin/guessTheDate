@@ -7,6 +7,8 @@
     --light-color:#F2F2F2;
     --primary-hover: #d9d9d4;;
     --secondary-color: #d9d9d4;
+    --dark-color:#333;
+
 }
 
 .fas{
@@ -72,9 +74,13 @@ h1 {
     justify-content: center;
     font-family: 'DM Serif Text', serif;
     font-size: 54px;
-    color: #333333;
+    color: var(--dark-color);
 }
 a.text-secondary:hover{
-    color: #fff !important;
+    color: var(--light-color) !important;
 
+}
+.footer-fa{
+    color:var(--dark-color);
+    font-size: 30px;
 }
