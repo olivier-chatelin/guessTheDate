@@ -9,12 +9,9 @@
 
 namespace App\Controller;
 
-
 use App\Model\HomeManager;
 use App\Model\UserManager;
 use App\Service\FormChecker;
-
-
 
 class HomeController extends AbstractController
 {
