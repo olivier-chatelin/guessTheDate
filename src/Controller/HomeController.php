@@ -14,14 +14,9 @@ use App\Service\FormChecker;
 
 class HomeController extends AbstractController
 {
-    /**
-     * Display home page
-     *
-     * @return string
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
-     */
+    public const PSEUDO_LENGTH = 25;
+
+
     public function index()
     {
         $errors = [];
@@ -36,8 +31,7 @@ class HomeController extends AbstractController
 
                 if ($userData === false) {
                     $errors['pseudo'] = 'Ce pseudo n\'existe pas';
-                    //TODO implementer le password_verify
-                } elseif ($_POST['password'] === $userData['password']) {
+                } elseif (password_verify($_POST['password'], $userData['password'])) {
                     $_SESSION['id'] = $userData['id'];
                     $_SESSION['pseudo'] = $userData['pseudo'];
                     $_SESSION['is_admin'] = $userData['is_admin'];
@@ -56,17 +50,36 @@ class HomeController extends AbstractController
     {
         $errors = [];
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $userData = [];
-            $userData['pseudo'] = strtolower($_POST['pseudo']);
-            $userData['pseudo'] = ucfirst($_POST['pseudo']);
-            $userData['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
-            $userManager = new UserManager();
-            $errors = $userManager->create($userData);
+            $formChecker = new FormChecker($_POST);
+            $formChecker->cleanAll();
+            $trimmedPost = $formChecker->getPost();
+
+            $formChecker->checkInputPattern($trimmedPost['pseudo'], 'pseudo', 'alnum');
+            $formChecker->checkInputLength($trimmedPost['pseudo'], 'pseudo', 1, self::PSEUDO_LENGTH);
+
+            $formChecker->checkInputPattern($trimmedPost['password'], 'password');
+            $formChecker->checkInputLength($trimmedPost['password'], 'password', 1);
+
+
+            $errors = $formChecker->getErrors();
+            $userData = $formChecker->getPost();
+
             if (empty($errors)) {
-                header('Location: /Game/department');
+                $userData['pseudo'] = ucfirst(strtolower($userData['pseudo']));
+                $userData['password'] = password_hash($userData['password'], PASSWORD_DEFAULT);
+
+                $userManager = new UserManager();
+                $errors = $userManager->create($userData);
+
+                if (empty($errors)) {
+                    $userData = $userManager->selectOneByPseudo($userData['pseudo']);
+                    $_SESSION['id'] = $userData['id'];
+                    $_SESSION['pseudo'] = $userData['pseudo'];
+                    $_SESSION['is_admin'] = $userData['is_admin'];
+                    header('Location: /Game/department');
+                }
             }
         }
-
         return $this->twig->render('Home/signup.html.twig', ['errors' => $errors]);
     }
 
