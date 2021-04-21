@@ -2,7 +2,9 @@
     background-image: url("/assets/images/laurier.png");
     background-size: cover;
 }
+
 .table-secondary{
      background-color: var(--primary-color);
      color: var(--secondary-color);
+>>>>>>> dev
  }
