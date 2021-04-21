@@ -42,8 +42,8 @@
         <form action="/Game/solution" method="post">
             <div class="form-quizz w-25 m-auto">
                 <input name="answer" type="number" value="" class="w-75">
-                <input name="objectId" type="hidden" value="{{objectId }}" >
-                <input name="department" type="hidden" value="{{ id }}" >
+                <input name="objectId" type="hidden" value="{{ pickedObject.objectId}}" >
+                <input name="department" type="hidden" value="{{ departmentId }}" >
                 <button type="submit" class="btn btn-outline-primary w-25 " >
                     <i class="fas fa-check"></i>
                 </button>

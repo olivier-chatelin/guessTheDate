@@ -20,10 +20,13 @@ class GameController extends AbstractController
     {
         $connexionAPI = new ConnexionAPI();
 
-        $pickedObject = $connexionAPI->showRandArtPiece($departmentId);
+        $pickedObject = $connexionAPI->showRandArtPiece(intval($departmentId));
 
 
-        return $this->twig->render('Game/quizz.html.twig', ['pickedObject' => $pickedObject]);
+        return $this->twig->render(
+            'Game/quizz.html.twig',
+            ['pickedObject' => $pickedObject, 'departmentId' => $departmentId]
+        );
     }
 
     public function rules()
@@ -53,7 +56,7 @@ class GameController extends AbstractController
     {
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
             $connexionApi = new ConnexionAPI();
-            $objectData = $connexionApi->showObjectById($_POST['objectId']);
+            $objectData = $connexionApi->showObjectById(intval($_POST['objectId']));
             return $this->twig->render(
                 'Game/solution.html.twig',
                 ['answer' => $_POST['answer'],
