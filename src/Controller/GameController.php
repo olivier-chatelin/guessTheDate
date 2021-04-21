@@ -11,6 +11,10 @@ class GameController extends AbstractController
 {
     public function department()
     {
+        if (!isset($_SESSION['pseudo'])) {
+            header('Location: /');
+        }
+
         $departmentManager = new DepartmentManager();
         $departments = $departmentManager->selectAll();
         return $this->twig->render('Game/department.html.twig', ['departments' => $departments]);
@@ -27,11 +31,6 @@ class GameController extends AbstractController
             'Game/quizz.html.twig',
             ['pickedObject' => $pickedObject, 'departmentId' => $departmentId]
         );
-    }
-
-    public function rules()
-    {
-        return $this->twig->render('Game/rules.html.twig');
     }
 
     public function score($idSelected)
