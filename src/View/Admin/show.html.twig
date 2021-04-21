@@ -1,0 +1,11 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <h1>User {{ user.pseudo }}</h1>
+    <p>{{ user.id }}. {{ user.pseudo }}</p>
+    <a href="/admin/edit/{{ user.id }}" >Edit</a>
+    <form action="/admin/delete/{{ user.id }}" method="POST">
+        <button>Delete</button>
+    </form>
+    <a href="/admin/index">Back</a>
+{% endblock  %}
