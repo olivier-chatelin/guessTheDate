@@ -6,10 +6,11 @@ use Symfony\Component\HttpClient\HttpClient;
 
 class ConnexionAPI
 {
-
+    public const A = 97;
+    public const Z = 122;
     public function showRandArtPiece(int $departmentNb): array
     {
-        $randLetter = chr(rand(97, 122));
+        $randLetter = chr(rand(self::A, self::Z));
         $pickedObjectData = [];
 
         $client = HttpClient::create([
