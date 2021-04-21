@@ -6,7 +6,7 @@ class AdminManager extends AbstractManager
 {
     public const TABLE = 'user';
 
-    public function insert(array $user): int
+    public function insert(array $user)
     {
         $statement = $this->pdo->prepare(
             "INSERT INTO " . self::TABLE .
