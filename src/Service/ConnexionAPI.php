@@ -3,46 +3,38 @@
 namespace App\Service;
 
 use Symfony\Component\HttpClient\HttpClient;
+use App\Entity;
 
 class ConnexionAPI
 {
-
-    public function showRandArtPiece(int $departmentNb): array
+    public const A = 97;
+    public const Z = 122;
+    public const TOLERABLE_TOTAL_OF_SELECTABLE_OBJECT = 10;
+    public function showRandArtPiece(int $departmentId): Entity\PickedObject
     {
-        $randLetter = chr(rand(97, 122));
-        $pickedObjectData = [];
+        $isAnAvailableLetter = false;
+        while (!$isAnAvailableLetter) {
+            $randLetter = chr(rand(self::A, self::Z));
+            $isAnAvailableLetter =
+                $this->selectObjectsByLetter($departmentId, $randLetter)['total'] >
+                self::TOLERABLE_TOTAL_OF_SELECTABLE_OBJECT;
+        }
 
-        $client = HttpClient::create([
-            'headers' => [
-                'User-Agent' => 'Wild Code School',
-            ]]);
-        $requestURL = 'https://collectionapi.metmuseum.org/public/collection/v1/search';
-        $response = $client->request('GET', $requestURL, [
-            'query' => [
-                'departmentId' => $departmentNb,
-                'hasImages' => 'true',
-                'q' => $randLetter,
-            ],
-        ]);
-        $allObjectIds = $response->toArray();
-
+        $allObjectIds = $this->selectObjectsByLetter($departmentId, $randLetter);
         $selectedObjectId = $allObjectIds['objectIDs'][rand(1, $allObjectIds['total'])];
-
-        $requestURL = 'https://collectionapi.metmuseum.org/public/collection/v1/objects/';
-        $response = $client->request('GET', $requestURL . $selectedObjectId);
-        $pickedObject = $response->toArray();
-
-
-        $pickedObjectData['primaryImageSmall'] = $pickedObject['primaryImageSmall'];
-        $pickedObjectData['additionalImages'] = $pickedObject['additionalImages'];
-        $pickedObjectData['department'] = $pickedObject['department'];
-        $pickedObjectData['title'] = $pickedObject['title'];
-        $pickedObjectData['artistDisplayName'] = $pickedObject['artistDisplayName'];
-        $pickedObjectData['artistBeginDate'] = $pickedObject['artistBeginDate'];
-        $pickedObjectData['artistEndDate'] = $pickedObject['artistEndDate'];
-        $pickedObjectData['objectEndDate'] = $pickedObject['objectEndDate'];
-        $pickedObjectData['objectId'] = $selectedObjectId;
-        return  $pickedObjectData;
+        $pickedObjectData = $this->showObjectById($selectedObjectId);
+        $pickedObject = new Entity\PickedObject(
+            $pickedObjectData['primaryImageSmall'],
+            $pickedObjectData['additionalImages'],
+            $pickedObjectData['department'],
+            $pickedObjectData['title'],
+            $pickedObjectData['artistDisplayName'],
+            $pickedObjectData['artistBeginDate'],
+            $pickedObjectData['artistEndDate'],
+            $pickedObjectData['objectEndDate'],
+            $selectedObjectId
+        );
+        return  $pickedObject;
     }
     public function showObjectById(int $objectId): array
     {
@@ -53,5 +45,21 @@ class ConnexionAPI
         $requestURL = 'https://collectionapi.metmuseum.org/public/collection/v1/objects/' . $objectId;
         $response = $client -> request('GET', $requestURL);
         return  $response->toArray();
+    }
+    public function selectObjectsByLetter(int $departmentId, string $letter): array
+    {
+        $client = HttpClient::create([
+            'headers' => [
+                'User-Agent' => 'Wild Code School',
+            ]]);
+        $requestURL = 'https://collectionapi.metmuseum.org/public/collection/v1/search';
+        $response = $client->request('GET', $requestURL, [
+            'query' => [
+                'departmentId' => $departmentId,
+                'hasImages' => 'true',
+                'q' => $letter,
+            ],
+        ]);
+        return $response->toArray();
     }
 }
