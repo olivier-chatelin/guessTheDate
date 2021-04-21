@@ -25,7 +25,8 @@ class UserManager extends AbstractManager
         if ($this->isUsed($userData['pseudo'])) {
             $errors['pseudo'] = 'Ce pseudo est déjà utilisé';
         } else {
-            $query = 'INSERT INTO ' . self::TABLE . ' (pseudo, password, created_at, updated_at) VALUES (:pseudo, :password, NOW(), NOW())';
+            $query = 'INSERT INTO ' . self::TABLE . ' (pseudo, password, created_at, updated_at) 
+            VALUES (:pseudo, :password, NOW(), NOW())';
             $statement = $this->pdo->prepare($query);
             $statement->bindValue(':pseudo', $userData['pseudo'], \PDO::PARAM_STR);
             $statement->bindValue(':password', $userData['password'], \PDO::PARAM_STR);

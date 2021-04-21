@@ -30,7 +30,7 @@ class HomeController extends AbstractController
     public function signup()
     {
         $errors = [];
-        if($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $userData = [];
             $userData['pseudo'] = strtolower($_POST['pseudo']);
             $userData['pseudo'] = ucfirst($_POST['pseudo']);
