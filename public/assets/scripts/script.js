@@ -5,8 +5,8 @@ const cardText = document.getElementById('card-text');
 
 for (const area of areas) {
     area.addEventListener('mouseenter',event =>{
-        image.src ='/assets/images/maps/'+event.target.alt+'.png';
-        cardImage.src= '/assets/images/departments/'+event.target.id+'.jpg';
+        image.src =`/assets/images/maps/${event.target.alt}.png`;
+        cardImage.src= `/assets/images/departments/${event.target.id}.jpg`;
         cardText.innerHTML = event.target.title;
     })
     area.addEventListener('mouseleave',() =>{

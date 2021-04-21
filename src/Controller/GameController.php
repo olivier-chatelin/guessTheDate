@@ -20,25 +20,16 @@ class GameController extends AbstractController
         return $this->twig->render('Game/department.html.twig', ['departments' => $departments]);
     }
 
-    public function quizz($id)
+    public function quizz($departmentId)
     {
         $connexionAPI = new ConnexionAPI();
 
-        $pickedObjectData = $connexionAPI->showRandArtPiece($id);
+        $pickedObject = $connexionAPI->showRandArtPiece(intval($departmentId));
 
 
         return $this->twig->render(
             'Game/quizz.html.twig',
-            ['primaryImg' => $pickedObjectData['primaryImageSmall'],
-            'additionalImages' => $pickedObjectData['additionalImages'],
-            'id' => $id,
-            'department' => $pickedObjectData['department'],
-            'title' => $pickedObjectData['title'],
-            'artistDisplayName' => $pickedObjectData['artistDisplayName'],
-            'artistBeginDate' => $pickedObjectData['artistBeginDate'],
-            'artistEndDate' => $pickedObjectData['artistEndDate'],
-            'objectEndDate' => $pickedObjectData['objectEndDate'],
-            'objectId' => $pickedObjectData['objectId'],]
+            ['pickedObject' => $pickedObject, 'departmentId' => $departmentId]
         );
     }
 
@@ -64,7 +55,7 @@ class GameController extends AbstractController
     {
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
             $connexionApi = new ConnexionAPI();
-            $objectData = $connexionApi->showObjectById($_POST['objectId']);
+            $objectData = $connexionApi->showObjectById(intval($_POST['objectId']));
             return $this->twig->render(
                 'Game/solution.html.twig',
                 ['answer' => $_POST['answer'],
