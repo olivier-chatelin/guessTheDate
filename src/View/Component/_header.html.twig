@@ -25,7 +25,9 @@
                 {% if session.is_admin == 1 %}
                 <a class="dropdown-item" href="Admin/index">Admin</a>
                 {% endif %}
+                {% if session.pseudo %}
                 <a class="dropdown-item" href="/Home/logout">Log Out</a>
+                {% endif %}
             </div>
         </div>
     </div>
