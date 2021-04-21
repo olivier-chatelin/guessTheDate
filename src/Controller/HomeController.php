@@ -10,6 +10,7 @@
 namespace App\Controller;
 
 use App\Model\HomeManager;
+use App\Model\UserManager;
 
 class HomeController extends AbstractController
 {
@@ -28,7 +29,20 @@ class HomeController extends AbstractController
 
     public function signup()
     {
-        return $this->twig->render('Home/signup.html.twig');
+        $errors = [];
+        if($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $userData = [];
+            $userData['pseudo'] = strtolower($_POST['pseudo']);
+            $userData['pseudo'] = ucfirst($_POST['pseudo']);
+            $userData['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
+            $userManager = new UserManager();
+            $errors = $userManager->create($userData);
+            if (empty($errors)) {
+                header('Location: /Game/department');
+            }
+        }
+
+        return $this->twig->render('Home/signup.html.twig', ['errors' => $errors]);
     }
 
     public function profile()

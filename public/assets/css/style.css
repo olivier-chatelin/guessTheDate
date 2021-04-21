@@ -3,11 +3,11 @@
 @import "department.css";
 @import "quizz.css";
 
-.btn-danger {
+.btn-primary {
     background-color: #E4002B !important;
 }
 
-.bg-danger{
+.bg-primary{
     background-color: #E4002B !important;
 }
 
@@ -15,15 +15,15 @@
     background-color: #F2F2F2 !important;
 }
 
-.text-danger{
+.text-primary{
     color : #01ACBA !important;
 }
 
-.btn-outline-danger{
+.btn-outline-primary{
     background-color: #E4002B !important;
 }
 
-.btn-danger:hover {
+.btn-primary:hover {
     color: #fff;
     background-color: #01ACBA !important;
     border-color: #01ACBA !important;
