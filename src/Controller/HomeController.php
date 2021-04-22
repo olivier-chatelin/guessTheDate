@@ -44,9 +44,4 @@ class HomeController extends AbstractController
 
         return $this->twig->render('Home/signup.html.twig', ['errors' => $errors]);
     }
-
-    public function profile()
-    {
-        return $this->twig->render('Home/profile.html.twig');
-    }
 }

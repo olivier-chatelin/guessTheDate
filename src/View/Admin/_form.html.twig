@@ -1,12 +1,14 @@
 {# TODO : manage errors display #}
 
 <form method="post">
-    <input type="hidden" value="{{ user.id }}" name="id">
-    <input type="text" value="{{ user.pseudo }}" name="pseudo">
-    <input type="text" value="{{ user.password }}" name="password">
-    <input type="number" value="{{ user.avatar_id }}" name="avatar_id">
-    <input type="number" value="{{ user.count_game }}" name="count_game">
-    <input type="text" value="{{ user.created_at }}" name="created_at">
-    <input type="text" value="{{ user.updated_at }}" name="updated_at">
+    <input type="hidden" value="{{ user.id }}" name="id" placeholder="id">
+    <input type="text" value="{{ user.pseudo }}" name="pseudo" placeholder="pseudo">
+    <input type="text" value="{{ user.password }}" name="password" placeholder="password">
+    <input type="number" value="{{ user.avatar_id }}" name="avatar_id" placeholder="avatar_id">
+    <input type="number" value="{{ user.count_game }}" name="count_game" placeholder="count_game">
+    <input type="text" value="{{ user.created_at }}" name="created_at" placeholder="created_at">
+    <input type="text" value="{{ user.updated_at }}" name="updated_at" placeholder="updated_at">
+    <input type="text" value="{{ user.is_admin }}" name="is_admin" placeholder="is_admin">
+
     <input type="submit" value="Valider">
 </form>
