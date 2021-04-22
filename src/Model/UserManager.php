@@ -6,7 +6,6 @@ class UserManager extends AbstractManager
 {
     public const TABLE = 'user';
 
-
     public function selectOneByPseudo($pseudo)
     {
         $pseudo = ucfirst(strtolower($pseudo));
@@ -18,8 +17,6 @@ class UserManager extends AbstractManager
         $statement->execute();
         return $statement->fetch();
     }
-
-
 
     public function isUsed(string $pseudo): bool
     {
