@@ -8,19 +8,24 @@
         <div class="form-group">
             <label  for="pseudo">Pseudo recherché: </label>
             <input  name="pseudo" id="name" type="text">
-        </div>
-        <div class="form-group">
-            <label for="subject">Propriété à consulter </label>
-            <select name="subject" id="subject">
-                <option value="profil" selected>profil</option>
-                <option value="badges">badges</option>
-                <option value="scores">badges</option>
-            </select>
-        </div>
             <button class="btn btn-primary">Rechercher </button>
+        </div>
         </form>
-            {% if user_data %}
-                okok on est là
-            {% endif %}
+        {%  for error in errors %}
+        <p>{{ error }}</p>
+        {% endfor %}
+        <p>
+            <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                Liste des pseudos
+            </a>
+        </p>
+        <div class="collapse w-25" id="collapseExample">
+            <div class="card card-body">
+                {% for name in names %}
+                <a class="text-primary " href="/admin/show/{{ name }}">{{ name }}</a>
+                {% endfor %}
+            </div>
+        </div>
+
     </div>
 {% endblock  %}

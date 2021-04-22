@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
+use App\Model\AbstractManager;
 use App\Model\AdminManager;
 use App\Model\DepartmentManager;
 use App\Model\GameAdminManager;
+use App\Model\UserManager;
+use App\Service\FormChecker;
 
 class AdminController extends AbstractController
 {
@@ -25,15 +28,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    public function show(int $id): string
-    {
-        $adminManager = new AdminManager();
-        $user = $adminManager->selectOneById($id);
 
-        return $this->twig->render('Admin/show.html.twig', [
-        'user' => $user
-        ]);
-    }
 
     public function edit(int $id): string
     {
@@ -93,6 +88,34 @@ class AdminController extends AbstractController
         if (!isset($_SESSION['is_admin']) || !$_SESSION['is_admin']) {
             header('Location: /');
         }
-        return $this->twig->render('/Admin/home.html.twig', ['user_data' => [1,3,4]]);
+        $adminManager = new AdminManager();
+        $names = $adminManager->getNames();
+        $errors = [];
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $formChecker = new FormChecker($_POST);
+            $formChecker->cleanAll();
+            $trimmedPost = $formChecker->getPost();
+            $formChecker->checkInputLength($trimmedPost['pseudo'], 'pseudo', 1, 255);
+            $errors = $formChecker->getErrors();
+            $search = $formChecker->getPost();
+            $search['pseudo'] = ucfirst(strtolower($search['pseudo']));
+            if (!in_array($search['pseudo'], $names)) {
+                $errors['exist'] = "Ce nom n'existe pas dans la base donnée";
+            }
+            if (empty($errors)) {
+                header('Location: /Admin/show/' . $search['pseudo']);
+            }
+        }
+
+        return $this->twig->render('/Admin/home.html.twig', [ 'errors' => $errors,'names' => $names]);
+    }
+    public function show(string $pseudo)
+    {
+        if (!isset($_SESSION['is_admin']) || !$_SESSION['is_admin']) {
+            header('Location: /');
+        }
+        $adminManager = new AdminManager();
+        $userData = $adminManager->getInfosByPseudo($pseudo);
+        return $this->twig->render('/Admin/show.html.twig', ['user_data' => $userData]);
     }
 }
