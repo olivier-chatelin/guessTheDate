@@ -1,0 +1,26 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <div class="container">
+        <h2 class="mt-5 text-primary">Contrôle utilisateur</h2>
+
+        <form action="" method="POST" class="form-group">
+        <div class="form-group">
+            <label  for="pseudo">Pseudo recherché: </label>
+            <input  name="pseudo" id="name" type="text">
+        </div>
+        <div class="form-group">
+            <label for="subject">Propriété à consulter </label>
+            <select name="subject" id="subject">
+                <option value="profil" selected>profil</option>
+                <option value="badges">badges</option>
+                <option value="scores">badges</option>
+            </select>
+        </div>
+            <button class="btn btn-primary">Rechercher </button>
+        </form>
+            {% if user_data %}
+                okok on est là
+            {% endif %}
+    </div>
+{% endblock  %}

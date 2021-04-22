@@ -75,7 +75,7 @@ class AdminController extends AbstractController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $adminManager = new AdminManager();
             $adminManager->delete($id);
-            header('Location:/admin/index');
+            header('Location:/admin/index.html.twig');
         }
     }
 
@@ -87,5 +87,12 @@ class AdminController extends AbstractController
             $departmentManager->updateGameParameters($deptId, $gameParameters['pointunit'], $gameParameters['margin']);
         }
         return $this->twig->render('Admin/gamesetup');
+    }
+    public function home()
+    {
+        if (!isset($_SESSION['is_admin']) || !$_SESSION['is_admin']) {
+            header('Location: /');
+        }
+        return $this->twig->render('/Admin/home.html.twig', ['user_data' => [1,3,4]]);
     }
 }
