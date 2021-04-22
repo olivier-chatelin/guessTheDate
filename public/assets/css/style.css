@@ -3,9 +3,9 @@
 @import "department.css";
 @import "quizz.css";
 :root{
-    --primary-color:#285A6E;
+    --primary-color:#3b1b72;
     --light-color:#F2F2F2;
-    --primary-hover: #d9d9d4;;
+    --primary-hover: #d205df;
     --secondary-color: #d9d9d4;
     --dark-color:#333;
 
@@ -75,7 +75,7 @@ h1 {
     justify-content: center;
     font-family: 'DM Serif Text', serif;
     font-size: 54px;
-    color: var(--dark-color);
+    color: var(--primary-color);
 }
 a.text-secondary:hover{
     color: var(--light-color) !important;

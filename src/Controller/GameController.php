@@ -11,6 +11,10 @@ class GameController extends AbstractController
 {
     public function department()
     {
+        if (!isset($_SESSION['pseudo'])) {
+            header('Location: /');
+        }
+
         $departmentManager = new DepartmentManager();
         $departments = $departmentManager->selectAll();
         return $this->twig->render('Game/department.html.twig', ['departments' => $departments]);
@@ -20,15 +24,13 @@ class GameController extends AbstractController
     {
         $connexionAPI = new ConnexionAPI();
 
-        $pickedObject = $connexionAPI->showRandArtPiece($departmentId);
+        $pickedObject = $connexionAPI->showRandArtPiece(intval($departmentId));
 
 
-        return $this->twig->render('Game/quizz.html.twig', ['pickedObject' => $pickedObject]);
-    }
-
-    public function rules()
-    {
-        return $this->twig->render('Game/rules.html.twig');
+        return $this->twig->render(
+            'Game/quizz.html.twig',
+            ['pickedObject' => $pickedObject, 'departmentId' => $departmentId]
+        );
     }
 
     public function score($idSelected)
@@ -53,7 +55,7 @@ class GameController extends AbstractController
     {
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
             $connexionApi = new ConnexionAPI();
-            $objectData = $connexionApi->showObjectById($_POST['objectId']);
+            $objectData = $connexionApi->showObjectById(intval($_POST['objectId']));
             return $this->twig->render(
                 'Game/solution.html.twig',
                 ['answer' => $_POST['answer'],

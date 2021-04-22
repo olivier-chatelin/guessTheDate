@@ -6,6 +6,29 @@ class UserManager extends AbstractManager
 {
     public const TABLE = 'user';
 
+    public function selectOneByPseudo($pseudo)
+    {
+        $pseudo = ucfirst(strtolower($pseudo));
+
+        // prepared request
+        $query = 'SELECT * FROM ' . self::TABLE . ' WHERE pseudo=:pseudo';
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue(':pseudo', $pseudo, \PDO::PARAM_STR);
+        $statement->execute();
+        return $statement->fetch();
+    }
+
+    public function getAvatarById($id)
+    {
+        $query = 'SELECT image FROM ' . self::TABLE .
+                ' JOIN avatar ON avatar.id = ' . self::TABLE . '.avatar_id 
+            WHERE ' . self::TABLE . '.id = :id';
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue(':id', $id, \PDO::PARAM_STR);
+        $statement->execute();
+        return $statement->fetch(\PDO::FETCH_ASSOC);
+    }
+
     public function isUsed(string $pseudo): bool
     {
         $query = 'SELECT pseudo FROM ' . self::TABLE . ' WHERE pseudo = :pseudo';
