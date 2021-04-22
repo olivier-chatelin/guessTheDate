@@ -6,7 +6,6 @@ class UserManager extends AbstractManager
 {
     public const TABLE = 'user';
 
-
     public function selectOneByPseudo($pseudo)
     {
         $pseudo = ucfirst(strtolower($pseudo));
