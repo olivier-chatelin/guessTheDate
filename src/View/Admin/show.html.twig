@@ -1,11 +1,63 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-    <h1>User {{ user.pseudo }}</h1>
-    <p>{{ user.id }}. {{ user.pseudo }}</p>
-    <a href="/admin/edit/{{ user.id }}" >Edit</a>
-    <form action="/admin/delete/{{ user.id }}" method="POST">
-        <button>Delete</button>
-    </form>
-    <a href="/admin/index">Back</a>
+    <div class="container">
+        <h2 class="mt-5 text-primary">{{ user_data.profileInfo.pseudo }}</h2>
+        <table class="table w-25">
+            <tbody>
+            <tr>
+                <td>Id</td>
+                <td>{{ user_data.profileInfo.id }}</td>
+            </tr>
+            <tr>
+
+            <td>Pseudo</td>
+                <td>{{ user_data.profileInfo.pseudo }}</td>
+            </tr>
+            <tr>
+                <td>Avatar</td>
+                <td><img src="/assets/images/{{ user_data.profileInfo.image }}"  alt="image {{ user_data.profileInfo.pseudo }}" width="50px"> </td>
+            </tr>
+            <tr>
+                <td>Nombre de Parties</td>
+                <td>{{ user_data.profileInfo.count_game }}</td>
+            </tr>
+            <tr>
+                <td>Crée le</td>
+                <td>{{ user_data.profileInfo.created_at }}</td>
+            </tr>
+            <tr>
+                <td>Modifié le</td>
+                <td>{{ user_data.profileInfo.updated_at }}</td>
+            </tr>
+            <tr>
+                <td>Administrateur</td>
+                <td>
+                    {% if user_data.profileInfo.is_admin%}
+                        Oui
+                    {% else %}
+                        Non
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>badges</td>
+                <td>
+                    {% for badge in user_data.badges %}
+                        <img src="/assets/images/badges/{{ badge }}" alt="{{ badge }}" width="50px">
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">scores</td>
+            </tr>
+            {% for key, score in user_data.scores %}
+            <tr>
+                <td> {{ key }}</td>
+                <td> {{ score }}</td>
+            </tr>
+            {% endfor %}
+           </tbody>
+        </table>
+    </div>
 {% endblock  %}

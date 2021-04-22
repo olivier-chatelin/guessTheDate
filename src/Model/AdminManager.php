@@ -90,9 +90,9 @@ class AdminManager extends AbstractManager
                 'scores' => $scores
                 ];
     }
-    public function getNames(){
+    public function getNames()
+    {
         $statement = $this->pdo->query('SELECT pseudo FROM user');
         return $statement->fetchAll(\PDO::FETCH_COLUMN);
-
     }
 }
