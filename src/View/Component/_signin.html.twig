@@ -1,26 +1,23 @@
-
-
-
-<div class="container">
-    <div class="row">
-        <div class="col-sm pt-5">
-            <img src="/assets/images/van_portrait.png" class="img-responsive" alt="Portrait de Vincent Van Gogh" width="100%">
+<div class="container d-flex align-items-center justify-content-center vh-100">
+    <div class="row w-100">
+        <div class="col-sm-6 w-100">
+            <img src="/assets/images/newlogo.png" class="img-responsive" alt="Logo visiteurs au musée" width="100%">
         </div>
-
-        <div class="col-sm pt-5 d-flex flex-column align-items-center">
-            <img src="/assets/images/logo_art.png" class="mb-4 img-responsive" alt="Logo artistique" width="300" height="300">
-
+        <div class="col-sm-6 w-100">
+            <div class="text-center">
+            <img src="/assets/images/map.png" class="img-responsive text-center mb-3" alt="PLan du musée pour le jeu" width="150">
             <form class="form-signin" method="post">
                 <input type="text" id="pseudo" class="form-control"  name="pseudo" maxlength="100" placeholder="Pseudo" autofocus>
                 {{ errors.pseudo }}
                 <br>
-                <input type="password" id="inputPassword" class="form-control" name="password" maxlength="255" placeholder="Password">
+                <input type="password" id="inputPassword" class="form-control mt-3 mb-3" name="password" maxlength="255" placeholder="Password">
                 {{ errors.password }}
                 <br>
-                <button class="btn btn-lg btn-danger btn-block h3 text-white font-weight-bold" type="submit">Sign in</button>
+                <button class="btn btn-lg btn-primary btn-block h3 text-secondary font-weight-bold" type="submit">Connexion</button>
             </form>
-                <a href="/Home/signup" class="text-danger text-decoration-none">Or Sign Up...</a>
+                <a href="/Home/signup" class="text-primary text-decoration-none">Pas encore inscrit ?</a>
                 <p class="mt-5 mb-3 text-muted">&copy; Team JOON</p>
+                </div>
 
         </div>
     </div>

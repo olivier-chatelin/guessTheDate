@@ -19,7 +19,16 @@ class UserManager extends AbstractManager
         return $statement->fetch();
     }
 
-
+    public function getAvatarById($id)
+    {
+        $query = 'SELECT image FROM ' . self::TABLE .
+                ' JOIN avatar ON avatar.id = ' . self::TABLE . '.avatar_id 
+            WHERE ' . self::TABLE . '.id = :id';
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue(':id', $id, \PDO::PARAM_STR);
+        $statement->execute();
+        return $statement->fetch(\PDO::FETCH_ASSOC);
+    }
 
     public function isUsed(string $pseudo): bool
     {

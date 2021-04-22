@@ -16,7 +16,6 @@ class HomeController extends AbstractController
 {
     public const PSEUDO_LENGTH = 25;
 
-
     public function index()
     {
         $errors = [];
@@ -35,6 +34,9 @@ class HomeController extends AbstractController
                     $_SESSION['id'] = $userData['id'];
                     $_SESSION['pseudo'] = $userData['pseudo'];
                     $_SESSION['is_admin'] = $userData['is_admin'];
+                    $userManager = new UserManager();
+                    $_SESSION['avatar'] = $userManager->getAvatarById($_SESSION['id'])['image'];
+
                     header('Location: /Game/Department');
                 } else {
                     $errors['password'] = 'Password incorrect';
@@ -76,6 +78,7 @@ class HomeController extends AbstractController
                     $_SESSION['id'] = $userData['id'];
                     $_SESSION['pseudo'] = $userData['pseudo'];
                     $_SESSION['is_admin'] = $userData['is_admin'];
+                    $_SESSION['avatar'] = self::DEFAULT_AVATAR;
                     header('Location: /Game/department');
                 }
             }
