@@ -1,9 +1,7 @@
 <?php
 
-
 namespace App\Controller;
 
-use App\Model\AdminManager;
 use App\Model\AvatarManager;
 
 class AvatarController extends AbstractController
@@ -15,7 +13,7 @@ class AvatarController extends AbstractController
         return $this->twig->render('Avatar/index.html.twig', [
             'avatars' => $avatars
             ]);
-  }
+    }
 
     public function add(): string
     {
