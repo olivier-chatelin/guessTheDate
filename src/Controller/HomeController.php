@@ -85,6 +85,7 @@ class HomeController extends AbstractController
         return $this->twig->render('Home/signup.html.twig', ['errors' => $errors]);
     }
 
+
     public function logout()
     {
         session_destroy();
