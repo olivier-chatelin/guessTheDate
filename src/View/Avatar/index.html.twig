@@ -1,0 +1,18 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <div class="container d-flex flex-wrap mt-5 mb-5">
+        <div class="row row-cols-3">
+            {%  for avatar in avatars %}
+                <div class="card w-25 border-0">
+                    <img src="/assets/images/avatar{{ avatar.id }}.png" alt="{{ avatar.image }} " class= "img-fluid" />
+                    <div class="card-body">
+                        <form action="" method="post">
+                            <button type="button" class="btn btn-outline-danger">Add</button>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
