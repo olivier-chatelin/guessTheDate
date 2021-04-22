@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Model\AdminManager;
+use App\Model\DepartmentManager;
+use App\Model\GameAdminManager;
 
 class AdminController extends AbstractController
 {
@@ -76,4 +78,16 @@ class AdminController extends AbstractController
             header('Location:/admin/index');
         }
     }
+
+    public function gamesetup(int $deptId)
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $gameParameters = array_map('trim', $_POST);
+            $DepartmentManager = new DepartmentManager();
+            $DepartmentManager->updateGameParameters($deptId, $gameParameters['pointunit'], $gameParameters['margin']);
+        }
+        return $this->twig->render('Admin/gamesetup');
+    }
+
+
 }
