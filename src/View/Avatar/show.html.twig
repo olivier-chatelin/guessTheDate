@@ -1,0 +1,9 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <img src="{{ avatar.image }}" alt="{{ avatar.image }} " class=" w-25 ">
+    <form action="/avatar/delete/{{ avatar.id }}" method="POST">
+        <button>Delete</button>
+    </form>
+    <a href="/avatar/index">Back</a>
+{% endblock  %}
