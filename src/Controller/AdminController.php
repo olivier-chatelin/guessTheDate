@@ -83,11 +83,9 @@ class AdminController extends AbstractController
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $gameParameters = array_map('trim', $_POST);
-            $DepartmentManager = new DepartmentManager();
-            $DepartmentManager->updateGameParameters($deptId, $gameParameters['pointunit'], $gameParameters['margin']);
+            $departmentManager = new DepartmentManager();
+            $departmentManager->updateGameParameters($deptId, $gameParameters['pointunit'], $gameParameters['margin']);
         }
         return $this->twig->render('Admin/gamesetup');
     }
-
-
 }
