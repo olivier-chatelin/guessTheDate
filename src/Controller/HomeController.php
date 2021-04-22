@@ -78,7 +78,6 @@ class HomeController extends AbstractController
                     $_SESSION['id'] = $userData['id'];
                     $_SESSION['pseudo'] = $userData['pseudo'];
                     $_SESSION['is_admin'] = $userData['is_admin'];
-                    $_SESSION['avatar'] = self::DEFAULT_AVATAR;
                     header('Location: /Game/department');
                 }
             }
