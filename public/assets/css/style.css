@@ -14,7 +14,10 @@
 .fas{
     font-size: 50px;
     color: var(--secondary-color);
-
+}
+.fas-tab{
+    font-size: 20px;
+    color: var(--primary-color);
 }
 .btn-primary {
     background-color: var(--primary-color);

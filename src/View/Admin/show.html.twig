@@ -16,7 +16,9 @@
             </tr>
             <tr>
                 <td>Avatar</td>
-                <td><img src="/assets/images/{{ user_data.profileInfo.image }}"  alt="image {{ user_data.profileInfo.pseudo }}" width="50px"> </td>
+                <td><img src="/assets/images/{{ user_data.profileInfo.image }}"  alt="image {{ user_data.profileInfo.pseudo }}" width="50px">
+                    <i class="ml-2 fas fa-pen fas-tab" ></i>
+                </td>
             </tr>
             <tr>
                 <td>Nombre de Parties</td>
@@ -24,7 +26,7 @@
             </tr>
             <tr>
                 <td>Crée le</td>
-                <td>{{ user_data.profileInfo.created_at }} <i class="fas fa-pen"></i></td>
+                <td>{{ user_data.profileInfo.created_at }}
             </tr>
             <tr>
                 <td>Modifié le</td>
@@ -38,13 +40,14 @@
                     {% else %}
                         Non
                     {% endif %}
+                    <i class="ml-2 fas fa-pen fas-tab" ></i></td>
                 </td>
             </tr>
             <tr>
-                <td>badges</td>
+                <td>badges <i class="fas-tab ml-2 fas fa-plus"></i></td>
                 <td>
                     {% for badge in user_data.badges %}
-                        <img src="/assets/images/badges/{{ badge }}" alt="{{ badge }}" width="50px">
+                        <img src="/assets/images/badges/{{ badge }}" alt="{{ badge }}" width="50px"> <i class="fas fa-eraser fas-tab"></i>
                     {% endfor %}
                 </td>
             </tr>
