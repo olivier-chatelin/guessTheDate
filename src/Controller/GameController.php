@@ -57,8 +57,6 @@ class GameController extends AbstractController
         $departments = $departmentManager->selectAll();
         $scoreManager = new ScoreManager();
         $scores = $scoreManager->getScoresByDepartment($idSelected);
-        $gameDealer = new GameDealer();
-        $gameDealer->GetInitialGameErrorMargin();
 
         return $this->twig->render('Game/score.html.twig', [
             'departments' => $departments,
