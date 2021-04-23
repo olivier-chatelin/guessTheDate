@@ -4,7 +4,13 @@
 {% endblock %}
 {% block content %}
     <div class="container mt-5">
-        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        {% if session.numQuestion == 1  %}
+            Question n° {{ session.numQuestion }} : marge d'erreur : + ou - {{ initialErrorMargin }} ans
+        {% endif %}
+        {% if session.numQuestion > 1  %}
+            Question n° {{ session.numQuestion }}  : marge d'erreur : + ou - {{ session.currentErrorMargin }} ans
+        {% endif %}
+                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             {% if additionalImages is not empty %}
                 <ol class="carousel-indicators">
                     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -47,7 +53,6 @@
                 <button type="submit" class="btn btn-outline-primary w-25 " >
                     <i class="fas fa-check"></i>
                 </button>
-                </a>
             </div>
         </form>
     </div>

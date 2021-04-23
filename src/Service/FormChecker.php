@@ -5,6 +5,7 @@ namespace App\Service;
 class FormChecker
 {
     public const MAX_LENGTH = 255;
+    public const PSEUDO_LENGTH = 25;
     private array $errors = [];
     private array $post;
 
@@ -25,7 +26,7 @@ class FormChecker
     {
         if (empty($input)) {
             $this->errors[$errName] = 'Ce champ ne peut être vide';
-        } elseif (strlen($input) < $min) {
+        } elseif (strlen($input) <= $min) {
             $this->errors[$errName] = 'Ce champ doit faire au moins ' . $min . ' caractères';
         } elseif (strlen($input) > $max) {
             $this->errors[$errName] = 'Ce champ ne doit pas dépasser ' . $max . ' caractères';
