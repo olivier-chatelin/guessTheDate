@@ -14,7 +14,10 @@
 .fas{
     font-size: 50px;
     color: var(--secondary-color);
-
+}
+.fas-tab{
+    font-size: 20px;
+    color: var(--primary-color);
 }
 .btn-primary {
     background-color: var(--primary-color);
@@ -77,7 +80,7 @@ h1 {
     font-size: 54px;
     color: var(--primary-color);
 }
-a.text-secondary:hover{
+a text-secondary:hover{
     color: var(--light-color) !important;
 
 }

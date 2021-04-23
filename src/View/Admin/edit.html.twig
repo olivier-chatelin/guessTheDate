@@ -1,7 +1,0 @@
-{% extends 'layout.html.twig' %}
-
-{% block content %}
-    <p class="h1">Edit user {{ user.pseudo }}</p>
-    {% include 'Admin/_form.html.twig' %}
-    <a href="/admin/show/{{ user.id }}">Back</a>
-{% endblock %}

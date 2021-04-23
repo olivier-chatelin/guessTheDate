@@ -1,0 +1,31 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <div class="container">
+        <h2 class="mt-5 text-primary">Contrôle utilisateur</h2>
+
+        <form action="" method="POST" class="form-group">
+        <div class="form-group">
+            <label  for="pseudo">Pseudo recherché: </label>
+            <input  name="pseudo" id="name" type="text">
+            <button class="btn btn-primary">Rechercher </button>
+        </div>
+        </form>
+        {%  for error in errors %}
+        <p>{{ error }}</p>
+        {% endfor %}
+        <p>
+            <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                Liste des pseudos
+            </a>
+        </p>
+        <div class="collapse w-25" id="collapseExample">
+            <div class="card card-body">
+                {% for name in names %}
+                <a class="text-primary " href="/admin/show/{{ name }}">{{ name }}</a>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+{% endblock  %}
