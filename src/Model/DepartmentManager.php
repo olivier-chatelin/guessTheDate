@@ -20,4 +20,14 @@ class DepartmentManager extends AbstractManager
         $statement->bindValue('id', $deptId, \PDO::PARAM_INT);
         return $statement->execute();
     }
+
+    public function selectOneByDeptId($deptId)
+    {
+        // prepared request
+        $query = 'SELECT * FROM ' . self::TABLE . ' WHERE id=:deptId';
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue(':deptId', $deptId, \PDO::PARAM_INT);
+        $statement->execute();
+        return $statement->fetch();
+    }
 }

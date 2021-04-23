@@ -14,7 +14,7 @@ use App\Service\FormChecker;
 
 class HomeController extends AbstractController
 {
-    public const PSEUDO_LENGTH = 25;
+
 
     public function index()
     {
@@ -57,7 +57,7 @@ class HomeController extends AbstractController
             $trimmedPost = $formChecker->getPost();
 
             $formChecker->checkInputPattern($trimmedPost['pseudo'], 'pseudo', 'alnum');
-            $formChecker->checkInputLength($trimmedPost['pseudo'], 'pseudo', 1, self::PSEUDO_LENGTH);
+            $formChecker->checkInputLength($trimmedPost['pseudo'], 'pseudo', 1, FormChecker::PSEUDO_LENGTH);
 
             $formChecker->checkInputPattern($trimmedPost['password'], 'password');
             $formChecker->checkInputLength($trimmedPost['password'], 'password', 1);

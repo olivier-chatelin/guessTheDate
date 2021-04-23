@@ -4,6 +4,13 @@
 {% endblock %}
 {% block content %}
     <div class="container mt-5  w-25 " >
+        Question n° {{ session.numQuestion }}<br>
+        Your answer : {{ questionStatus.userAnswer }}<br>
+        Difference : {{ questionStatus.diff }} <br>
+        Authorized : {{ questionStatus.currentErrorMargin }} <br>
+        Nombre de Points gagnés : {{ questionStatus.nbPoints }} <br>
+        Total : {{ session.currentScore + questionStatus.nbPoints }} <br>
+        Conclusion : {{ questionStatus.gameStatus }} <br>
         <img class="img-thumbnail img-car"  src="{{ objectData['primaryImageSmall'] }}" alt="{{ objectData['title']}} " >
     </div>
     <div class="container text-center w-75">
