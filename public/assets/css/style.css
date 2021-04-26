@@ -88,3 +88,6 @@ a text-secondary:hover{
     color:var(--dark-color);
     font-size: 30px;
 }
+.clickable:hover{
+    cursor: pointer;
+}

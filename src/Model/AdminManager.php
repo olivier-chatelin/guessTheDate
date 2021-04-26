@@ -6,53 +6,6 @@ class AdminManager extends AbstractManager
 {
     public const TABLE = 'user';
 
-    public function insert(array $user)
-    {
-        $statement = $this->pdo->prepare(
-            "INSERT INTO " . self::TABLE .
-            " (pseudo, 
-             password, 
-             avatar_id, 
-             count_game, 
-             created_at, 
-             updated_at, 
-             is_admin )
-            VALUES (:pseudo, :password, :avatar_id, :count_game, :created_at, :updated_at, :is_admin)"
-        );
-        $statement->bindValue('pseudo', $user['pseudo'], \PDO::PARAM_STR);
-        $statement->bindValue('password', $user['password'], \PDO::PARAM_STR);
-        $statement->bindValue('avatar_id', $user['avatar_id'], \PDO::PARAM_INT);
-        $statement->bindValue('count_game', $user['count_game'], \PDO::PARAM_INT);
-        $statement->bindValue('created_at', $user['created_at'], \PDO::PARAM_STR);
-        $statement->bindValue('updated_at', $user['updated_at'], \PDO::PARAM_STR);
-        $statement->bindValue('is_admin', $user['is_admin'], \PDO::PARAM_INT);
-        return $statement->execute();
-    }
-
-    public function update($user)
-    {
-        $statement = $this->pdo->prepare(
-            "UPDATE " . self::TABLE .
-            " SET 
-            pseudo = :pseudo, 
-            password = :password, 
-            avatar_id = :avatar_id, 
-            count_game = :count_game, 
-            created_at = :created_at,
-             updated_at = :updated_at,
-             is_admin = :is_admin
-             WHERE id = :id"
-        );
-        $statement->bindValue('id', $user['id'], \PDO::PARAM_INT);
-        $statement->bindValue('pseudo', $user['pseudo'], \PDO::PARAM_STR);
-        $statement->bindValue('password', $user['password'], \PDO::PARAM_STR);
-        $statement->bindValue('avatar_id', $user['avatar_id'], \PDO::PARAM_INT);
-        $statement->bindValue('count_game', $user['count_game'], \PDO::PARAM_INT);
-        $statement->bindValue('created_at', $user['created_at'], \PDO::PARAM_STR);
-        $statement->bindValue('updated_at', $user['updated_at'], \PDO::PARAM_STR);
-        $statement->bindValue('is_admin', $user['is_admin'], \PDO::PARAM_INT);
-        $statement->execute();
-    }
     public function getInfosByPseudo($pseudo)
     {
         $query1 =
@@ -65,7 +18,7 @@ class AdminManager extends AbstractManager
         $statement->execute();
         $profileInfos = $statement->fetch(\PDO::FETCH_ASSOC);
         $query2 =
-            "SELECT b.image FROM user u 
+            "SELECT b.id, b.image FROM user u 
             LEFT JOIN user_badge ub ON u.id = ub.user_id
             LEFT JOIN badge b ON ub.badge_id = b.id
             WHERE u.pseudo = :pseudo;";
@@ -75,7 +28,7 @@ class AdminManager extends AbstractManager
         $badgeInfos = $statement->fetchAll(\PDO::FETCH_ASSOC);
         $badges = [];
         foreach ($badgeInfos as $badgeInfo) {
-            $badges[] = $badgeInfo['image'];
+            $badges[$badgeInfo['id']] = $badgeInfo['image'];
         }
         $query3 =
             "SELECT d.title, ud.best_score FROM user u
@@ -90,14 +43,51 @@ class AdminManager extends AbstractManager
         foreach ($scoreInfos as $score) {
             $scores[$score['title']] =  $score['best_score'];
         }
+        $query4 =
+            "SELECT id,image FROM badge
+            WHERE image NOT IN(
+            SELECT  b.image FROM user u
+            JOIN user_badge ub ON u.id = ub.user_id 
+            JOIN badge b ON ub.badge_id = b.id
+            WHERE u.pseudo = :pseudo)";
+        $statement = $this->pdo->prepare($query4);
+        $statement->bindValue('pseudo', $pseudo, \PDO::PARAM_STR);
+        $statement->execute();
+        $badgesLeft = $statement->fetchAll(\PDO::FETCH_ASSOC);
+        $availableBadges = [];
+        foreach ($badgesLeft as $badgeLeft) {
+            $availableBadges[$badgeLeft['id']] = $badgeLeft['image'];
+        }
         return ['profileInfo' => $profileInfos,
                 'badges' => $badges,
-                'scores' => $scores
+                'scores' => $scores,
+                'availableBadges' => $availableBadges
                 ];
     }
-    public function getNames()
+    public function getNames(): array
     {
         $statement = $this->pdo->query('SELECT pseudo FROM user');
         return $statement->fetchAll(\PDO::FETCH_COLUMN);
+    }
+
+    public function deleteBadge(string $pseudo, string $id)
+    {
+        $query = "DELETE  ub FROM user_badge ub
+                JOIN user u ON ub.user_id = u.id
+                JOIN badge b ON ub.badge_id = b.id
+                WHERE u.pseudo = :pseudo AND b.id = :id";
+        $statement = $this->pdo->prepare($query);
+
+        $statement->bindValue('pseudo', $pseudo, \PDO::PARAM_STR);
+        $statement->bindValue('id', $id, \PDO::PARAM_STR);
+        $statement->execute();
+    }
+    public function addBadge(string $idUser, string $idBadge)
+    {
+        $query = "INSERT INTO user_badge (user_id, badge_id) VALUES (:idUser,:idBadge)";
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue('idUser', $idUser, \PDO::PARAM_STR);
+        $statement->bindValue('idBadge', $idBadge, \PDO::PARAM_STR);
+        $statement->execute();
     }
 }

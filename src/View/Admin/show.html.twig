@@ -3,7 +3,7 @@
 {% block content %}
     <div class="container">
         <h2 class="mt-5 text-primary">{{ user_data.profileInfo.pseudo }}</h2>
-        <table class="table w-25">
+        <table class="table w-50">
             <tbody>
             <tr>
                 <td>Id</td>
@@ -40,14 +40,14 @@
                     {% else %}
                         Non
                     {% endif %}
-                    <i class="ml-2 fas fa-pen fas-tab" ></i></td>
+                    <i class="ml-2 fas fa-pen fas-tab " ></i></td>
                 </td>
             </tr>
             <tr>
-                <td>badges <i class="fas-tab ml-2 fas fa-plus"></i></td>
+                <td>badges <i class="fas-tab ml-2 fas fa-plus clickable"data-toggle="modal" data-target="#badgesModal"></i></td>
                 <td>
-                    {% for badge in user_data.badges %}
-                        <img src="/assets/images/badges/{{ badge }}" alt="{{ badge }}" width="50px"> <i class="fas fa-eraser fas-tab"></i>
+                    {% for id,badge in user_data.badges %}
+                        <img src="/assets/images/badges/{{ badge }}" alt="{{ badge }}" width="50px"> <a href="/admin/deleteBadge/{{ user_data.profileInfo.pseudo }}/{{ id }}"><i class="fas fa-eraser fas-tab"></i></a>
                     {% endfor %}
                 </td>
             </tr>
@@ -62,5 +62,27 @@
             {% endfor %}
            </tbody>
         </table>
+    </div>
+    <div class="modal " id="badgesModal"  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Séléctionnez un badge</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        {% for  id,image in user_data.availableBadges %}
+                            <a href="/admin/addBadge/{{ user_data.profileInfo.pseudo }}/{{ id }}"><img src="/assets/images/badges/{{ image }}" alt="badge{{ key }}" width="50px"></a>
+                        {% endfor %}
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock  %}

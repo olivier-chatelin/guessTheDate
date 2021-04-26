@@ -11,69 +11,26 @@ use App\Service\FormChecker;
 
 class AdminController extends AbstractController
 {
-    /**
-     * Display home page
-     *
-     * @return string
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
-     */
-    public function index(): string
+
+    public function deleteBadge(string $pseudo, string $id)
     {
+        if (!isset($_SESSION['is_admin']) || !$_SESSION['is_admin']) {
+            header('Location: /');
+        }
         $adminManager = new AdminManager();
-        $users = $adminManager->selectAll();
-        return $this->twig->render('Admin/index.html.twig', [
-            'users' => $users
-        ]);
+        $adminManager->deleteBadge($pseudo, $id);
+        header('Location: /admin/show/' . $pseudo);
     }
-
-
-
-    public function edit(int $id): string
+    public function addBadge(string $pseudo, string $idBadge)
     {
+        if (!isset($_SESSION['is_admin']) || !$_SESSION['is_admin']) {
+            header('Location: /');
+        }
         $adminManager = new AdminManager();
-        $user = $adminManager->selectOneById($id);
-
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // clean $_POST data
-            $user = array_map('trim', $_POST);
-
-            // TODO validations (length, format...)
-
-            // if validation in ok, update and redirection
-            $adminManager->update($user);
-            header('Location: /admin/show/' . $id);
-        }
-        return $this->twig->render('Admin/edit.html.twig', [
-            'user' => $user,
-        ]);
+        $idUser = $adminManager->getInfosByPseudo($pseudo)['profileInfo']['id'];
+        $adminManager->addBadge($idUser, $idBadge);
+        header('Location: /admin/show/' . $pseudo);
     }
-
-    public function add(): string
-    {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $user = array_map('trim', $_POST);
-
-            // TODO validations (length, format...)
-
-            // if validation in ok, insert and redirection
-            $adminManager = new AdminManager();
-            $id = $adminManager->insert($user);
-            header('Location:/admin/show/' . $id);
-        }
-            return $this->twig->render('Admin/add.html.twig');
-    }
-
-    public function delete(int $id)
-    {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $adminManager = new AdminManager();
-            $adminManager->delete($id);
-            header('Location:/admin/index.html.twig');
-        }
-    }
-
     public function gamesetup(int $deptId)
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
