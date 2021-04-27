@@ -2,8 +2,7 @@ const areas = document.getElementsByClassName('area');
 const image = document.getElementById('Image-Maps-Com-image-maps');
 const cardImage = document.getElementById('card-img');
 const cardText = document.getElementById('card-text');
-const toggleButton = document.getElementById('customSwitch1');
-console.log(toggleButton.checked);
+alert('ok');
 
 
 for (const area of areas) {
@@ -26,9 +25,3 @@ function initSize(){
     image.style.transform = `scale(${scale}) translate(${step}px)`;
 }
 
-initSize();
-console.log(toggleButton.checked);
-toggleButton.addEventListener('click',()=>{
-    alert('opk');
-    console.log('ok');
-})
