@@ -19,8 +19,8 @@ class AdminManager extends AbstractManager
         $profileInfos = $statement->fetch(\PDO::FETCH_ASSOC);
         $query2 =
             "SELECT b.id, b.image FROM user u 
-            LEFT JOIN user_badge ub ON u.id = ub.user_id
-            LEFT JOIN badge b ON ub.badge_id = b.id
+            JOIN user_badge ub ON u.id = ub.user_id
+            JOIN badge b ON ub.badge_id = b.id
             WHERE u.pseudo = :pseudo;";
         $statement = $this->pdo->prepare($query2);
         $statement->bindValue('pseudo', $pseudo, \PDO::PARAM_STR);
@@ -32,8 +32,8 @@ class AdminManager extends AbstractManager
         }
         $query3 =
             "SELECT d.title, ud.best_score FROM user u
-            LEFT JOIN user_department ud ON u.id = ud.user_id
-            LEFT JOIN department d ON ud.department_id = d.id
+            JOIN user_department ud ON u.id = ud.user_id
+            JOIN department d ON ud.department_id = d.id
             WHERE u.pseudo = :pseudo";
         $statement = $this->pdo->prepare($query3);
         $statement->bindValue('pseudo', $pseudo, \PDO::PARAM_STR);
@@ -62,6 +62,7 @@ class AdminManager extends AbstractManager
             "SELECT a.id,a.image FROM avatar a
             WHERE a.id NOT IN(
             SELECT  u.avatar_id FROM user u
+            JOIN avatar a ON u.avatar_id = a.id
             WHERE u.pseudo = :pseudo)";
         $statement = $this->pdo->prepare($query5);
         $statement->bindValue('pseudo', $pseudo, \PDO::PARAM_STR);

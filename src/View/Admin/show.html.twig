@@ -1,7 +1,6 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-    {{ dump(user_data) }}
     <div class="container">
         <table class="table w-50">
             <thead>
@@ -22,7 +21,7 @@
             </tr>
             <tr>
                 <td>Avatar</td>
-                <td><img src="/assets/images/{{ user_data.profileInfo.image }}"  alt="image {{ user_data.profileInfo.pseudo }}" width="50px">
+                <td><img src="/assets/images/{{ user_data.profileInfo.image }}"  alt="Pas d'avatar" width="50px">
                     <i class="ml-2 fas fa-pen fas-tab clickable "data-toggle="modal" data-target="#avatarsModal" ></i>
                 </td>
             </tr>
@@ -54,6 +53,8 @@
                 <td>
                     {% for id,badge in user_data.badges %}
                         <img src="/assets/images/badges/{{ badge }}" alt="{{ badge }}" width="50px"> <a href="/admin/deleteBadge/{{ user_data.profileInfo.pseudo }}/{{ id }}"><i class="fas fa-eraser fas-tab"></i></a>
+                    {% else %}
+                        Pas de badge
                     {% endfor %}
                 </td>
             </tr>
@@ -82,11 +83,13 @@
                     <p>
                         {% for  id,image in user_data.availableBadges %}
                             <a href="/admin/addBadge/{{ user_data.profileInfo.pseudo }}/{{ id }}"><img src="/assets/images/badges/{{ image }}" alt="badge{{ id }}" width="50px"></a>
+                            {% else %}
+                            A gagné tous les badges
                         {% endfor %}
                     </p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
                 </div>
             </div>
         </div>
@@ -108,7 +111,7 @@
                     </p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
                 </div>
             </div>
         </div>
