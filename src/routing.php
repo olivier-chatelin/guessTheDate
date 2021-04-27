@@ -16,12 +16,11 @@ $method = $routeParts[1] ?? '';
 $vars = array_slice($routeParts, 2);
 if ($controller === '\App\Controller\AdminController' && (isset($_SESSION['is_admin']) && !$_SESSION['is_admin'])) {
     header("HTTP/1.0 404 Not Found");
-
 }
-    if (class_exists($controller) && method_exists(new $controller(), $method)) {
-        echo (new $controller())->$method(...$vars);
-    } else {
-        header("HTTP/1.0 404 Not Found");
-        echo '404 - Page not found';
-        exit();
-    }
+if (class_exists($controller) && method_exists(new $controller(), $method)) {
+    echo (new $controller())->$method(...$vars);
+} else {
+    header("HTTP/1.0 404 Not Found");
+    echo '404 - Page not found';
+    exit();
+}
