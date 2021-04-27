@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Model\AvatarManager;
+use App\Model\UserManager;
 
 class AvatarController extends AbstractController
 {
@@ -37,5 +38,19 @@ class AvatarController extends AbstractController
             $avatarManager->delete($id);
             header('Location:/avatar/index');
         }
+    }
+
+    public function edit(string $userId): string
+    {
+        $userManager = new UserManager();
+        $user = $userManager->selectOneById($userId);
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $userManager->updateAvatarId($userId, $_POST['avatar_id']);
+            $_SESSION['avatar'] = $userManager->getAvatarById($_SESSION['id'])['image'];
+            header('Location:/avatar/index');
+        }
+        return $this->twig->render('Avatar/index.html.twig', [
+            'user' => $user,
+        ]);
     }
 }

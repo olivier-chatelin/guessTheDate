@@ -1,17 +1,23 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-    <div class="container d-flex flex-wrap mt-5 mb-5">
-        <div class="row row-cols-3">
+    <div class="container  mt-5 mb-5">
+        <div class="row">
             {%  for avatar in avatars %}
-                <div class="card w-25 border-0">
-                    <img src="/assets/images/avatar{{ avatar.id }}.png" alt="{{ avatar.image }} " class= "img-fluid" />
-                    <div class="card-body">
-                        <form action="" method="post">
-                            <button type="button" class="btn btn-outline-danger">Add</button>
-                        </form>
+                <div class=" col-sm-8  col-md-4 col-lg-3 card border-0 " >
+                    <div class="avatar-img">
+                        <img src="/assets/images/avatar{{ avatar.id }}.png" alt="{{ avatar.image }} " class= "img-fluid rounded-circle" />
                     </div>
-                </div>
+                        <div class="card-body">
+                            <form action="/Avatar/edit/{{ session.id }}" method="post">
+                                <input type="hidden" name="avatar_id" value="{{ avatar.id }}">
+                                {% if avatar.image == session.avatar %}
+                                {% else %}
+                                    <button  class="btn btn-outline-danger">Choisir</button>
+                                {% endif %}
+                            </form>
+                        </div>
+                    </div>
             {% endfor %}
         </div>
     </div>

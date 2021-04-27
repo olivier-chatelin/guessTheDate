@@ -2,6 +2,7 @@
 @import "header.css";
 @import "department.css";
 @import "quizz.css";
+@import "avatar.css";
 :root{
     --primary-color:#3b1b72;
     --light-color:#F2F2F2;
@@ -44,7 +45,7 @@
 }
 
 .btn-outline-primary{
-    background-color: var(--primary-color);
+    background-color: #7335DE !important;
 }
 
 .btn-primary:hover {

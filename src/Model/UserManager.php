@@ -57,4 +57,13 @@ class UserManager extends AbstractManager
         }
         return $errors;
     }
+
+    public function updateAvatarId($userId, $avatarId): bool
+    {
+        $statement = $this->pdo->prepare("UPDATE " . self::TABLE . " SET `avatar_id` = :avatar_id WHERE id=:id");
+        $statement->bindValue('avatar_id', $avatarId, \PDO::PARAM_INT);
+        $statement->bindValue('id', $userId, \PDO::PARAM_INT);
+
+        return $statement->execute();
+    }
 }
