@@ -14,18 +14,12 @@ class AdminController extends AbstractController
 
     public function deleteBadge(string $pseudo, string $id)
     {
-        if (!isset($_SESSION['is_admin']) || !$_SESSION['is_admin']) {
-            header('Location: /');
-        }
         $adminManager = new AdminManager();
         $adminManager->deleteBadge($pseudo, $id);
         header('Location: /admin/show/' . $pseudo);
     }
     public function addBadge(string $pseudo, string $idBadge)
     {
-        if (!isset($_SESSION['is_admin']) || !$_SESSION['is_admin']) {
-            header('Location: /');
-        }
         $adminManager = new AdminManager();
         $idUser = $adminManager->getInfosByPseudo($pseudo)['profileInfo']['id'];
         $adminManager->addBadge($idUser, $idBadge);
@@ -68,9 +62,6 @@ class AdminController extends AbstractController
     }
     public function show(string $pseudo)
     {
-        if (!isset($_SESSION['is_admin']) || !$_SESSION['is_admin']) {
-            header('Location: /');
-        }
         $adminManager = new AdminManager();
         $userData = $adminManager->getInfosByPseudo($pseudo);
         return $this->twig->render('/Admin/show.html.twig', ['user_data' => $userData]);
