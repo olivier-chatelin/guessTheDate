@@ -58,10 +58,24 @@ class AdminManager extends AbstractManager
         foreach ($badgesLeft as $badgeLeft) {
             $availableBadges[$badgeLeft['id']] = $badgeLeft['image'];
         }
+        $query5 =
+            "SELECT a.id,a.image FROM avatar a
+            WHERE a.id NOT IN(
+            SELECT  u.avatar_id FROM user u
+            WHERE u.pseudo = :pseudo)";
+        $statement = $this->pdo->prepare($query5);
+        $statement->bindValue('pseudo', $pseudo, \PDO::PARAM_STR);
+        $statement->execute();
+        $avatarsLeft = $statement->fetchAll(\PDO::FETCH_ASSOC);
+        $availableAvatars = [];
+        foreach ($avatarsLeft as $avatarLeft) {
+            $availableAvatars[$avatarLeft['id']] = $avatarLeft['image'];
+        }
         return ['profileInfo' => $profileInfos,
                 'badges' => $badges,
                 'scores' => $scores,
-                'availableBadges' => $availableBadges
+                'availableBadges' => $availableBadges,
+                'availableAvatars' => $availableAvatars
                 ];
     }
     public function getNames(): array
@@ -103,5 +117,21 @@ class AdminManager extends AbstractManager
         $statement = $this->pdo->prepare($query);
         $statement->bindValue('pseudo', $pseudo, \PDO::PARAM_STR);
         $statement->execute();
+    }
+    public function changeAvatar(string $pseudo, string $idAvatar)
+    {
+        $query = "UPDATE user SET avatar_id = :idAvatar WHERE pseudo = :pseudo";
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue('pseudo', $pseudo, \PDO::PARAM_STR);
+        $statement->bindValue('idAvatar', $idAvatar, \PDO::PARAM_STR);
+        $statement->execute();
+    }
+    public function getAvatarbiId(string $idAvatar): array
+    {
+        $query = "SELECT * FROM avatar WHERE id = :idAvatar";
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue('idAvatar', $idAvatar, \PDO::PARAM_STR);
+        $statement->execute();
+        return $statement->fetch(\PDO::FETCH_ASSOC);
     }
 }

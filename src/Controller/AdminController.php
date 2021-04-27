@@ -74,4 +74,14 @@ class AdminController extends AbstractController
 
         header('Location: /admin/show/' . $pseudo);
     }
+    public function changeAvatar(string $pseudo, string $avatarId)
+    {
+        $adminManager = new AdminManager();
+        $adminManager->changeAvatar($pseudo, $avatarId);
+
+        if ($_SESSION['pseudo'] === $pseudo) {
+            $_SESSION['avatar'] = $adminManager->getAvatarbiId($avatarId)['image'];
+        }
+        header('Location: /admin/show/' . $pseudo);
+    }
 }
