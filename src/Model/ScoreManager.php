@@ -5,6 +5,8 @@ namespace App\Model;
 class ScoreManager extends AbstractManager
 {
     public const MAXDISPLAY = 50;
+    public const TABLE = 'user_department';
+
     public function getScoresByDepartment(int $idDepartment): array
     {
         $query = "SELECT u.pseudo ,  ud.best_score , u.avatar_id FROM user u
@@ -16,5 +18,37 @@ class ScoreManager extends AbstractManager
         $statement->bindValue('id', $idDepartment, \PDO::PARAM_STR);
         $statement->execute();
         return $statement->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function checkScoreAlreadyExists(int $userId, int $deptId): array
+    {
+        $query = 'SELECT * FROM ' . self::TABLE . ' WHERE user_id=:userId AND department_id=:deptId ';
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue(':userId', $userId, \PDO::PARAM_INT);
+        $statement->bindValue(':deptId', $deptId, \PDO::PARAM_INT);
+        $statement->execute();
+        return $statement->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function updateBestScoreByUserDept(int $userId, int $deptId, int $bestScore): bool
+    {
+        $query = 'UPDATE ' . self::TABLE . ' SET best_score=:bestScore WHERE user_id=:userId AND department_id=:deptId';
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue(':bestScore', $bestScore, \PDO::PARAM_INT);
+        $statement->bindValue(':userId', $userId, \PDO::PARAM_INT);
+        $statement->bindValue(':deptId', $deptId, \PDO::PARAM_INT);
+        $statement->bindValue(':bestScore', $bestScore, \PDO::PARAM_INT);
+        return $statement->execute();
+    }
+
+    public function insertNewBestScoreOnDept(int $userId, int $deptId, int $bestScore): int
+    {
+        $statement = $this->pdo->prepare("INSERT INTO " . self::TABLE . " (user_id, department_id, best_score) 
+        VALUES (:userId, :deptId, :bestScore)");
+        $statement->bindValue(':userId', $userId, \PDO::PARAM_INT);
+        $statement->bindValue(':deptId', $deptId, \PDO::PARAM_INT);
+        $statement->bindValue(':bestScore', $bestScore, \PDO::PARAM_INT);
+        $statement->execute();
+        return (int)$this->pdo->lastInsertId();
     }
 }

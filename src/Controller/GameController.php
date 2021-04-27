@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Model\GameManager;
 use App\Model\DepartmentManager;
 use App\Model\ScoreManager;
 use App\Service\ConnexionAPI;
@@ -15,11 +14,11 @@ class GameController extends AbstractController
         if (!isset($_SESSION['pseudo'])) {
             header('Location: /');
         }
-
         $departmentManager = new DepartmentManager();
         $departments = $departmentManager->selectAll();
         $_SESSION['numQuestion'] = 1;
         $_SESSION['currentScore'] = 0;
+        $_SESSION['gameStatus'] = 'ToStart';
 
         return $this->twig->render('Game/department.html.twig', ['departments' => $departments]);
     }
@@ -30,13 +29,29 @@ class GameController extends AbstractController
         $gameDealer = new GameDealer();
         $initialErrorMargin = $gameDealer->getInitialGameErrorMargin();
 
-   /*     if ($_SESSION['gameStatus'] === 'Game Over') {
-                //TODO envoie best score
 
-        }*/
+        if ($_SESSION['gameStatus'] === 'Game Over') {
+            $scoreManager = new ScoreManager();
+            $scores = $scoreManager->checkScoreAlreadyExists($_SESSION['id'], $_SESSION['deptId']);
+            if (empty($scores)) {
+                $scoreManager = new ScoreManager();
+                $scoreManager->insertNewBestScoreOnDept(
+                    $_SESSION['id'],
+                    $_SESSION['deptId'],
+                    $_SESSION['currentScore']
+                );
+            } elseif ($_SESSION['currentScore'] > $scores[0]['best_score']) {
+                $scoreManager = new ScoreManager();
+                $scoreManager->updateBestScoreByUserDept(
+                    $_SESSION['id'],
+                    $_SESSION['deptId'],
+                    $_SESSION['currentScore']
+                );
+            }
+        }
 
         $connexionAPI = new ConnexionAPI();
-        $pickedObject = $connexionAPI->showRandArtPiece(intval($departmentId));
+        $pickedObject = $connexionAPI->getInfoArtPieceToShow(intval($departmentId));
 
         return $this->twig->render(
             'Game/quizz.html.twig',
@@ -52,7 +67,6 @@ class GameController extends AbstractController
             //TODO POST data to secure
             header('Location: /Game/score/' . $_POST['idDepartmentSelected']);
         }
-
         $departmentManager = new DepartmentManager();
         $departments = $departmentManager->selectAll();
         $scoreManager = new ScoreManager();
@@ -72,8 +86,10 @@ class GameController extends AbstractController
             $objectData = $connexionApi->showObjectById(intval($_POST['objectId']));
 
             $gameDealer = new GameDealer();
-            $questionStatus = $gameDealer->AnswerScoring(
+            $initialErrorMargin = $gameDealer->getInitialGameErrorMargin();
+            $questionStatus = $gameDealer->scoreByAnswer(
                 $_SESSION['numQuestion'],
+                $initialErrorMargin,
                 $_POST['answer'],
                 $objectData['objectEndDate']
             );

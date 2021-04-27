@@ -10,7 +10,7 @@ class ConnexionAPI
     public const A = 97;
     public const Z = 122;
     public const TOLERABLE_TOTAL_OF_SELECTABLE_OBJECT = 10;
-    public function showRandArtPiece(int $departmentId): Entity\PickedObject
+    public function getInfoArtPieceToShow(int $departmentId): Entity\PickedObject
     {
         $isAnAvailableLetter = false;
         while (!$isAnAvailableLetter) {
