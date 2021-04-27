@@ -83,6 +83,7 @@ class AdminController extends AbstractController
         }
         return $this->twig->render('Admin/gamesetup');
     }
+
     public function home()
     {
         if (!isset($_SESSION['is_admin']) || !$_SESSION['is_admin']) {

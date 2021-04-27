@@ -6,7 +6,7 @@ use App\Model\DepartmentManager;
 
 class GameDealer
 {
-    public const RANGE_REFERENCE_FOR_NORMALIZATION = 1000;
+    public const RANGE_REF_FOR_NORMALIZATION = 1000;
     public const MARGIN_DECREASE_STEP = 0.1;
     public const COEFF_SCORE_ACCELERATOR = 0.1;
 
@@ -22,23 +22,14 @@ class GameDealer
         return $initialErrorMargin;
     }
 
-    public function answerScoring($numQuestion, $userAnswer, $rightAnswer): array
+    public function scoreByAnswer($numQuestion, $initialErrorMargin, $userAnswer, $rightAnswer): array
     {
-        $deptId = $_SESSION['deptId'];
-        $departmentManager = new DepartmentManager();
-        $objectData = $departmentManager->selectOneByDeptId($deptId);
-
-        $minDate = $objectData['min_date'];
-        $maxDate = $objectData['max_date'];
-        $range = $maxDate - $minDate;
-        $maxMargin = $range / 2;
-        $initialErrorMargin = $range / 4;
         $currentErrorMargin = $initialErrorMargin * (1 - self::MARGIN_DECREASE_STEP * $numQuestion);
         $currentErrorMargin = round($currentErrorMargin);
 
         $diff = abs($userAnswer - $rightAnswer);
         $score = [];
-        $score['nbPoints'] = (($maxMargin - $diff) * self::RANGE_REFERENCE_FOR_NORMALIZATION) / $maxMargin;
+        $score['nbPoints'] = (($initialErrorMargin - $diff) * self::RANGE_REF_FOR_NORMALIZATION) / $initialErrorMargin;
         $score['nbPoints'] = $score['nbPoints'] * (1 + self::COEFF_SCORE_ACCELERATOR * $numQuestion);
         $score['nbPoints'] = round($score['nbPoints']);
         $score['diff'] = $diff;
