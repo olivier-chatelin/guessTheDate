@@ -3,7 +3,6 @@ const image = document.getElementById('Image-Maps-Com-image-maps');
 const cardImage = document.getElementById('card-img');
 const cardText = document.getElementById('card-text');
 
-
 for (const area of areas) {
     area.addEventListener('mouseenter',event =>{
         image.src =`/assets/images/maps/${event.target.alt}.png`;
@@ -23,4 +22,6 @@ function initSize(){
     if (window.innerWidth < 1500) step = (window.innerWidth-1500);
     image.style.transform = `scale(${scale}) translate(${step}px)`;
 }
+
+initSize();
 
