@@ -66,4 +66,12 @@ class AdminController extends AbstractController
         $userData = $adminManager->getInfosByPseudo($pseudo);
         return $this->twig->render('/Admin/show.html.twig', ['user_data' => $userData]);
     }
+
+    public function isAdmin($pseudo)
+    {
+        $adminManager = new AdminManager();
+        $adminManager->changeIsAdminSatus($pseudo);
+
+        header('Location: /admin/show/' . $pseudo);
+    }
 }

@@ -91,3 +91,6 @@ a text-secondary:hover{
 .clickable:hover{
     cursor: pointer;
 }
+.fas-tog{
+    color: var(--primary-color);
+}

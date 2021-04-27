@@ -90,4 +90,18 @@ class AdminManager extends AbstractManager
         $statement->bindValue('idBadge', $idBadge, \PDO::PARAM_STR);
         $statement->execute();
     }
+
+    public function changeIsAdminSatus($pseudo)
+    {
+        $query = "SELECT is_admin FROM user WHERE pseudo=:pseudo";
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue('pseudo', $pseudo, \PDO::PARAM_STR);
+        $statement->execute();
+        $isAdminValue = $statement->fetch(\PDO::FETCH_COLUMN);
+        $newValue = $isAdminValue ? '0' : '1';
+        $query = "UPDATE user SET is_admin = " . $newValue . " WHERE pseudo=:pseudo";
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue('pseudo', $pseudo, \PDO::PARAM_STR);
+        $statement->execute();
+    }
 }
