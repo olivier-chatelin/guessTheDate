@@ -2,7 +2,6 @@ const areas = document.getElementsByClassName('area');
 const image = document.getElementById('Image-Maps-Com-image-maps');
 const cardImage = document.getElementById('card-img');
 const cardText = document.getElementById('card-text');
-alert('ok');
 
 
 for (const area of areas) {
