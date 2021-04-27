@@ -2,8 +2,13 @@
 
 {% block content %}
     <div class="container">
-        <h2 class="mt-5 text-primary">{{ user_data.profileInfo.pseudo }}</h2>
-        <table class="table w-25">
+        <table class="table w-50">
+            <thead>
+            <tr>
+                <td> <span class="h2 mt-5 text-primary clickable">{{ user_data.profileInfo.pseudo }}</span></td>
+                <td><a href="/admin/home" class="btn btn-primary">Retour</a></td>
+            </tr>
+            </thead>
             <tbody>
             <tr>
                 <td>Id</td>
@@ -16,8 +21,8 @@
             </tr>
             <tr>
                 <td>Avatar</td>
-                <td><img src="/assets/images/{{ user_data.profileInfo.image }}"  alt="image {{ user_data.profileInfo.pseudo }}" width="50px">
-                    <i class="ml-2 fas fa-pen fas-tab" ></i>
+                <td><img src="/assets/images/{{ user_data.profileInfo.image }}"  alt="Pas d'avatar" width="50px">
+                    <i class="ml-2 fas fa-pen fas-tab clickable "data-toggle="modal" data-target="#avatarsModal" ></i>
                 </td>
             </tr>
             <tr>
@@ -40,19 +45,21 @@
                     {% else %}
                         Non
                     {% endif %}
-                    <i class="ml-2 fas fa-pen fas-tab" ></i></td>
+                    <a href="/admin/isAdmin/{{ user_data.profileInfo.pseudo }}"><i class="ml-2 fas fa-pen fas-tab clickable" ></i></a>
                 </td>
             </tr>
             <tr>
-                <td>badges <i class="fas-tab ml-2 fas fa-plus"></i></td>
+                <td>Badges <i class="fas-tab ml-2 fas fa-plus clickable"data-toggle="modal" data-target="#badgesModal"></i></td>
                 <td>
-                    {% for badge in user_data.badges %}
-                        <img src="/assets/images/badges/{{ badge }}" alt="{{ badge }}" width="50px"> <i class="fas fa-eraser fas-tab"></i>
+                    {% for id,badge in user_data.badges %}
+                        <img src="/assets/images/badges/{{ badge }}" alt="{{ badge }}" width="50px"> <a href="/admin/deleteBadge/{{ user_data.profileInfo.pseudo }}/{{ id }}"><i class="fas fa-eraser fas-tab"></i></a>
+                    {% else %}
+                        Pas de badge
                     {% endfor %}
                 </td>
             </tr>
             <tr>
-                <td colspan="2">scores</td>
+                <td colspan="2">Scores</td>
             </tr>
             {% for key, score in user_data.scores %}
             <tr>
@@ -62,5 +69,51 @@
             {% endfor %}
            </tbody>
         </table>
+    </div>
+    <div class="modal " id="badgesModal"  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Séléctionnez un badge</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        {% for  id,image in user_data.availableBadges %}
+                            <a href="/admin/addBadge/{{ user_data.profileInfo.pseudo }}/{{ id }}"><img src="/assets/images/badges/{{ image }}" alt="badge{{ id }}" width="50px"></a>
+                            {% else %}
+                            A gagné tous les badges
+                        {% endfor %}
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal " id="avatarsModal"  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Séléctionnez un avatar</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        {% for  id,image in user_data.availableAvatars %}
+                            <a href="/admin/changeAvatar/{{ user_data.profileInfo.pseudo }}/{{ id }}"><img src="/assets/images/{{ image }}" alt="avatar{{ id }}" width="50px"></a>
+                        {% endfor %}
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock  %}
