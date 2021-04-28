@@ -20,6 +20,35 @@
         <p class="text-break" >
             {{ objectData['artistDisplayName'] }}
         </p>
+        <p class="text-break" >
+        <a class=" clickable" data-toggle="modal" data-target="#infoModal">
+        <i class="fas fa-info-circle"></i>
+        </a>
+        </p>
+        <div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-primary" id="exampleModalLabel">Plus d'informations sur l'œuvre présentée</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body text-left">
+                        <ul>
+                            <li>Titre de l'oeuvre: {{ objectData['title'] }}</li>
+                            <li>Matériau: {{ objectData['medium'] }}</li>
+                            <li>Biographie de l'artiste: {{ objectData['artistDisplayBio'] }}</li>
+                            <li>Ville: {{ objectData['city'] }}</li>
+                            <li>Pays: {{ objectData['country'] }}</li>
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
             <a class="btn btn-primary" href="/Game/quizz/{{ deptId }}">Question suivante</a>
         </div>
 {% endblock %}
