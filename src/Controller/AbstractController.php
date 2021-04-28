@@ -10,6 +10,7 @@
 
 namespace App\Controller;
 
+use App\Service\LogRecorder;
 use Twig\Environment;
 use Twig\Extension\DebugExtension;
 use Twig\Loader\FilesystemLoader;
@@ -20,6 +21,7 @@ abstract class AbstractController
      * @var Environment
      */
     protected Environment $twig;
+    protected LogRecorder $logRecorder;
 
     /**
      *  Initializes this class.
@@ -36,5 +38,6 @@ abstract class AbstractController
         );
         $this->twig->addExtension(new DebugExtension());
         $this->twig->addGlobal('session', $_SESSION);
+        $this->logRecorder = new LogRecorder();
     }
 }

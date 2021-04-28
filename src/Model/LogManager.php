@@ -2,20 +2,21 @@
 
 namespace App\Model;
 
+use App\Entity\Log;
+
 class LogManager extends AbstractManager
 {
-    public const TABLE = 'Logs';
+    public const TABLE = 'log';
 
-    public function insertNewLog(string $logName, int $userId, int $deptId, $logValue): int
+    public function insertNewLog(Log $log): int
     {
-
         $statement = $this->pdo->prepare("INSERT INTO " . self::TABLE . " (
-        log_name, user_id, department_id, log_value, created_at) VALUES (
-        :logName, :userId, :deptId, :logValue, NOW())");
-        $statement->bindValue(':logName', $logName, \PDO::PARAM_INT);
-        $statement->bindValue(':userId', $userId, \PDO::PARAM_INT);
-        $statement->bindValue(':deptId', $deptId, \PDO::PARAM_INT);
-        $statement->bindValue(':logValue', $logValue, \PDO::PARAM_INT);
+        log_name, pseudo, dept_nb, is_anomaly, created_at) VALUES (
+        :logName, :pseudo, :deptNb, :isAnomaly, NOW())");
+        $statement->bindValue(':logName', $log->getLogName(), \PDO::PARAM_STR);
+        $statement->bindValue(':pseudo', $log->getUserName(), \PDO::PARAM_STR);
+        $statement->bindValue(':deptNb', $log->getDepartmentNumber(), \PDO::PARAM_INT);
+        $statement->bindValue(':isAnomaly', $log->isAnomaly(), \PDO::PARAM_BOOL);
         $statement->execute();
         return (int)$this->pdo->lastInsertId();
     }
