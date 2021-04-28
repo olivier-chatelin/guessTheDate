@@ -81,7 +81,7 @@ h1 {
     font-size: 54px;
     color: var(--primary-color);
 }
-a text-secondary:hover{
+a.text-secondary:hover{
     color: var(--light-color) !important;
 
 }

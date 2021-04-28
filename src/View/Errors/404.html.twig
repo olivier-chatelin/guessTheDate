@@ -1,0 +1,21 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+    {{ parent() }} - 404 not found !
+{% endblock %}
+{% block content %}
+    <div class="container d-flex align-items-center justify-content-center min-vh-100">
+    <div class="row w-100">
+        <div class="col-sm-6">
+<img src ="/assets/images/scream.jpg" class="img-fluid" alt="Illustration du tableau Le Cri" width="95%">
+        </div>
+    <div class="col-sm-6 mt-5 text-center">
+<h1>404 Page non trouvée</h1>
+        <p class="mt-2 mb-4"> Mais on a quand même décidé de vous afficher une représentation du Cri de Munch parce qu'on est vachement sympa. Vous pouvez aussi retourner à l'accueil du jeu via le squelette de dinosaure :)</p>
+    <h2>Le sachiez-tu ?</h2>
+        <br>
+        <p>Le glyphe représentant le point de code Unicode U+1F631(😱) dans le bloc des émoticônes, intitulé « visage criant de peur » est librement inspiré du tableau Le Cri.</p>
+    </div>
+</div>
+    </div>
+{% endblock %}

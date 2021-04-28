@@ -1,11 +1,13 @@
-<div class="container d-flex align-items-center justify-content-center vh-100">
+<div class="container d-flex align-items-center justify-content-center min-vh-100">
     <div class="row w-100">
-        <div class="col-sm-6 w-100">
-            <img src="/assets/images/newlogo.png" class="img-responsive" alt="Logo visiteurs au musée" width="100%">
-        </div>
-        <div class="col-sm-6 w-100">
+        <div class="col-sm-6">
             <div class="text-center">
-            <img src="/assets/images/map.png" class="img-responsive text-center mb-3" alt="PLan du musée pour le jeu" width="150">
+            <img src="/assets/images/newlogo.png" class="img-fluid" alt="Logo visiteurs au musée" width="95%">
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="text-center">
+            <img src="/assets/images/map.png" class="img-fluid mb-3" alt="PLan du musée pour le jeu" width="30%">
             <form class="form-signin" method="post">
                 <input type="text" id="pseudo" class="form-control"  name="pseudo" maxlength="100" placeholder="Pseudo" autofocus>
                 {{ errors.pseudo }}
