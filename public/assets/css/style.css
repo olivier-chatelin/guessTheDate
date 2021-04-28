@@ -20,6 +20,11 @@
     font-size: 20px;
     color: var(--primary-color);
 }
+
+.fa-info-circle {
+    color: var(--primary-color);
+}
+
 .btn-primary {
     background-color: var(--primary-color);
     color: var(--secondary-color) !important;
@@ -81,7 +86,7 @@ h1 {
     font-size: 54px;
     color: var(--primary-color);
 }
-a text-secondary:hover{
+a.text-secondary:hover{
     color: var(--light-color) !important;
 
 }
