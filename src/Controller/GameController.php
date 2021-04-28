@@ -19,17 +19,17 @@ class GameController extends AbstractController
         $_SESSION['numQuestion'] = 1;
         $_SESSION['currentScore'] = 0;
         $_SESSION['gameStatus'] = 'ToStart';
-
         return $this->twig->render('Game/department.html.twig', ['departments' => $departments]);
     }
 
     public function quizz($departmentId): string
     {
         $_SESSION['deptId'] = $departmentId;
+        if ($departmentId === '21') {
+            $this->logRecorder->recordEasterEgg();
+        }
         $gameDealer = new GameDealer();
         $initialErrorMargin = $gameDealer->getInitialGameErrorMargin();
-
-
         if ($_SESSION['gameStatus'] === 'Game Over') {
             $scoreManager = new ScoreManager();
             $scores = $scoreManager->checkScoreAlreadyExists($_SESSION['id'], $_SESSION['deptId']);
@@ -84,7 +84,6 @@ class GameController extends AbstractController
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
             $connexionApi = new ConnexionAPI();
             $objectData = $connexionApi->showObjectById(intval($_POST['objectId']));
-
             $gameDealer = new GameDealer();
             $initialErrorMargin = $gameDealer->getInitialGameErrorMargin();
             $questionStatus = $gameDealer->scoreByAnswer(
@@ -93,6 +92,9 @@ class GameController extends AbstractController
                 $_POST['answer'],
                 $objectData['objectEndDate']
             );
+            if ($_POST['answer'] === $objectData['objectEndDate']) {
+                $this->logRecorder->recordPerfectAnswer();
+            }
             $_SESSION['currentScore'] = $_SESSION['currentScore'] + $questionStatus['nbPoints'];
             $_SESSION['gameStatus'] = $questionStatus['gameStatus'];
             $_SESSION['numQuestion']++;

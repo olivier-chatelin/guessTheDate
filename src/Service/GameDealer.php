@@ -9,14 +9,14 @@ class GameDealer
     public const RANGE_NORMALIZATION = 100;
     public const MARGIN_DECREASE_STEP = 0.1;
     public const COEFF_SCORE_ACCELERATOR = 0.1;
-
+    public const COEFF_SCORE_RANGE = 0.25;
     public function getInitialGameErrorMargin(): int
     {
         $deptId = $_SESSION['deptId'];
         $departmentManager = new DepartmentManager();
         $objectData = $departmentManager->selectOneByDeptId($deptId);
         $range = $objectData['max_date'] - $objectData['min_date'];
-        return intval(round($range * 0.25));
+        return intval(round($range * self::COEFF_SCORE_RANGE));
     }
 
     public function scoreByAnswer($numQuestion, $initialErrorMargin, $userAnswer, $rightAnswer): array
