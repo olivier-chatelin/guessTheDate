@@ -12,10 +12,10 @@ class LogManager extends AbstractManager
         $statement = $this->pdo->prepare("INSERT INTO " . self::TABLE . " (
         log_name, user_id, department_id, log_value, created_at) VALUES (
         :logName, :userId, :deptId, :logValue, NOW())");
-        $statement->bindValue(':logName', $logName, \PDO::PARAM_INT);
+        $statement->bindValue(':logName', $logName, \PDO::PARAM_STR);
         $statement->bindValue(':userId', $userId, \PDO::PARAM_INT);
-        $statement->bindValue(':deptId', $deptId, \PDO::PARAM_INT);
-        $statement->bindValue(':logValue', $logValue, \PDO::PARAM_INT);
+        $statement->bindValue(':deptId', $deptId, \PDO::PARAM_STR);
+        $statement->bindValue(':logValue', $logValue, \PDO::PARAM_STR);
         $statement->execute();
         return (int)$this->pdo->lastInsertId();
     }
