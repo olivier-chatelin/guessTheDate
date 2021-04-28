@@ -33,6 +33,8 @@ class HomeController extends AbstractController
                     $errors['pseudo'] = 'Ce pseudo n\'existe pas';
                     $this->logRecorder->recordWrongPseudo();
                 } elseif (password_verify($_POST['password'], $userData['password'])) {
+                    session_unset();
+                    session_destroy();
                     $_SESSION['id'] = $userData['id'];
                     $_SESSION['pseudo'] = $userData['pseudo'];
                     $_SESSION['is_admin'] = $userData['is_admin'];
