@@ -92,9 +92,7 @@ class GameController extends AbstractController
                 $_POST['answer'],
                 $objectData['objectEndDate']
             );
-            if ($_POST['answer'] === $objectData['objectEndDate']) {
-                $this->logRecorder->recordPerfectAnswer();
-            }
+
             $_SESSION['currentScore'] = $_SESSION['currentScore'] + $questionStatus['nbPoints'];
             $_SESSION['gameStatus'] = $questionStatus['gameStatus'];
             $_SESSION['numQuestion']++;
