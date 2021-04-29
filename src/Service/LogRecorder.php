@@ -18,6 +18,13 @@ class LogRecorder
         $this->log = new Log();
     }
 
+    public function recordSignup()
+    {
+        $this->log->setLogName(Log::NEW_LOG);
+        $this->log->setUserName($_SESSION['pseudo']);
+        $this->logManager->insertNewLog($this->log);
+    }
+
     public function recordLogin()
     {
         $this->log->setLogName(Log::LOGIN_LOG);
@@ -41,5 +48,17 @@ class LogRecorder
     {
         $anomaly = new Anomaly(Anomaly::WRONG_NAME_ANOMALY);
         $this->logManager->insertNewLog($anomaly);
+    }
+
+    public function recordEasterEgg()
+    {
+        $this->log->setLogName(Log::EASTER_EGG);
+        $this->logManager->insertNewLog($this->log);
+    }
+
+    public function recordPerfectAnswer()
+    {
+        $this->log->setLogName(Log::PERFECT_ANSWER);
+        $this->logManager->insertNewLog($this->log);
     }
 }
