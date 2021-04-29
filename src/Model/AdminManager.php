@@ -135,4 +135,81 @@ class AdminManager extends AbstractManager
         $statement->execute();
         return $statement->fetch(\PDO::FETCH_ASSOC);
     }
+    public function getNextBadgeId(): int
+    {
+        $query = "SELECT id FROM badge ORDER BY id DESC LIMIT 1";
+        $statement = $this->pdo->query($query);
+        $lastId = $statement->fetch(\PDO::FETCH_COLUMN);
+        return $lastId + 1;
+    }
+    public function getBadgesGroup(): array
+    {
+        $query =
+            "SELECT b.id, count(*) as total FROM badge b
+            JOIN user_badge ub ON ub.badge_id = b.id 
+            GROUP BY b.id 
+            ORDER BY b.id ASC ";
+        $statement = $this->pdo->query($query);
+        $badgeGroup =  $statement->fetchAll(\PDO::FETCH_ASSOC);
+        $badges = [];
+        foreach ($badgeGroup as $badge) {
+            $badges[$badge['id']] = $badge['total'];
+        }
+        return $badges;
+    }
+
+    public function getBadgesDistributionbyId($badgeId)
+    {
+        $query =
+            "SELECT u.pseudo FROM badge b
+            JOIN user_badge ub ON b.id = ub.badge_id
+            JOIN user u ON ub.user_id = u.id
+            WHERE b.id = :id";
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue('id', $badgeId, \PDO::PARAM_STR);
+        $statement->execute();
+        return   $statement->fetchAll(\PDO::FETCH_COLUMN);
+    }
+    public function getBadges()
+    {
+        $query = "SELECT * FROM badge";
+        $statement = $this->pdo->query($query);
+        return $statement->fetchAll(\PDO::FETCH_ASSOC);
+    }
+    public function showAllbadgesAndUsers()
+    {
+        $result = [];
+        $badges = $this->getBadges();
+        foreach ($badges as $badge) {
+            $result[$badge['id']]['image'] = $badge['image'];
+        }
+        $badgesGrouped = $this->getBadgesGroup();
+        foreach ($badgesGrouped as $id => $total) {
+            $result[$id]['total'] = $total;
+            $result[$id]['givenTo'] = $this->getBadgesDistributionbyId($id);
+        }
+
+        return $result;
+    }
+    public function insertBadge(string $name)
+    {
+        $query = "INSERT INTO badge (image) VALUES (:image)";
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue('image', $name, \PDO::PARAM_STR);
+        $statement->execute();
+    }
+
+    public function getBadgeImagebyId(string $badgeId): string
+    {
+        $statement = $this->pdo->prepare("SELECT image FROM badge WHERE id=:id");
+        $statement->bindValue('id', $badgeId, \PDO::PARAM_STR);
+        $statement->execute();
+        return $statement->fetch(\PDO::FETCH_COLUMN);
+    }
+    public function deleteBadgebyImage(string $image)
+    {
+        $statement = $this->pdo->prepare("DELETE  FROM badge WHERE image =:image");
+        $statement->bindValue('image', $image, \PDO::PARAM_STR);
+        $statement->execute();
+    }
 }

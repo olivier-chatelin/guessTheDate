@@ -100,3 +100,6 @@ a.text-secondary:hover{
 .fas-tog{
     color: var(--primary-color);
 }
+.fas-card{
+    font-size: 80px;
+}

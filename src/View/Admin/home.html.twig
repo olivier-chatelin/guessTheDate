@@ -26,6 +26,54 @@
                 {% endfor %}
             </div>
         </div>
+    </div>
+    <div class="container">
+        <h2 class="text-primary">Gestion des badges</h2>
 
+        <div class="row">
+            {% for id, badge in badges%}
+                <div  class="card col-3" style="width: 18rem;">
+                    <img src="/assets/images/badges/{{ badge.image }}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            {% if badge.total %}
+                            Distribué {{ badge.total }} fois
+                            {% else %}
+                                Pas distribué {% set deletable = 1 %}
+                            {% endif %}
+                            </h5>
+                        <p class="card-text">
+                        {% for user in badge.givenTo %}
+                            {% if loop.last %}
+                                <span class="text-primary">et</span> <a class="text-primary" href="/admin/show/{{ user }}">{{ user }}</a><span class="text-primary">.</span>
+                            {% else %}
+                                <a class="text-primary" href="/admin/show/{{ user }}">{{ user }}</a><span class="text-primary">,</span>
+                            {% endif %}
+
+                        {% endfor %}
+                        </p>
+                        {% if deletable %}
+                        <a href="/admin/deleteBadgeById/{{ id }}" class="btn btn-primary">Supprimer</a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+                <div  class="card col-6" style="width: 18rem;">
+                    <i id="addBadgeButton" class="fas-card fas-tab ml-2 fas fa-plus clickable"data-toggle="modal" data-target="#badgesModal"></i>
+                    <div class="card-body">
+                        <h5 class="card-title">Ajouter</h5>
+                        <p class="card-text">
+                            <form id="uploadForm" class="d-none" method="post"  action="/admin/upload" enctype="multipart/form-data">
+                                <label for="imageUpload">Télécharger un badge au format png</label>
+                                <input type="file" name="image" id="imageUpload" />
+                                {% for anomaly in anomalies %}
+                                    <p class="alert-danger">{{ anomaly}}</p>
+                                {% endfor %}
+                                <button name="send">Télécharger</button>
+                            </form>
+                        </p>
+                    </div>
+                </div>
+        </div>
     </div>
 {% endblock  %}

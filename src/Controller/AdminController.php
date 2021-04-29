@@ -18,6 +18,7 @@ class AdminController extends AbstractController
         $adminManager->deleteBadge($pseudo, $id);
         header('Location: /admin/show/' . $pseudo);
     }
+
     public function addBadge(string $pseudo, string $idBadge)
     {
         $adminManager = new AdminManager();
@@ -25,6 +26,7 @@ class AdminController extends AbstractController
         $adminManager->addBadge($idUser, $idBadge);
         header('Location: /admin/show/' . $pseudo);
     }
+
     public function gamesetup(int $deptId)
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -42,6 +44,7 @@ class AdminController extends AbstractController
         }
         $adminManager = new AdminManager();
         $names = $adminManager->getNames();
+        $badges = $adminManager->showAllbadgesAndUsers();
         $errors = [];
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $formChecker = new FormChecker($_POST);
@@ -58,9 +61,12 @@ class AdminController extends AbstractController
                 header('Location: /Admin/show/' . $search['pseudo']);
             }
         }
-
-        return $this->twig->render('/Admin/home.html.twig', [ 'errors' => $errors,'names' => $names]);
+        return $this->twig->render(
+            '/Admin/home.html.twig',
+            ['errors' => $errors, 'names' => $names, 'badges' => $badges]
+        );
     }
+
     public function show(string $pseudo)
     {
         $adminManager = new AdminManager();
@@ -75,6 +81,7 @@ class AdminController extends AbstractController
 
         header('Location: /admin/show/' . $pseudo);
     }
+
     public function changeAvatar(string $pseudo, string $avatarId)
     {
         $adminManager = new AdminManager();
@@ -84,5 +91,47 @@ class AdminController extends AbstractController
             $_SESSION['avatar'] = $adminManager->getAvatarbiId($avatarId)['image'];
         }
         header('Location: /admin/show/' . $pseudo);
+    }
+
+    public function upload()
+    {
+        $adminManager = new AdminManager();
+        $errors = [];
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $uploadDir = 'assets/images/badges/';
+            $nextBadgeID = $adminManager->getNextBadgeId();
+            $uploadFile = $uploadDir . 'badge' . $nextBadgeID . '.png';
+            $extension = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+            $extensionsOk = ['png'];
+            $maxFileSize = 1000000;
+            if ((!in_array($extension, $extensionsOk))) {
+                $errors[] = 'Veuillez sélectionner une image de type png !';
+            }
+            if (file_exists($_FILES['image']['name']) && filesize($_FILES['image']['name']) > $maxFileSize) {
+                $errors[] = "Votre fichier doit faire moins de 1M !";
+            }
+            if (empty($errors)) {
+                move_uploaded_file($_FILES['image']['tmp_name'], $uploadFile);
+                $adminManager->insertBadge('badge' . $nextBadgeID . '.png');
+            }
+        }
+        $names = $adminManager->getNames();
+        $badges = $adminManager->showAllbadgesAndUsers();
+        return $this->twig->render(
+            '/Admin/home.html.twig',
+            ['anomalies' => $errors ,'names' => $names, 'badges' => $badges]
+        );
+    }
+
+    public function deleteBadgeById($badgeId)
+    {
+        $adminManager = new AdminManager();
+        $image = $adminManager->getBadgeImagebyId($badgeId);
+        if (unlink('assets/images/badges/' . $image)) {
+            $adminManager->deleteBadgebyImage($image);
+        };
+        $names = $adminManager->getNames();
+        $badges = $adminManager->showAllbadgesAndUsers();
+        return $this->twig->render('/Admin/home.html.twig', ['names' => $names, 'badges' => $badges]);
     }
 }

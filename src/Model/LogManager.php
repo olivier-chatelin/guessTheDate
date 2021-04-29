@@ -11,6 +11,7 @@ class LogManager extends AbstractManager
     public function insertNewLog(Log $log): int
     {
         $statement = $this->pdo->prepare("INSERT INTO " . self::TABLE . " (
+
         log_name, pseudo, dept_nb, is_anomaly, created_at) VALUES (
         :logName, :pseudo, :deptNb, :isAnomaly, NOW())");
         $statement->bindValue(':logName', $log->getLogName(), \PDO::PARAM_STR);

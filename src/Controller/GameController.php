@@ -23,6 +23,7 @@ class GameController extends AbstractController
 
     public function quizz($departmentId): string
     {
+
         if (($_SESSION['game']['status'] === 'ToStart') || ($_SESSION['game']['status'] === 'Game Over')) {
             $_SESSION['deptId'] = intval($departmentId);
             $_SESSION['game']['numQuestion'] = 1;
