@@ -3,13 +3,10 @@
     {{ parent() }} - Quizz
 {% endblock %}
 {% block content %}
+    {{ pickedObject.ObjectEndDate }}
     <div class="container mt-5">
-        {% if session.numQuestion == 1  %}
-            Question n° {{ session.numQuestion }} : marge d'erreur : + ou - {{ initialErrorMargin }} ans
-        {% endif %}
-        {% if session.numQuestion > 1  %}
-            Question n° {{ session.numQuestion }}  : marge d'erreur : + ou - {{ session.currentErrorMargin }} ans
-        {% endif %}
+            Question n° {{ session.game.numQuestion }} : marge d'erreur : + ou - {{ session.game.currentErrorMargin }} ans
+
                 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             {% if additionalImages is not empty %}
                 <ol class="carousel-indicators">
@@ -49,7 +46,6 @@
             <div class="form-quizz w-25 m-auto">
                 <input name="answer" type="number" value="" class="w-75">
                 <input name="objectId" type="hidden" value="{{ pickedObject.objectId}}" >
-                <input name="department" type="hidden" value="{{ departmentId }}" >
                 <button type="submit" class="btn btn-outline-primary w-25 " >
                     <i class="fas fa-check"></i>
                 </button>

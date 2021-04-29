@@ -11,7 +11,7 @@ class Log
 
     private string $logName;
     private ?string $pseudo;
-    private ?int $departmentNumber;
+    private ?string $departmentNumber;
     protected bool $isAnomaly = false;
 
     public function __construct($logName = self::UNKNOWN_LOG)
@@ -42,7 +42,7 @@ class Log
         return $this;
     }
 
-    public function getDepartmentNumber(): ?int
+    public function getDepartmentNumber(): ?string
     {
         return $this->departmentNumber;
     }
