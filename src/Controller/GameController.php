@@ -97,7 +97,6 @@ class GameController extends AbstractController
             $_SESSION['gameStatus'] = $questionStatus['gameStatus'];
             $_SESSION['numQuestion']++;
             $_SESSION['currentErrorMargin'] = $questionStatus['currentErrorMargin'];
-
             return $this->twig->render(
                 'Game/solution.html.twig',
                 ['answer' => $_POST['answer'],
