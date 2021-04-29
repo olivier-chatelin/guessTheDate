@@ -86,7 +86,7 @@ class HomeController extends AbstractController
                     $_SESSION['id'] = $userData['id'];
                     $_SESSION['pseudo'] = $userData['pseudo'];
                     $_SESSION['is_admin'] = $userData['is_admin'];
-                    $this->logRecorder->recordLogin();
+                    $this->logRecorder->recordSignup();
                     header('Location: /Game/department');
                 }
             }

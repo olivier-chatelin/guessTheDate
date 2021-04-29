@@ -3,12 +3,14 @@
 namespace App\Service;
 
 use App\Model\DepartmentManager;
+use App\Entity\Log;
 
 class GameDealer
 {
     public const RANGE_NORMALIZATION = 100;
     public const MARGIN_DECREASE_STEP = 0.1;
     public const COEFF_SCORE_ACCELERATOR = 0.1;
+
     public const COEFF_INIT_MARGIN = 0.25;
 
     public function getGameErrorMargin(): int
@@ -23,6 +25,7 @@ class GameDealer
             (1 - self::MARGIN_DECREASE_STEP * ($_SESSION['game']['numQuestion'] - 1));
         $_SESSION['game']['currentErrorMargin'] = intval(round($_SESSION['game']['currentErrorMargin'], -1));
         return $_SESSION['game']['currentErrorMargin'];
+
     }
 
     public function scoreByAnswer($userAnswer, $rightAnswer)
@@ -44,6 +47,7 @@ class GameDealer
             $_SESSION['game']['nbPoints'] = 0;
             $_SESSION['game']['status'] = 'Game Over';
             $logRecorder = new LogRecorder();
+
             $logRecorder->recordEndOfGame();
         } else {
             $_SESSION['game']['status'] = 'Good Answer';
