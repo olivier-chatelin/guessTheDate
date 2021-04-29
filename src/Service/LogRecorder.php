@@ -58,7 +58,7 @@ class LogRecorder
 
     public function recordPerfectAnswer()
     {
-        $this->log->setLogName(lOG::PERFECT_ANSWER);
+        $this->log->setLogName(Log::PERFECT_ANSWER);
         $this->logManager->insertNewLog($this->log);
     }
 }
