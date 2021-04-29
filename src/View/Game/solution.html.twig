@@ -3,7 +3,7 @@
     {{ parent() }} - Solution
 {% endblock %}
 {% block content %}
-    <div class="container mt-5  w-25 " >
+    <div class="container mt-5  w-75 " >
         Question n° {{ session.game.numQuestion }}<br>
         Your answer : {{ session.game.userAnswer }}<br>
         Difference : {{ session.game.diff }} <br>
@@ -11,13 +11,13 @@
         Nombre de Points gagnés : {{ session.game.nbPoints }} <br>
         Total : {{ session.game.currentScore}} <br>
         Conclusion : {{ session.game.status }} <br>
-        <img class="img-thumbnail img-car"  src="{{ objectData['primaryImageSmall'] }}" alt="{{ objectData['title']}} " >
+        <img class=" d-block img-car img-fluid m-auto shadow p-2  bg-primary rounded"  src="{{ objectData['primaryImageSmall'] }}" alt="{{ objectData['title']}} " >
     </div>
     <div class="container text-center w-75">
         <p class="text-center h3 text-primary">
             {{ objectData['objectEndDate'] }}
         </p>
-        <p class="text-break" >
+        <p class="text-break " >
             {{ objectData['artistDisplayName'] }}
         </p>
         <p class="text-break" >
