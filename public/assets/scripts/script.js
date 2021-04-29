@@ -6,7 +6,6 @@ const addBadgeButton = document.getElementById('addBadgeButton');
 const uploadForm = document.getElementById('uploadForm');
 
 
-
 for (const area of areas) {
     area.addEventListener('mouseenter',event =>{
         image.src =`/assets/images/maps/${event.target.alt}.png`;
@@ -29,4 +28,6 @@ function initSize(){
 addBadgeButton.addEventListener('click',()=>{
     uploadForm.classList.toggle('d-none');
 })
+
+initSize();
 

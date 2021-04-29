@@ -45,8 +45,10 @@ class AvatarController extends AbstractController
         $userManager = new UserManager();
         $user = $userManager->selectOneById($userId);
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $userManager->updateAvatarId($userId, $_POST['avatar_id']);
-            $_SESSION['avatar'] = $userManager->getAvatarById($_SESSION['id'])['image'];
+            if ($userManager->updateAvatarId($userId, $_POST['avatar_id'])) {
+                $this->logRecorder->recordChangeAvatar();
+                $_SESSION['avatar'] = $userManager->getAvatarById($_SESSION['id'])['image'];
+            };
             header('Location:/avatar/index');
         }
         return $this->twig->render('Avatar/index.html.twig', [

@@ -10,7 +10,7 @@ class ConnexionAPI
     public const A = 97;
     public const Z = 122;
     public const TOLERABLE_TOTAL_OF_SELECTABLE_OBJECT = 10;
-    public function getInfoArtPieceToShow(int $departmentId): Entity\PickedObject
+    public function getInfoArtPieceToShow(string $departmentId): Entity\PickedObject
     {
         $isAnAvailableLetter = false;
         while (!$isAnAvailableLetter) {
@@ -46,7 +46,7 @@ class ConnexionAPI
         $response = $client -> request('GET', $requestURL);
         return  $response->toArray();
     }
-    public function selectObjectsByLetter(int $departmentId, string $letter): array
+    public function selectObjectsByLetter(string $departmentId, string $letter): array
     {
         $client = HttpClient::create([
             'headers' => [

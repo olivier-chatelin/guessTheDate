@@ -3,49 +3,53 @@
 namespace App\Service;
 
 use App\Model\DepartmentManager;
+use App\Entity\Log;
 
 class GameDealer
 {
-    public const RANGE_REF_FOR_NORMALIZATION = 1000;
+    public const RANGE_NORMALIZATION = 100;
     public const MARGIN_DECREASE_STEP = 0.1;
     public const COEFF_SCORE_ACCELERATOR = 0.1;
 
-    public function getInitialGameErrorMargin(): int
+    public const COEFF_INIT_MARGIN = 0.25;
+
+    public function getGameErrorMargin(): int
     {
         $deptId = $_SESSION['deptId'];
         $departmentManager = new DepartmentManager();
         $objectData = $departmentManager->selectOneByDeptId($deptId);
-        $minDate = $objectData['min_date'];
-        $maxDate = $objectData['max_date'];
-        $range = $maxDate - $minDate;
-        $initialErrorMargin = intval(round($range / 4));
-        return $initialErrorMargin;
+        $range = abs($objectData['max_date'] - $objectData['min_date']);
+        $initialErrorMargin = $range * self::COEFF_INIT_MARGIN;
+
+        $_SESSION['game']['currentErrorMargin'] = $initialErrorMargin *
+            (1 - self::MARGIN_DECREASE_STEP * ($_SESSION['game']['numQuestion'] - 1));
+        $_SESSION['game']['currentErrorMargin'] = intval(round($_SESSION['game']['currentErrorMargin'], -1));
+        return $_SESSION['game']['currentErrorMargin'];
     }
 
-    public function scoreByAnswer($numQuestion, $initialErrorMargin, $userAnswer, $rightAnswer): array
+    public function scoreByAnswer($userAnswer, $rightAnswer)
     {
-        $currentErrorMargin = $initialErrorMargin * (1 - self::MARGIN_DECREASE_STEP * $numQuestion);
-        $currentErrorMargin = round($currentErrorMargin);
+        $_SESSION['game']['diff'] = abs($userAnswer - $rightAnswer);
+        $_SESSION['game']['nbPoints'] = self::RANGE_NORMALIZATION *
+            (1 - $_SESSION['game']['diff'] / $_SESSION['game']['currentErrorMargin']);
+        $_SESSION['game']['nbPoints'] = $_SESSION['game']['nbPoints'] *
+            (1 + self::COEFF_SCORE_ACCELERATOR * ($_SESSION['game']['numQuestion'] - 1));
+        $_SESSION['game']['nbPoints'] = round($_SESSION['game']['nbPoints']);
+        $_SESSION['game']['userAnswer'] = $userAnswer;
+        $_SESSION['game']['rightAnswer'] = $rightAnswer;
 
-        $diff = abs($userAnswer - $rightAnswer);
-        $score = [];
-        $score['nbPoints'] = (($initialErrorMargin - $diff) * self::RANGE_REF_FOR_NORMALIZATION) / $initialErrorMargin;
-        $score['nbPoints'] = $score['nbPoints'] * (1 + self::COEFF_SCORE_ACCELERATOR * $numQuestion);
-        $score['nbPoints'] = round($score['nbPoints']);
-        $score['diff'] = $diff;
-        $score['userAnswer'] = $userAnswer;
-        $score['rightAnswer'] = $rightAnswer;
-        $score['currentErrorMargin'] = $currentErrorMargin;
 
-        if ($diff === 0) {
-            $score['nbPoints'] = $score['nbPoints'] * 2;
-            $score['gameStatus'] = 'Perfect';
-        } elseif ($diff > $currentErrorMargin) {
-            $score['nbPoints'] = 0;
-            $score['gameStatus'] = 'Game Over';
+        if ($_SESSION['game']['diff'] === 0) {
+            $_SESSION['game']['nbPoints'] = $_SESSION['game']['nbPoints'] * 2;
+            $_SESSION['game']['status'] = 'Perfect';
+        } elseif ($_SESSION['game']['diff'] > $_SESSION['game']['currentErrorMargin']) {
+            $_SESSION['game']['nbPoints'] = 0;
+            $_SESSION['game']['status'] = 'Game Over';
+            $logRecorder = new LogRecorder();
+
+            $logRecorder->recordEndOfGame();
         } else {
-            $score['gameStatus'] = 'Good Answer';
+            $_SESSION['game']['status'] = 'Good Answer';
         }
-        return $score;
     }
 }
