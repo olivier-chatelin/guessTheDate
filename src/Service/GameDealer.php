@@ -25,7 +25,6 @@ class GameDealer
             (1 - self::MARGIN_DECREASE_STEP * ($_SESSION['game']['numQuestion'] - 1));
         $_SESSION['game']['currentErrorMargin'] = intval(round($_SESSION['game']['currentErrorMargin'], -1));
         return $_SESSION['game']['currentErrorMargin'];
-
     }
 
     public function scoreByAnswer($userAnswer, $rightAnswer)
