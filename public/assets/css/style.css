@@ -3,6 +3,7 @@
 @import "department.css";
 @import "quizz.css";
 @import "avatar.css";
+@import "gameover.css";
 :root{
     --primary-color:#3b1b72;
     --light-color:#F2F2F2;

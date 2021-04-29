@@ -38,7 +38,6 @@ class GameDealer
         $_SESSION['game']['userAnswer'] = $userAnswer;
         $_SESSION['game']['rightAnswer'] = $rightAnswer;
 
-
         if ($_SESSION['game']['diff'] === 0) {
             $_SESSION['game']['nbPoints'] = $_SESSION['game']['nbPoints'] * 2;
             $_SESSION['game']['status'] = 'Perfect';
