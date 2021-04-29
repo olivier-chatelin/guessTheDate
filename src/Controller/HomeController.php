@@ -34,13 +34,16 @@ class HomeController extends AbstractController
                     $this->logRecorder->recordWrongPseudo();
                 } elseif (password_verify($_POST['password'], $userData['password'])) {
                     session_unset();
-                    session_destroy();
                     $_SESSION['id'] = $userData['id'];
                     $_SESSION['pseudo'] = $userData['pseudo'];
                     $_SESSION['is_admin'] = $userData['is_admin'];
+                    $_SESSION['game']['status'] = 'ToStart';
                     $userManager = new UserManager();
-                    $_SESSION['avatar'] = 'avatar1.png';
-                    $_SESSION['avatar'] = $userManager->getAvatarById($_SESSION['id'])['image'];
+                    if (!isset($_SESSION['avatar'])) {
+                        $_SESSION['avatar'] = 'avatar1.png';
+                    } else {
+                        $_SESSION['avatar'] = $userManager->getAvatarById($_SESSION['id'])['image'];
+                    }
                     $this->logRecorder->recordLogin();
                     header('Location: /Game/Department');
                 } else {

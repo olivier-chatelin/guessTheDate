@@ -4,13 +4,13 @@
 {% endblock %}
 {% block content %}
     <div class="container mt-5  w-25 " >
-        Question n° {{ session.numQuestion }}<br>
-        Your answer : {{ questionStatus.userAnswer }}<br>
-        Difference : {{ questionStatus.diff }} <br>
-        Authorized : {{ questionStatus.currentErrorMargin }} <br>
-        Nombre de Points gagnés : {{ questionStatus.nbPoints }} <br>
-        Total : {{ session.currentScore + questionStatus.nbPoints }} <br>
-        Conclusion : {{ questionStatus.gameStatus }} <br>
+        Question n° {{ session.game.numQuestion }}<br>
+        Your answer : {{ session.game.userAnswer }}<br>
+        Difference : {{ session.game.diff }} <br>
+        Authorized : {{ session.game.currentErrorMargin }} <br>
+        Nombre de Points gagnés : {{ session.game.nbPoints }} <br>
+        Total : {{ session.game.currentScore}} <br>
+        Conclusion : {{ session.game.status }} <br>
         <img class="img-thumbnail img-car"  src="{{ objectData['primaryImageSmall'] }}" alt="{{ objectData['title']}} " >
     </div>
     <div class="container text-center w-75">
@@ -49,6 +49,6 @@
                 </div>
             </div>
         </div>
-            <a class="btn btn-primary" href="/Game/quizz/{{ deptId }}">Question suivante</a>
+            <a class="btn btn-primary" href="/Game/quizz/{{ session.deptId }}">Question suivante</a>
         </div>
 {% endblock %}

@@ -14,51 +14,69 @@ class GameController extends AbstractController
         if (!isset($_SESSION['pseudo'])) {
             header('Location: /');
         }
+        $_SESSION['game']['status'] = 'ToStart';
         $departmentManager = new DepartmentManager();
         $departments = $departmentManager->selectAll();
-        $_SESSION['numQuestion'] = 1;
-        $_SESSION['currentScore'] = 0;
-        $_SESSION['gameStatus'] = 'ToStart';
+
         return $this->twig->render('Game/department.html.twig', ['departments' => $departments]);
     }
 
     public function quizz($departmentId): string
     {
-        $_SESSION['deptId'] = $departmentId;
-        if ($departmentId === '21') {
-            $this->logRecorder->recordEasterEgg();
+
+        if (($_SESSION['game']['status'] === 'ToStart') || ($_SESSION['game']['status'] === 'Game Over')) {
+            $_SESSION['deptId'] = intval($departmentId);
+            $_SESSION['game']['numQuestion'] = 1;
+            $_SESSION['game']['currentScore'] = 0;
+            $_SESSION['game']['diff'] = $_SESSION['game']['currentErrorMargin'] = $_SESSION['game']['nbPoints'] = null;
+            $_SESSION['game']['userAnswer'] = $_SESSION['game']['rightAnswer'] = null;
+            $gameDealer = new GameDealer();
+        } else {
+            $_SESSION['game']['numQuestion']++;
         }
         $gameDealer = new GameDealer();
-        $initialErrorMargin = $gameDealer->getInitialGameErrorMargin();
-        if ($_SESSION['gameStatus'] === 'Game Over') {
-            $scoreManager = new ScoreManager();
-            $scores = $scoreManager->checkScoreAlreadyExists($_SESSION['id'], $_SESSION['deptId']);
-            if (empty($scores)) {
-                $scoreManager = new ScoreManager();
-                $scoreManager->insertNewBestScoreOnDept(
-                    $_SESSION['id'],
-                    $_SESSION['deptId'],
-                    $_SESSION['currentScore']
-                );
-            } elseif ($_SESSION['currentScore'] > $scores[0]['best_score']) {
-                $scoreManager = new ScoreManager();
-                $scoreManager->updateBestScoreByUserDept(
-                    $_SESSION['id'],
-                    $_SESSION['deptId'],
-                    $_SESSION['currentScore']
-                );
-            }
-        }
-
+        $_SESSION['game']['currentErrorMargin'] = $gameDealer->getGameErrorMargin();
         $connexionAPI = new ConnexionAPI();
-        $pickedObject = $connexionAPI->getInfoArtPieceToShow(intval($departmentId));
+        $pickedObject = $connexionAPI->getInfoArtPieceToShow($departmentId);
+        $this->twig->addGlobal('session', $_SESSION);
+        return $this->twig->render('Game/quizz.html.twig', ['pickedObject' => $pickedObject]);
+    }
 
-        return $this->twig->render(
-            'Game/quizz.html.twig',
-            ['pickedObject' => $pickedObject,
-                'departmentId' => $departmentId,
-                'initialErrorMargin' => $initialErrorMargin]
-        );
+    public function solution()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === "POST") {
+            $connexionApi = new ConnexionAPI();
+            $objectData = $connexionApi->showObjectById(intval($_POST['objectId']));
+
+            $gameDealer = new GameDealer();
+            $gameDealer->scoreByAnswer($_POST['answer'], $objectData['objectEndDate']);
+            $this->twig->addGlobal('session', $_SESSION);
+            $_SESSION['game']['currentScore'] = $_SESSION['game']['currentScore'] + $_SESSION['game']['nbPoints'];
+
+            if ($_SESSION['game']['status'] === 'Game Over') {
+                $scoreManager = new ScoreManager();
+                $scores = $scoreManager->checkScoreAlreadyExists($_SESSION['id'], $_SESSION['deptId']);
+                if (empty($scores)) {
+                    $scoreManager = new ScoreManager();
+                    $scoreManager->insertNewBestScoreOnDept(
+                        $_SESSION['id'],
+                        $_SESSION['deptId'],
+                        $_SESSION['game']['currentScore']
+                    );
+                } elseif ($_SESSION['game']['currentScore'] > $scores[0]['best_score']) {
+                    $scoreManager = new ScoreManager();
+                    $scoreManager->updateBestScoreByUserDept(
+                        $_SESSION['id'],
+                        $_SESSION['deptId'],
+                        $_SESSION['game']['currentScore']
+                    );
+                }
+            }
+
+            $this->twig->addGlobal('session', $_SESSION);
+            return $this->twig->render('Game/solution.html.twig', ['objectData' => $objectData]);
+        }
+        header('Location: /');
     }
 
     public function score($idSelected): string
@@ -77,37 +95,5 @@ class GameController extends AbstractController
             'idSelected' => $idSelected,
             'scores' => $scores
         ]);
-    }
-
-    public function solution()
-    {
-        if ($_SERVER['REQUEST_METHOD'] === "POST") {
-            $connexionApi = new ConnexionAPI();
-            $objectData = $connexionApi->showObjectById(intval($_POST['objectId']));
-            $gameDealer = new GameDealer();
-            $initialErrorMargin = $gameDealer->getInitialGameErrorMargin();
-            $questionStatus = $gameDealer->scoreByAnswer(
-                $_SESSION['numQuestion'],
-                $initialErrorMargin,
-                $_POST['answer'],
-                $objectData['objectEndDate']
-            );
-
-            $_SESSION['currentScore'] = $_SESSION['currentScore'] + $questionStatus['nbPoints'];
-            $_SESSION['gameStatus'] = $questionStatus['gameStatus'];
-            $_SESSION['numQuestion']++;
-            $_SESSION['currentErrorMargin'] = $questionStatus['currentErrorMargin'];
-
-            return $this->twig->render(
-                'Game/solution.html.twig',
-                ['answer' => $_POST['answer'],
-                    'objectData' => $objectData,
-                    'deptId' => $_POST['department'],
-                    'totalScore' => $_SESSION['currentScore'],
-                    'questionStatus' => $questionStatus
-                ]
-            );
-        }
-        header('Location: /');
     }
 }
