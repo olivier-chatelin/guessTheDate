@@ -10,7 +10,7 @@
         {% if session.numQuestion > 1  %}
             Question n° {{ session.numQuestion }}  : marge d'erreur : + ou - {{ session.currentErrorMargin }} ans
         {% endif %}
-                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                <div id="carouselExampleIndicators" class="carousel slide mb-5" data-ride="carousel">
             {% if additionalImages is not empty %}
                 <ol class="carousel-indicators">
                     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -50,8 +50,8 @@
                 <input name="answer" type="number" value="" class="w-75">
                 <input name="objectId" type="hidden" value="{{ pickedObject.objectId}}" >
                 <input name="department" type="hidden" value="{{ departmentId }}" >
-                <button type="submit" class="btn btn-outline-primary w-25 " >
-                    <i class="fas fa-check"></i>
+                <button type="submit" class="btn btn-outline-primary w-50 " >
+                    <i class="fas fa-check w-25"></i>
                 </button>
             </div>
         </form>

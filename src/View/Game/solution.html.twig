@@ -3,7 +3,6 @@
     {{ parent() }} - Solution
 {% endblock %}
 {% block content %}
-    {{ dump(gameData) }}
         <div class="container mt-5  w-25 " >
             Question n° {{ session.numQuestion }}<br>
             Your answer : {{ questionStatus.userAnswer }}<br>
