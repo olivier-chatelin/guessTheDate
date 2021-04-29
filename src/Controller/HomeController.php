@@ -37,6 +37,7 @@ class HomeController extends AbstractController
                     $_SESSION['pseudo'] = $userData['pseudo'];
                     $_SESSION['is_admin'] = $userData['is_admin'];
                     $userManager = new UserManager();
+                    $_SESSION['avatar'] = 'avatar1.png';
                     $_SESSION['avatar'] = $userManager->getAvatarById($_SESSION['id'])['image'];
                     $this->logRecorder->recordLogin();
                     header('Location: /Game/Department');
