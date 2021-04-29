@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Model\DepartmentManager;
+use App\Entity\Log;
 
 class GameDealer
 {
@@ -35,14 +36,14 @@ class GameDealer
         $gameData['userAnswer'] = $userAnswer;
         $gameData['rightAnswer'] = $rightAnswer;
 
-
+        $logRecorder = new LogRecorder();
         if ($gameData['diff'] === 0) {
             $gameData['nbPoints'] = $gameData['nbPoints'] * 2;
             $gameData['gameStatus'] = 'Perfect';
+            $logRecorder->recordPerfectAnswer();
         } elseif ($gameData['diff'] > $gameData['currentErrorMargin']) {
             $gameData['nbPoints'] = 0;
             $gameData['gameStatus'] = 'Game Over';
-            $logRecorder = new LogRecorder();
             $logRecorder->recordEndOfGame();
         } else {
             $gameData['gameStatus'] = 'Good Answer';
