@@ -9,6 +9,8 @@ use App\Model\GameAdminManager;
 use App\Model\LogManager;
 use App\Model\UserManager;
 use App\Service\FormChecker;
+use DateTime;
+use DateInterval;
 
 class AdminController extends AbstractController
 {
@@ -144,11 +146,11 @@ class AdminController extends AbstractController
         $content = trim(file_get_contents("php://input"));
         $data = json_decode($content, true);
         $logManager = new LogManager();
-        $startDate = new \DateTime($data['startDate']);
-        $endDate = new \DateTime($data['endDate']);
+        $startDate = new DateTime($data['startDate']);
+        $endDate = new DateTime($data['endDate']);
         $realStartDate = min($startDate, $endDate);
         $realEndDate = max($startDate, $endDate);
-        $realEndDate->add(new \DateInterval('P1D'));
+        $realEndDate->add(new DateInterval('P1D'));
 
         $logins = $logManager->countByLogNameAndByPeriod(
             'login',
