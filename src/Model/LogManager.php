@@ -21,4 +21,18 @@ class LogManager extends AbstractManager
         $statement->execute();
         return (int)$this->pdo->lastInsertId();
     }
+    public function countByLogNameAndByPeriod(string $logName, string $startDate, string $endDate): array
+    {
+        $query =
+            "SELECT  DATE_FORMAT(created_at,\"%d/%m/%Y\") AS `date`, COUNT(*) AS total FROM log 
+            WHERE log_name = :logName AND created_at 
+            BETWEEN :startDate AND :endDate 
+            GROUP BY `date`";
+        $statement = $this->pdo->prepare($query);
+        $statement-> bindValue('logName', $logName, \PDO::PARAM_STR);
+        $statement-> bindValue('startDate', $startDate, \PDO::PARAM_STR);
+        $statement-> bindValue('endDate', $endDate, \PDO::PARAM_STR);
+        $statement->execute();
+        return  $statement->fetchAll(\PDO::FETCH_ASSOC);
+    }
 }
