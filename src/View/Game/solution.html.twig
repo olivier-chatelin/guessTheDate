@@ -25,7 +25,7 @@
     </div>
 
     <div class="container w-25" >
-        <img class="img-thumbnail img-car"  src="{{ objectData['primaryImageSmall'] }}" alt="{{ objectData['title']}} " >
+        <img class="img-car d-block img-fluid m-auto shadow p-1  bg-primary rounded"  src="{{ objectData['primaryImageSmall'] }}" alt="{{ objectData['title']}} " >
 
 
     </div>
@@ -64,6 +64,11 @@
                 </div>
             </div>
         </div>
+        {% if session.game.status == 'Game Over' %}
+        <a class="btn btn-primary" href="/Game/gameover">Game Over</a>
+        {% else %}
         <a class="btn btn-primary" href="/Game/quizz/{{ session.deptId }}">Question suivante</a>
+        {% endif %}
     </div>
 {% endblock %}
+

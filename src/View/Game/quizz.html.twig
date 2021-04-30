@@ -28,7 +28,7 @@
             {%  endif %}
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="{{ pickedObject.primaryImageSmall }}" class="d-block img-car img-fluid m-auto shadow p-2  bg-primary rounded"  alt="...">
+                    <img src="{{ pickedObject.primaryImageSmall }}" class="d-block img-car img-fluid m-auto shadow p-1  bg-primary rounded"  alt="...">
                 </div>
 
                 {% if pickedObject.additionalImages is not empty %}
@@ -53,7 +53,7 @@
         <form action="/Game/solution" method="post">
 
             <div class="form-quizz  m-5">
-                <input name="answer" type="number" value="" class="w-75">
+                <input name="answer" type="number" value="" class="w-50">
                 <input name="objectId" type="hidden" value="{{ pickedObject.objectId}}" >
                 <button type="submit" class="btn btn-outline-primary w-25 " >
                     <i class="fas fa-check"></i>

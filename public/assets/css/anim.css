@@ -82,7 +82,7 @@
         transform: translateY(-1200px) scale(.7);
         opacity: .7
     }
-    20% {
+    50% {
         -webkit-transform: translateY(0) scale(.7);
         transform: translateY(0) scale(.7);
         opacity: .7
@@ -91,29 +91,6 @@
         -webkit-transform: scale(1);
         transform: scale(1);
         opacity: 1
-    }
-
-    30% {
-        -webkit-animation-timing-function: ease-in-out;
-        animation-timing-function: ease-in-out
-    }
-    40%, 60% {
-        -webkit-transform: rotate(0deg);
-        transform: rotate(0deg);
-        -webkit-animation-timing-function: ease-in-out;
-        animation-timing-function: ease-in-out
-    }
-    50%, 70% {
-        -webkit-transform: rotate(70deg);
-        transform: rotate(70deg);
-        -webkit-animation-timing-function: ease-in-out;
-        animation-timing-function: ease-in-out;
-        opacity: 1
-    }
-    to {
-        -webkit-transform: translate3d(0, 700px, 0);
-        transform: translate3d(0, 700px, 0);
-        opacity: 0
     }
 }
 
