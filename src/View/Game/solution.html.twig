@@ -27,11 +27,12 @@
     <div class="container w-25" >
         <img class="img-thumbnail img-car"  src="{{ objectData['primaryImageSmall'] }}" alt="{{ objectData['title']}} " >
 
+
     </div>
     <div class="container text-center w-75">
         <h6>Tu as dit {{ session.game.userAnswer }} au lieu de </h6><h3>{{ objectData['objectEndDate'] }}</h3>
         </p>
-        <p class="text-break" >
+        <p class="text-break " >
             {{ objectData['artistDisplayName'] }}
         <p class="text-break" >
             <a class=" clickable" data-toggle="modal" data-target="#infoModal">
