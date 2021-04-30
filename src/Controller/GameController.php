@@ -79,7 +79,6 @@ class GameController extends AbstractController
                         $_SESSION['game']['currentScore']
                     );
                 }
-                return $this->twig->render('Game/gameover.html.twig', []);
             }
 
             $this->twig->addGlobal('session', $_SESSION);
@@ -104,5 +103,10 @@ class GameController extends AbstractController
             'idSelected' => $idSelected,
             'scores' => $scores
         ]);
+    }
+
+    public function gameover()
+    {
+        return $this->twig->render('Game/gameover.html.twig', []);
     }
 }
