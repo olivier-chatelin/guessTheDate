@@ -1,0 +1,14 @@
+{% extends 'layout.html.twig' %}
+{% block title %}
+    {{ parent() }} - Game Over !
+{% endblock %}
+{% block content %}
+<div class="container align-items-center justify-content-center">
+    <div class="text-center">
+            <img src="/assets/images/go.png" class="image-clignotante img-fluid text-center" alt="Game Over">
+        </div>
+    <div class="text-center">
+    <a href="/Game/Department"><img src="/assets/images/try_again.png" alt="Press Start" width="20%"></a>
+        </div>
+</div>
+{% endblock %}

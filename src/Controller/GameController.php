@@ -61,7 +61,6 @@ class GameController extends AbstractController
             $gameDealer->scoreByAnswer($_POST['answer'], $objectData['objectEndDate']);
             $this->twig->addGlobal('session', $_SESSION);
             $_SESSION['game']['currentScore'] = $_SESSION['game']['currentScore'] + $_SESSION['game']['nbPoints'];
-
             if ($_SESSION['game']['status'] === 'Game Over') {
                 $scoreManager = new ScoreManager();
                 $scores = $scoreManager->checkScoreAlreadyExists($_SESSION['id'], $_SESSION['deptId']);
@@ -80,6 +79,7 @@ class GameController extends AbstractController
                         $_SESSION['game']['currentScore']
                     );
                 }
+                return $this->twig->render('Game/gameover.html.twig', []);
             }
 
             $this->twig->addGlobal('session', $_SESSION);

@@ -4,6 +4,7 @@
 @import "quizz.css";
 @import "avatar.css";
 @import "anim.css";
+@import "gameover.css";
 
 :root{
     --primary-color:#3b1b72;
