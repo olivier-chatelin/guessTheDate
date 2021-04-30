@@ -150,9 +150,21 @@ class AdminController extends AbstractController
         $realEndDate = max($startDate, $endDate);
         $realEndDate->add(new \DateInterval('P1D'));
 
-        $logins = $logManager->countByLogNameAndByPeriod('login', $realStartDate->format('Y/m/d'), $realEndDate->format('Y/m/d'));
-        $games = $logManager->countByLogNameAndByPeriod('End of Game', $realStartDate->format('Y/m/d'), $realEndDate->format('Y/m/d'));
-        $newPlayers = $logManager->countByLogNameAndByPeriod('New signup', $realStartDate->format('Y/m/d'), $realEndDate->format('Y/m/d'));
+        $logins = $logManager->countByLogNameAndByPeriod(
+            'login',
+            $realStartDate->format('Y/m/d'),
+            $realEndDate->format('Y/m/d')
+        );
+        $games = $logManager->countByLogNameAndByPeriod(
+            'End of Game',
+            $realStartDate->format('Y/m/d'),
+            $realEndDate->format('Y/m/d')
+        );
+        $newPlayers = $logManager->countByLogNameAndByPeriod(
+            'New signup',
+            $realStartDate->format('Y/m/d'),
+            $realEndDate->format('Y/m/d')
+        );
         $response = [];
         foreach ($logins as $login) {
             $response['logins'] [$login['date']] = (int)$login['total'];
