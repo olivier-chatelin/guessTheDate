@@ -3,27 +3,41 @@
     {{ parent() }} - Solution
 {% endblock %}
 {% block content %}
-    <div class="container mt-5  w-75 " >
-        Question n° {{ session.game.numQuestion }}<br>
-        Your answer : {{ session.game.userAnswer }}<br>
-        Difference : {{ session.game.diff }} <br>
-        Authorized : {{ session.game.currentErrorMargin }} <br>
-        Nombre de Points gagnés : {{ session.game.nbPoints }} <br>
-        Total : {{ session.game.currentScore}} <br>
-        Conclusion : {{ session.game.status }} <br>
-        <img class=" d-block img-car img-fluid m-auto shadow p-2  bg-primary rounded"  src="{{ objectData['primaryImageSmall'] }}" alt="{{ objectData['title']}} " >
+    <div class="col-sm-12 row justify-content-between align-items-center">
+        <div class="numquestion rounded-circle bg-primary text-light m-2 p-2 text-center" style="width:50px; height:50px">
+            <h2 class="m-auto">{{ session.game.numQuestion }}</h2>
+        </div>
+        <div class="row justify-content-center">
+            {% if session.game.status == 'Good Answer' or session.game.status == 'Perfect'  %}
+                <div class="anim-points">+ {{ session.game.nbPoints }}</div>
+                <div class="anim-coeff">x {{ session.game.coeffQuestion }}</div>
+            {% endif %}
+            {% if session.game.status == 'Perfect' %}
+                <div class="anim-perfect"> Perfect : x 2</div>
+            {% endif %}
+            {% if session.game.status == 'Game Over' %}
+                <div class="anim-game-over"> Game Over</div>
+            {% endif %}
+        </div>
+        <div class="totalpoints text-primary">
+            <h2>Total<br>{{ session.game.currentScore}}</h2>
+        </div>
+    </div>
+
+    <div class="container w-25" >
+        <img class="img-thumbnail img-car"  src="{{ objectData['primaryImageSmall'] }}" alt="{{ objectData['title']}} " >
+
+
     </div>
     <div class="container text-center w-75">
-        <p class="text-center h3 text-primary">
-            {{ objectData['objectEndDate'] }}
+        <h6>Tu as dit {{ session.game.userAnswer }} au lieu de </h6><h3>{{ objectData['objectEndDate'] }}</h3>
         </p>
         <p class="text-break " >
             {{ objectData['artistDisplayName'] }}
-        </p>
         <p class="text-break" >
-        <a class=" clickable" data-toggle="modal" data-target="#infoModal">
-        <i class="fas fa-info-circle"></i>
-        </a>
+            <a class=" clickable" data-toggle="modal" data-target="#infoModal">
+                <i class="fas fa-info-circle"></i>
+            </a>
         </p>
         <div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -37,6 +51,7 @@
                     <div class="modal-body text-left">
                         <ul>
                             <li>Titre de l'oeuvre: {{ objectData['title'] }}</li>
+                            <li>Artiste: {{ objectData['artistDisplayName'] }}</li>
                             <li>Matériau: {{ objectData['medium'] }}</li>
                             <li>Biographie de l'artiste: {{ objectData['artistDisplayBio'] }}</li>
                             <li>Ville: {{ objectData['city'] }}</li>
@@ -49,6 +64,6 @@
                 </div>
             </div>
         </div>
-            <a class="btn btn-primary" href="/Game/quizz/{{ session.deptId }}">Question suivante</a>
-        </div>
+        <a class="btn btn-primary" href="/Game/quizz/{{ session.deptId }}">Question suivante</a>
+    </div>
 {% endblock %}

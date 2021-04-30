@@ -3,7 +3,9 @@
 @import "department.css";
 @import "quizz.css";
 @import "avatar.css";
+@import "anim.css";
 @import "gameover.css";
+
 :root{
     --primary-color:#3b1b72;
     --light-color:#F2F2F2;
@@ -59,8 +61,6 @@
     background-color: var(--primary-hover) ;
     border-color:var(--primary-hover);
 }
-
-
 
 .container {
     min-height: 100%;
