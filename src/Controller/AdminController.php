@@ -6,8 +6,11 @@ use App\Model\AbstractManager;
 use App\Model\AdminManager;
 use App\Model\DepartmentManager;
 use App\Model\GameAdminManager;
+use App\Model\LogManager;
 use App\Model\UserManager;
 use App\Service\FormChecker;
+use DateTime;
+use DateInterval;
 
 class AdminController extends AbstractController
 {
@@ -133,5 +136,50 @@ class AdminController extends AbstractController
         $names = $adminManager->getNames();
         $badges = $adminManager->showAllbadgesAndUsers();
         return $this->twig->render('/Admin/home.html.twig', ['names' => $names, 'badges' => $badges]);
+    }
+    public function graph()
+    {
+        return $this->twig->render('/Admin/graph.html.twig');
+    }
+    public function graphData()
+    {
+        $content = trim(file_get_contents("php://input"));
+        $data = json_decode($content, true);
+        $logManager = new LogManager();
+        $startDate = new DateTime($data['startDate']);
+        $endDate = new DateTime($data['endDate']);
+        $realStartDate = min($startDate, $endDate);
+        $realEndDate = max($startDate, $endDate);
+        $realEndDate->add(new DateInterval('P1D'));
+
+        $logins = $logManager->countByLogNameAndByPeriod(
+            'login',
+            $realStartDate->format('Y/m/d'),
+            $realEndDate->format('Y/m/d')
+        );
+        $games = $logManager->countByLogNameAndByPeriod(
+            'End of Game',
+            $realStartDate->format('Y/m/d'),
+            $realEndDate->format('Y/m/d')
+        );
+        $newPlayers = $logManager->countByLogNameAndByPeriod(
+            'New signup',
+            $realStartDate->format('Y/m/d'),
+            $realEndDate->format('Y/m/d')
+        );
+        $response = [];
+        foreach ($logins as $login) {
+            $response['logins'] [$login['date']] = (int)$login['total'];
+        }
+        foreach ($games as $game) {
+            $response['games'] [$game['date']] = (int)$game['total'];
+        }
+        foreach ($newPlayers as $newPlayer) {
+            $response['newPlayers'] [$newPlayer['date']] = (int)$newPlayer['total'];
+        }
+        $response['startDate'] = $realStartDate->format('d/m/Y');
+        $response['endDate'] = $realEndDate->format('d/m/Y');
+
+        return json_encode($response);
     }
 }

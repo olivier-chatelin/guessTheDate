@@ -1,0 +1,21 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <div >
+                        <label class="text-primary"  for="StartDate">Date début </label>
+                        <input type="date" name="StartDate" id="date-start">
+                        <label class="text-primary" for="StartDate">Date fin </label>
+                        <input type="date" name="EndDate" id="date-end">
+                        <span class="btn btn-primary" id="date-submit">Go!</span>
+                        <span class="alert-danger" id="display-error"></span>
+                    </div>
+                </div>
+                <canvas class=" w-100" id="myChart" width="900" height="380"></canvas>
+            </main>
+        </div>
+    </div>
+{% endblock  %}
