@@ -32,8 +32,8 @@ class GameDealer
         $_SESSION['game']['diff'] = abs($userAnswer - $rightAnswer);
         $_SESSION['game']['nbPoints'] = self::RANGE_NORMALIZATION *
             (1 - $_SESSION['game']['diff'] / $_SESSION['game']['currentErrorMargin']);
-        $_SESSION['game']['nbPoints'] = $_SESSION['game']['nbPoints'] *
-            (1 + self::COEFF_SCORE_ACCELERATOR * ($_SESSION['game']['numQuestion'] - 1));
+        $_SESSION['game']['coeffQuestion'] = 1 + self::COEFF_SCORE_ACCELERATOR * ($_SESSION['game']['numQuestion'] - 1);
+        $_SESSION['game']['nbPoints'] = $_SESSION['game']['nbPoints'] * $_SESSION['game']['coeffQuestion'];
         $_SESSION['game']['nbPoints'] = round($_SESSION['game']['nbPoints']);
         $_SESSION['game']['userAnswer'] = $userAnswer;
         $_SESSION['game']['rightAnswer'] = $rightAnswer;

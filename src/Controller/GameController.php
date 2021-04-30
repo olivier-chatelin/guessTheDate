@@ -15,8 +15,10 @@ class GameController extends AbstractController
             header('Location: /');
         }
         $_SESSION['game']['status'] = 'ToStart';
+        $_SESSION['game']['ac'] = 0;
         $departmentManager = new DepartmentManager();
         $departments = $departmentManager->selectAll();
+
 
         return $this->twig->render('Game/department.html.twig', ['departments' => $departments]);
     }
@@ -38,6 +40,10 @@ class GameController extends AbstractController
         $_SESSION['game']['currentErrorMargin'] = $gameDealer->getGameErrorMargin();
         $connexionAPI = new ConnexionAPI();
         $pickedObject = $connexionAPI->getInfoArtPieceToShow($departmentId);
+        if ($_SESSION['game']['ac'] === 0) {
+            $_SESSION['game']['acArt'] = $pickedObject->getObjectId();
+            $_SESSION['game']['ac'] = 1;
+        }
         $this->twig->addGlobal('session', $_SESSION);
         return $this->twig->render('Game/quizz.html.twig', ['pickedObject' => $pickedObject]);
     }
@@ -45,9 +51,12 @@ class GameController extends AbstractController
     public function solution()
     {
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
+            if ($_SESSION['game']['acArt'] !== $_POST['objectId']) {
+                header('Location: /Error/cheater');
+            }
+            $_SESSION['game']['ac'] = 0;
             $connexionApi = new ConnexionAPI();
             $objectData = $connexionApi->showObjectById(intval($_POST['objectId']));
-
             $gameDealer = new GameDealer();
             $gameDealer->scoreByAnswer($_POST['answer'], $objectData['objectEndDate']);
             $this->twig->addGlobal('session', $_SESSION);

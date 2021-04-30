@@ -3,11 +3,19 @@
     {{ parent() }} - Quizz
 {% endblock %}
 {% block content %}
-    {{ pickedObject.ObjectEndDate }}
+    <div class="col-sm-12 row justify-content-between align-items-center">
+        <div class="numquestion rounded-circle bg-primary text-light m-2 p-2 text-center" style="width:50px; height:50px">
+            <h2 class="m-auto">{{ session.game.numQuestion }}</h2>
+        </div>
+        <div>
+            <h4 class="text-primary">Marge d'erreur :<br> + ou - {{ session.game.currentErrorMargin }} ans</h4>
+        </div>
+        <div class="totalpoints text-primary text-right">
+            <h2>Total<br> {{ session.game.currentScore}}</h2>
+        </div>
+    </div>
     <div class="container mt-5">
-            Question n° {{ session.game.numQuestion }} : marge d'erreur : + ou - {{ session.game.currentErrorMargin }} ans
-
-                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             {% if additionalImages is not empty %}
                 <ol class="carousel-indicators">
                     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
