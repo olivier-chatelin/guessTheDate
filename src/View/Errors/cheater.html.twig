@@ -1,0 +1,22 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+{{ parent() }} - Shame on you !
+{% endblock %}
+{% block content %}
+<div class="container d-flex align-items-center justify-content-center min-vh-100">
+    <div class="row w-100">
+        <div class="col-sm-6">
+            <img src ="/assets/images/vangogh.png" class="img-fluid" alt="Vangogh te regarde droit dans les yeux" width="95%">
+        </div>
+        <div class="col-sm-6 mt-5 text-center">
+            <h1>Tu croyais me berner ?</h1>
+            <p class="mt-2 mb-4">
+                Tu as essayé de tricher ! Je le sais ! Je suis omniscient. Je lis dans la pensée humaine, dans celle des animaux et même des tournesols... Allez, retourne à l'accueil et que je ne t'y reprenne pas !</p>
+            <h2>Le sachiez-tu ?</h2>
+            <br>
+            <p>Gauguin, agile manieur d'arme, a été aperçu quittant les lieux de résidence de Van Gogh suite à une dispute avec ce dernier. Quelques instants plus tard, on retrouvait Van Gogh l'oreille coupée...Un sabre avait également disparu.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

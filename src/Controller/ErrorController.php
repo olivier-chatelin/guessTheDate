@@ -8,4 +8,9 @@ class ErrorController extends AbstractController
     {
         return $this->twig->render('Errors/404.html.twig');
     }
+
+    public function cheater()
+    {
+        return $this->twig->render('Errors/cheater.html.twig');
+    }
 }
