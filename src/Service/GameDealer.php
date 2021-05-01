@@ -24,14 +24,23 @@ class GameDealer
         $_SESSION['game']['currentErrorMargin'] = $initialErrorMargin *
             (1 - self::MARGIN_DECREASE_STEP * ($_SESSION['game']['numQuestion'] - 1));
         $_SESSION['game']['currentErrorMargin'] = intval(round($_SESSION['game']['currentErrorMargin'], -1));
+
+        if ($_SESSION['game']['currentErrorMargin'] <= 0) {
+            $_SESSION['game']['currentErrorMargin'] = 0;
+            $_SESSION['game']['status'] = 'Last Stage';
+            $logRecorder = new LogRecorder();
+            $logRecorder->recordLastStage();
+        }
         return $_SESSION['game']['currentErrorMargin'];
     }
 
     public function scoreByAnswer($userAnswer, $rightAnswer)
     {
         $_SESSION['game']['diff'] = abs($userAnswer - $rightAnswer);
-        $_SESSION['game']['nbPoints'] = self::RANGE_NORMALIZATION *
+        if ($_SESSION['game']['status'] !== 'Last Stage') {
+            $_SESSION['game']['nbPoints'] = self::RANGE_NORMALIZATION *
             (1 - $_SESSION['game']['diff'] / $_SESSION['game']['currentErrorMargin']);
+        }
         $_SESSION['game']['coeffQuestion'] = 1 + self::COEFF_SCORE_ACCELERATOR * ($_SESSION['game']['numQuestion'] - 1);
         $_SESSION['game']['nbPoints'] = $_SESSION['game']['nbPoints'] * $_SESSION['game']['coeffQuestion'];
         $_SESSION['game']['nbPoints'] = round($_SESSION['game']['nbPoints']);
