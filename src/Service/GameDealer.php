@@ -41,6 +41,8 @@ class GameDealer
         if ($_SESSION['game']['diff'] === 0) {
             $_SESSION['game']['nbPoints'] = $_SESSION['game']['nbPoints'] * 2;
             $_SESSION['game']['status'] = 'Perfect';
+            $logRecorder = new LogRecorder();
+            $logRecorder->recordPerfectAnswer();
         } elseif ($_SESSION['game']['diff'] > $_SESSION['game']['currentErrorMargin']) {
             $_SESSION['game']['nbPoints'] = 0;
             $_SESSION['game']['status'] = 'Game Over';
