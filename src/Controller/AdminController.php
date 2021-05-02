@@ -30,15 +30,6 @@ class AdminController extends AbstractController
         header('Location: /admin/show/' . $pseudo);
     }
 
-    public function gamesetup(int $deptId)
-    {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $gameParameters = array_map('trim', $_POST);
-            $departmentManager = new DepartmentManager();
-            $departmentManager->updateGameParameters($deptId, $gameParameters['pointunit'], $gameParameters['margin']);
-        }
-        return $this->twig->render('Admin/gamesetup');
-    }
 
     public function home()
     {
@@ -143,11 +134,7 @@ class AdminController extends AbstractController
     }
     public function graphData()
     {
-//        $content = trim(file_get_contents("php://input"));
-//        $data = json_decode($content, true);
         $logManager = new LogManager();
-//        $startDate = new DateTime($data['startDate']);
-//        $endDate = new DateTime($data['endDate']);
         $startDate = new DateTime($_POST['startDate']);
         $endDate = new DateTime($_POST['endDate']);
         $realStartDate = min($startDate, $endDate);
@@ -182,5 +169,24 @@ class AdminController extends AbstractController
         $response['startDate'] = $realStartDate->format('d/m/Y');
         $response['endDate'] = $realEndDate->format('d/m/Y');
         return $this->twig->render('Admin/graph.html.twig', ['data_source' => json_encode($response)]);
+    }
+
+    public function tab()
+    {
+        $logsToFollow = [];
+        $dates = [];
+        $adminManager = new AdminManager();
+        $allLogsName = $adminManager->getLogsALl();
+        if ($_SERVER['REQUEST_METHOD'] === "POST") {
+            $logsToFollow = $adminManager->getLogsbyLogNamesInAPeriod($_POST);
+            $dates = [
+                'start' => $_POST['startDate'],
+                'end' => $_POST['endDate'],
+            ];
+        }
+        return $this->twig->render(
+            '/Admin/statTable.html.twig',
+            ['allLogsName' => $allLogsName, 'logsToFollow' => $logsToFollow, 'dates' => $dates]
+        );
     }
 }

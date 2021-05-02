@@ -1,0 +1,74 @@
+{% extends 'layout.html.twig' %}
+{% block title %}
+    {{ parent() }} Tableau statistiques
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <form action="" method="POST">
+            <label class="text-primary"  for="StartDate">Date début </label>
+            <input type="date" name="startDate" id="date-start" required>
+            <label class="text-primary" for="StartDate">Date fin </label>
+            <input type="date" name="endDate" id="date-end" required>
+            <span class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Evenements à analyser
+                </button>
+                <span class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    {% for logName in allLogsName %}
+                    <div class="input-group-text">
+                        {%  if logName == "login" %}
+                        <input  class="mr-2" checked type="checkbox" name="logsToFollow[]" value="login" >
+                         login
+                    {% else %}
+                        <input  class="mr-2" type="checkbox" name="logsToFollow[]" value="{{ logName }}" >
+                         {{ logName }}
+                    {% endif %}
+
+                    </div>
+                    {% endfor %}
+
+                </span>
+            <button class="btn btn-primary" id="date-submit">Go!</button>
+            </span>
+            <span class="alert-danger" id="display-error"></span>
+        </form>
+        {% if dates.start %}
+        <h2 class="h2 text-primary" >Période du {{ dates.start }} au {{ dates.end }}</h2>
+        {% endif %}
+    </div>
+    <div class="container">
+
+
+        <table class="table">
+            <thead class="thead-primary">
+            <tr>
+                <th scope="col">id</th>
+                <th scope="col">Evenement</th>
+                <th scope="col">pseudo</th>
+                <th scope="col">n° département</th>
+                <th scope="col">anomalie</th>
+                <th scope="col">Constaté le </th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for log in logsToFollow %}
+            <tr>
+                <td>{{ log.id }}</td>
+                <td>{{ log.log_name }}</td>
+                <td>{{ log.pseudo }}</td>
+                <td>{{ log.dep_nb }}</td>
+                <td>
+                    {% if log.is_anomaly %}
+                    oui
+                    {% else %}
+                    non
+                    {% endif %}
+                </td>
+                <td>{{ log.created_at }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

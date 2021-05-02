@@ -104,3 +104,7 @@ a.text-secondary:hover{
 .fas-card{
     font-size: 80px;
 }
+.thead-primary{
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+}

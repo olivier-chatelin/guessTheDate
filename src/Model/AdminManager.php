@@ -212,4 +212,29 @@ class AdminManager extends AbstractManager
         $statement->bindValue('image', $image, \PDO::PARAM_STR);
         $statement->execute();
     }
+    public function getLogsALl(): array
+    {
+        $query = "SELECT DISTINCT log_name FROM log";
+        $statement = $this->pdo->query($query);
+        return  $statement->fetchAll(\PDO::FETCH_COLUMN);
+    }
+
+    public function getLogsbyLogNamesInAPeriod(array $parameters)
+    {
+        $whereCondition = "";
+        $logsLength = count($parameters['logsToFollow']);
+        foreach ($parameters['logsToFollow'] as $index => $logName) {
+            $whereCondition .= "log_name = :logNAme" . $index;
+            if ($index < $logsLength - 1) {
+                $whereCondition .= " OR ";
+            }
+        }
+        $query = "SELECT * FROM log WHERE " . $whereCondition;
+        $statement = $this->pdo->prepare($query);
+        foreach ($parameters['logsToFollow'] as $index => $logName) {
+            $statement->bindValue("logNAme" . $index, $logName, \PDO::PARAM_STR);
+        }
+            $statement->execute();
+            return  $statement->fetchAll(\PDO::FETCH_ASSOC);
+    }
 }
