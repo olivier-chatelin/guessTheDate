@@ -11,6 +11,7 @@ class Log
     public const EASTER_EGG = 'Ester_egg found';
     public const PERFECT_ANSWER = 'Perfect answer!!';
     public const NEW_LOG = 'New signup';
+    public const LAST_STAGE = 'Last Stage!!';
 
     private string $logName;
     private ?string $pseudo;

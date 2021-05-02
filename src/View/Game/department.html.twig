@@ -38,7 +38,7 @@
             <div class="carousel-inner">
                 <div class="carousel-item active">
                     <img src="/assets/images/departments/dept{{departments.0.dept_nb}}.jpg" class="d-block w-100" alt="{{departments.0.title}}.">
-                    <a class="btn bg-primary text-secondary" href="/Game/quizz/{{department.dept_nb}}/{{departments.0.dept_nb}}">{{departments.0.title}}.</a>
+                    <a class="btn bg-primary text-secondary" href="/Game/quizz/{{departments.0.dept_nb}}">{{departments.0.title}}.</a>
                     <p class="text-primary">{{departments.0.description}}.</p>
                 </div>
                 {% for department in departments|slice(1,11)%}

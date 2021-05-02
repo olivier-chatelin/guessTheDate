@@ -143,11 +143,13 @@ class AdminController extends AbstractController
     }
     public function graphData()
     {
-        $content = trim(file_get_contents("php://input"));
-        $data = json_decode($content, true);
+//        $content = trim(file_get_contents("php://input"));
+//        $data = json_decode($content, true);
         $logManager = new LogManager();
-        $startDate = new DateTime($data['startDate']);
-        $endDate = new DateTime($data['endDate']);
+//        $startDate = new DateTime($data['startDate']);
+//        $endDate = new DateTime($data['endDate']);
+        $startDate = new DateTime($_POST['startDate']);
+        $endDate = new DateTime($_POST['endDate']);
         $realStartDate = min($startDate, $endDate);
         $realEndDate = max($startDate, $endDate);
         $realEndDate->add(new DateInterval('P1D'));
@@ -179,7 +181,6 @@ class AdminController extends AbstractController
         }
         $response['startDate'] = $realStartDate->format('d/m/Y');
         $response['endDate'] = $realEndDate->format('d/m/Y');
-
-        return json_encode($response);
+        return $this->twig->render('Admin/graph.html.twig', ['data_source' => json_encode($response)]);
     }
 }
