@@ -10,6 +10,7 @@ class GameDealer
     public const RANGE_NORMALIZATION = 100;
     public const MARGIN_DECREASE_STEP = 0.1;
     public const COEFF_SCORE_ACCELERATOR = 0.1;
+    public const LAST_STAGE_MARGIN = 5;
 
     public const COEFF_INIT_MARGIN = 0.25;
 
@@ -25,8 +26,8 @@ class GameDealer
             (1 - self::MARGIN_DECREASE_STEP * ($_SESSION['game']['numQuestion'] - 1));
         $_SESSION['game']['currentErrorMargin'] = intval(round($_SESSION['game']['currentErrorMargin'], -1));
 
-        if ($_SESSION['game']['currentErrorMargin'] <= 0) {
-            $_SESSION['game']['currentErrorMargin'] = 0;
+        if ($_SESSION['game']['currentErrorMargin'] <= self::LAST_STAGE_MARGIN) {
+            $_SESSION['game']['currentErrorMargin'] = self::LAST_STAGE_MARGIN;
             $_SESSION['game']['status'] = 'Last Stage';
             $logRecorder = new LogRecorder();
             $logRecorder->recordLastStage();
