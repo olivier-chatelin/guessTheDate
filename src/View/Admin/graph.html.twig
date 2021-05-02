@@ -6,15 +6,18 @@
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                     <div >
+                        <form action="/admin/graphData" method="post">
                         <label class="text-primary"  for="StartDate">Date début </label>
-                        <input type="date" name="StartDate" id="date-start">
+                        <input type="date" name="startDate" id="date-start" required>
                         <label class="text-primary" for="StartDate">Date fin </label>
-                        <input type="date" name="EndDate" id="date-end">
-                        <span class="btn btn-primary" id="date-submit">Go!</span>
+                        <input type="date" name="endDate" id="date-end" required>
+                        <button class="btn btn-primary" id="date-submit">Go!</button>
                         <span class="alert-danger" id="display-error"></span>
+                        </form>
+                        <h2 class="h2 text-primary" id="graphTitle"></h2>
                     </div>
                 </div>
-                <canvas class=" w-100" id="myChart" width="900" height="380"></canvas>
+                <canvas data-source={{ data_source }} class=" w-100" id="myChart" width="900" height="380"></canvas>
             </main>
         </div>
     </div>

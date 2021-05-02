@@ -19,6 +19,11 @@ class HomeController extends AbstractController
 
     public function index()
     {
+        if (isset($_SESSION['pseudo'])) {
+            if (!empty($_SESSION['pseudo'])) {
+                header('Location: /Game/Department');
+            }
+        }
         $errors = [];
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $formChecker = new FormChecker($_POST);
@@ -39,11 +44,7 @@ class HomeController extends AbstractController
                     $_SESSION['is_admin'] = $userData['is_admin'];
                     $_SESSION['game']['status'] = 'ToStart';
                     $userManager = new UserManager();
-                    if (!isset($_SESSION['avatar'])) {
-                        $_SESSION['avatar'] = 'avatar1.png';
-                    } else {
-                        $_SESSION['avatar'] = $userManager->getAvatarById($_SESSION['id'])['image'];
-                    }
+                    $_SESSION['avatar'] = $userManager->getAvatarById($_SESSION['id'])['image'];
                     $this->logRecorder->recordLogin();
                     header('Location: /Game/Department');
                 } else {

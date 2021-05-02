@@ -61,4 +61,9 @@ class LogRecorder
         $this->log->setLogName(Log::PERFECT_ANSWER);
         $this->logManager->insertNewLog($this->log);
     }
+    public function recordLastStage()
+    {
+        $this->log->setLogName(Log::LAST_STAGE);
+        $this->logManager->insertNewLog($this->log);
+    }
 }
