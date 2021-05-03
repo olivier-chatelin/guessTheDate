@@ -24,10 +24,11 @@
         </div>
     </div>
 
-    <div class="container w-25" >
+    <div class="container w-25" id="img-contain">
         <img class="img-car d-block img-fluid m-auto shadow p-1  bg-primary rounded"  src="{{ objectData['primaryImageSmall'] }}" alt="{{ objectData['title']}} " >
-
-
+        <div class="heart-logo">
+            <i class="far fa-heart"></i>
+        </div>
     </div>
     <div class="container text-center w-75">
         {% if session['game'].status != "Perfect" %}

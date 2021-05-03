@@ -5,6 +5,7 @@
 @import "avatar.css";
 @import "anim.css";
 @import "gameover.css";
+@import "solution.css";
 
 :root{
     --primary-color:#3b1b72;
