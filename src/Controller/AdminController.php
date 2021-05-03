@@ -9,8 +9,8 @@ use App\Model\GameAdminManager;
 use App\Model\LogManager;
 use App\Model\UserManager;
 use App\Service\FormChecker;
-use DateTime;
 use DateInterval;
+use DateTimeImmutable;
 
 class AdminController extends AbstractController
 {
@@ -135,12 +135,14 @@ class AdminController extends AbstractController
     public function graphData()
     {
         $logManager = new LogManager();
-        $startDate = new DateTime($_POST['startDate']);
-        $endDate = new DateTime($_POST['endDate']);
-        $realStartDate = min($startDate, $endDate);
-        $realEndDate = max($startDate, $endDate);
-        $realEndDate->add(new DateInterval('P1D'));
+        $startDate = new DateTimeImmutable($_POST['startDate']);
+        $endDate = new DateTimeImmutable($_POST['endDate']);
+        $realStartDate =  min($startDate, $endDate);
+        $realEndDate =  max($startDate, $endDate);
+        $realEndDate = $realEndDate->modify('+1 day');
 
+        var_dump(($realStartDate)->format('Y/m/d'));
+        var_dump(($realEndDate)->format('Y/m/d'));
         $logins = $logManager->countByLogNameAndByPeriod(
             'login',
             $realStartDate->format('Y/m/d'),
@@ -167,21 +169,34 @@ class AdminController extends AbstractController
             $response['newPlayers'] [$newPlayer['date']] = (int)$newPlayer['total'];
         }
         $response['startDate'] = $realStartDate->format('d/m/Y');
+        $realEndDate = $realEndDate->modify('-1 day');
+
         $response['endDate'] = $realEndDate->format('d/m/Y');
         return $this->twig->render('Admin/graph.html.twig', ['data_source' => json_encode($response)]);
     }
 
     public function tab()
     {
+
         $logsToFollow = [];
         $dates = [];
-        $adminManager = new AdminManager();
-        $allLogsName = $adminManager->getLogsALl();
+        $logManager = new LogManager();
+        $allLogsName = $logManager->getLogsALl();
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
-            $logsToFollow = $adminManager->getLogsbyLogNamesInAPeriod($_POST);
+            $startDate = new DateTimeImmutable($_POST['startDate']);
+            $endDate = new DateTimeImmutable($_POST['endDate']);
+            $realStartDate =  min($startDate, $endDate);
+            $realEndDate =   max($startDate, $endDate);
+            $realEndDate = $realEndDate->modify('+1 day');
+            $_POST['startDate'] = $realStartDate->format('Y/m/d');
+            $_POST['endDate'] = $realEndDate->format('Y/m/d');
+
+            $logsToFollow = $logManager->getLogsbyLogNamesInAPeriod($_POST);
+            $realEndDate = $realEndDate->modify('-1 day');
+
             $dates = [
-                'start' => $_POST['startDate'],
-                'end' => $_POST['endDate'],
+                'start' => $realStartDate->format('d/m/Y'),
+                'end' => $realEndDate->format('d/m/Y'),
             ];
         }
         return $this->twig->render(

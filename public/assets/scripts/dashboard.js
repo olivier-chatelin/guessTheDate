@@ -10,12 +10,11 @@ const addOneDay = date => {
     date.setDate(date.getDate()+1);
     return date;
 }
-const convertData = data =>{
-    setData(data,setXaxe(data));
-}
+
 const setXaxe = data =>{
     let DateA = String2Date(data.startDate);
     let DateB = String2Date(data.endDate);
+    DateB = addOneDay(DateB);
 
     let xAxeValues = [];
     while (DateA.toLocaleDateString() !== DateB.toLocaleDateString()){
