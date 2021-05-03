@@ -1,3 +1,4 @@
+
 const areas = document.getElementsByClassName('area');
 const image = document.getElementById('Image-Maps-Com-image-maps');
 const cardImage = document.getElementById('card-img');
@@ -30,4 +31,6 @@ addBadgeButton.addEventListener('click',()=>{
 })
 
 initSize();
+
+
 
