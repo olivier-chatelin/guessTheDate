@@ -13,7 +13,7 @@ class GameDealer
     public const LAST_STAGE_MARGIN = 5;
 
     public const COEFF_INIT_MARGIN = 0.25;
-
+    public const LAST_STAGE_MARGIN = 5;
     public function getGameErrorMargin(): int
     {
         $deptId = $_SESSION['deptId'];
