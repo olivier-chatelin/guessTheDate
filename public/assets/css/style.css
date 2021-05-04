@@ -109,3 +109,7 @@ a.text-secondary:hover{
     background-color: var(--primary-color);
     color: var(--secondary-color);
 }
+.cloudy{
+    filter:brightness(0%);
+    -webkit-filter: brightness(0%);
+}
