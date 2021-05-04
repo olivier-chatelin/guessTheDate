@@ -26,6 +26,7 @@ function initSize(){
     if (window.innerWidth < 1500) step = (window.innerWidth-1500);
     image.style.transform = `scale(${scale}) translate(${step}px)`;
 }
+
 addBadgeButton.addEventListener('click',()=>{
     uploadForm.classList.toggle('d-none');
 })

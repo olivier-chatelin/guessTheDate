@@ -1,78 +1,82 @@
+<header class="position-relative zindex-tooltip">
+    <div class="container-fluid bg-primary header-content">
+        <nav class="navbar navbar-expand-sm navbar-light bg-primary px-2">
 
-<nav class="navbar navbar-expand-sm navbar-light bg-primary">
+            <a href="/Home/index"><img class="navimg" src="/assets/images/minilogo.png" alt="Logo"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-    <a href="/Home/index"><img src="/assets/images/minilogo.png" width="100" alt="Logo"></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    
-    <div class="d-flex order-sm-1 ml-auto pr-2">
-        <ul class="navbar-nav ml-auto">
-            <li class=" clickable nav-item pr-5" data-toggle="modal" data-target="#exampleModal">
-                <i class="fas fa-dice" ></i>
-            </li>
-        </ul>
+            <div class="d-flex order-sm-1 ml-auto pr-2 align-items-center">
+                <ul class="navbar-nav ml-auto">
+                    <li class=" clickable nav-item pr-5" data-toggle="modal" data-target="#exampleModal">
+                        <i class="fas fa-dice" ></i>
+                    </li>
+                </ul>
 
-        <div class="nav-item dropdown d-flex flex-column align-items-center">
-            <a class="dropdown-toggle text-secondary" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {% if session.avatar is defined %}
-                <img src="/assets/images/{{ session.avatar }}" alt="{{  session.avatar }}" width="50">
-                {% else %}
-                <i class="fas fa-user-circle"></i>
-                {% endif %}
-            </a>
-            <span class="text-light mt-1">{{ session.pseudo }}</span>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="/Avatar/index">Avatar</a>
-                <a class="dropdown-item" href="/Badge/show">Exploits</a>
-                {% if session.is_admin == 1 %}
-                <a class="dropdown-item" href="/Admin/home">Admin</a>
-                {% endif %}
-                {% if session.pseudo %}
-                <a class="dropdown-item" href="/Home/logout">Log Out</a>
-                {% endif %}
+                <div class="nav-item dropdown d-flex flex-column align-items-center">
+                    <a class="dropdown-toggle text-secondary" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {% if session.avatar is defined %}
+                            <img class="navimg" src="/assets/images/{{ session.avatar }}" alt="{{  session.avatar }}">
+                        {% else %}
+                            <i class="fas fa-user-circle"></i>
+                        {% endif %}
+                    </a>
+                    <span class="text-light mt-1">{{ session.pseudo }}</span>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="/Avatar/index">Avatar</a>
+                        <a class="dropdown-item" href="/Badge/show">Exploits</a>
+                        {% if session.is_admin == 1 %}
+                            <a class="dropdown-item" href="/Admin/home">Admin</a>
+                        {% endif %}
+                        {% if session.pseudo %}
+                            <a class="dropdown-item" href="/Home/logout">Log Out</a>
+                        {% endif %}
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <div class="menu">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link h3 text-secondary font-weight-bold" href="#">Galerie</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link h3 text-secondary font-weight-bold" href="/Game/score/1">Scores</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link h3 text-secondary font-weight-bold" href="/Game/department">Play</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Règles du jeu</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            Devine la date de création des oeuvres d'arts qui te sont présentées durant le quizz.
+                        </p>
+                        <p>
+                            Plus tu es proche de la date exacte, plus tu gagnes de points. Mais attention ! Si tu es trop loin, c'est Game Over : le quizz s'arrête !
+                            Et pour corser le tout, la marge d'erreur se réduit au fur et à mesure des bonnes réponses.
+                        </p>
+                        <p>Prêt pour le défi apprenti Indiana Jones ?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <div class="menu">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link h3 text-secondary font-weight-bold" href="#">Galerie</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link h3 text-secondary font-weight-bold" href="/Game/score/1">Scores</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link h3 text-secondary font-weight-bold" href="/Game/department">Play</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Règles du jeu</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>
-                    Devine la date de création des oeuvres d'arts qui te sont présentées durant le quizz.
-                </p>
-                <p>
-                    Plus tu es proche de la date exacte, plus tu gagnes de points. Mais attention ! Si tu es trop loin, c'est Game Over : le quizz s'arrête !
-                    Et pour corser le tout, la marge d'erreur se réduit au fur et à mesure des bonnes réponses.
-                </p>
-                <p>Prêt pour le défi apprenti Indiana Jones ?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
+</header>
