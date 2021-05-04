@@ -3,58 +3,47 @@
     {{ parent() }} - Solution
 {% endblock %}
 {% block content %}
-    <div class="container-fluid game-content game-content">
-
-        <div class="row justify-content-between">
-            <div class="numquestion rounded-circle bg-primary text-light m-2 p-2 text-center" style="width:50px; height:50px">
-                <h2 class="m-auto">{{ session.game.numQuestion }}</h2>
-            </div>
-            <div class="d-flex flex-row justify-content-center">
-                {% if session.game.status == 'Good Answer' or session.game.status == 'Perfect'  %}
-                    <div class="anim-points">+ {{ session.game.nbPoints }}</div>
-                    <div class="anim-coeff">x {{ session.game.coeffQuestion }}</div>
-                {% endif %}
-                {% if session.game.status == 'Perfect' %}
-                    <div class="anim-perfect"> Perfect : x 2</div>
-                {% endif %}
-                {% if session.game.status == 'Game Over' %}
-                    <div class="anim-game-over"> Game Over</div>
-                {% endif %}
-            </div>
-            <div class="totalpoints text-primary text-right mr-3">
-                <h2>Total<br>{{ session.game.currentScore}}</h2>
-            </div>
+    <div class="col-sm-12 row justify-content-between align-items-center">
+        <div class="numquestion rounded-circle bg-primary text-light m-2 p-2 text-center" style="width:50px; height:50px">
+            <h2 class="m-auto">{{ session.game.numQuestion }}</h2>
         </div>
-
         <div class="row justify-content-center">
-            <div class="d-flex flex-column align-items-center">
-                <img class="img-car d-block img-fluid m-auto shadow p-1  bg-primary rounded"  src="{{ objectData['primaryImageSmall'] }}" alt="{{ objectData['title']}} " >
-            </div>
-            <div class="position-relative">
-                <a class="clickable" data-toggle="modal" data-target="#infoModal">
-                    <i class="fas fa-info-circle position-absolute" style="right:10px; bottom:10px"></i>
-                </a>
-            </div>
+            {% if session.game.status == 'Good Answer' or session.game.status == 'Perfect'  %}
+                <div class="anim-points">+ {{ session.game.nbPoints }}</div>
+                <div class="anim-coeff">x {{ session.game.coeffQuestion }}</div>
+            {% endif %}
+            {% if session.game.status == 'Perfect' %}
+                <div class="anim-perfect"> Perfect : x 2</div>
+            {% endif %}
+            {% if session.game.status == 'Game Over' %}
+                <div class="anim-game-over"> Game Over</div>
+            {% endif %}
         </div>
+        <div class="totalpoints text-primary">
+            <h2>Total<br>{{ session.game.currentScore}}</h2>
+        </div>
+    </div>
 
-        <div class="row justify-content-center">
-            <div class="d-flex flex-column p-2">
-                <div class="justify-content-center align-items-center d-flex flex-row">
-                     {% if session['game'].status != "Perfect" %}
-        <h6>Tu as dit {{ session.game.userAnswer }} au lieu de </h6><h3>{{ objectData['objectEndDate'] }}</h3>
+    <div class="container w-25" id="img-contain">
+        <img class="img-car d-block img-fluid m-auto shadow p-1  bg-primary rounded"  src="{{ objectData['primaryImageSmall'] }}" alt="{{ objectData['title']}} " >
+        <div id ="heart-logo">
+            <i class="far fa-heart" ></i>
+        </div>
+    </div>
+    <div class="container text-center w-75">
+        {% if session['game'].status != "Perfect" %}
+            <h6>Tu as dit {{ session.game.userAnswer }} au lieu de </h6><h3>{{ objectData['objectEndDate'] }}</h3>
         {% else %}
-        <h6>Tu as dit {{ session.game.userAnswer }}, Bravo c'est exactement la bonne date</h6>
+            <h6>Tu as dit {{ session.game.userAnswer }}, Bravo c'est exactement la bonne date</h6>
         {% endif %}
-                <div class="d-flex flex-row justify-content-center text-center">
-                    {% if session.game.status == 'Game Over' %}
-                        <a class="btn btn-primary" href="/Game/gameover">Game Over</a>
-                    {% else %}
-                        <a class="btn btn-primary" href="/Game/quizz/{{ session.deptId }}">Question suivante</a>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-
+        </p>
+        <p class="text-break " >
+            {{ objectData['artistDisplayName'] }}
+        <p class="text-break" >
+            <a class=" clickable" data-toggle="modal" data-target="#infoModal">
+                <i class="fas fa-info-circle"></i>
+            </a>
+        </p>
         <div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -80,9 +69,10 @@
                 </div>
             </div>
         </div>
+        {% if session.game.status == 'Game Over' %}
+            <a class="btn btn-primary" href="/Game/gameover">Game Over</a>
+        {% else %}
+            <a class="btn btn-primary" href="/Game/quizz/{{ session.deptId }}">Question suivante</a>
+        {% endif %}
     </div>
-{% endblock %}
-
-{% blockscript %}
-<script src="/assets/scripts/like.js"></script>
 {% endblock %}
