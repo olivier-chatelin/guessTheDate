@@ -68,7 +68,7 @@ class UserManager extends AbstractManager
     }
     public function getIdByPseudo(string $pseudo)
     {
-        $query = "SELECT id FROM user WHERE psuedo = :pseudo";
+        $query = "SELECT id FROM user WHERE pseudo = :pseudo";
         $statement = $this->pdo->prepare($query);
         $statement->bindValue('pseudo', $pseudo, \PDO::PARAM_STR);
         return $statement->fetch(\PDO::FETCH_COLUMN);
