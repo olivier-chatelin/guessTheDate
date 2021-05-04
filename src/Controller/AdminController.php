@@ -140,9 +140,6 @@ class AdminController extends AbstractController
         $realStartDate =  min($startDate, $endDate);
         $realEndDate =  max($startDate, $endDate);
         $realEndDate = $realEndDate->modify('+1 day');
-
-        var_dump(($realStartDate)->format('Y/m/d'));
-        var_dump(($realEndDate)->format('Y/m/d'));
         $logins = $logManager->countByLogNameAndByPeriod(
             'login',
             $realStartDate->format('Y/m/d'),

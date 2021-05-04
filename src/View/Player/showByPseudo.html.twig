@@ -1,5 +1,7 @@
 {% extends 'layout.html.twig' %}
-
+{% block title %}
+    {{ parent() }} - Exploits
+{% endblock %}
 {% block content %}
     <div class="container">
         <h2 class="text-primary h2"> Exploits de {{ pseudo }}</h2>
