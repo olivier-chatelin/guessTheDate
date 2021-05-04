@@ -11,7 +11,7 @@ class AvatarController extends AbstractController
     {
         $avatarManager = new AvatarManager();
         $avatars = $avatarManager->selectAll();
-        return $this->twig->render('Avatar/show.html.twig', [
+        return $this->twig->render('Avatar/index.html.twig', [
             'avatars' => $avatars
             ]);
     }
