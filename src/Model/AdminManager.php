@@ -44,7 +44,7 @@ class AdminManager extends AbstractManager
             $scores[$score['title']] =  $score['best_score'];
         }
         $query4 =
-            "SELECT id,image FROM badge
+            "SELECT id,image,name,description FROM badge
             WHERE image NOT IN(
             SELECT  b.image FROM user u
             JOIN user_badge ub ON u.id = ub.user_id 

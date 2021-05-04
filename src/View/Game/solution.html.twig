@@ -40,9 +40,11 @@
         <div class="row justify-content-center">
             <div class="d-flex flex-column p-2">
                 <div class="justify-content-center align-items-center d-flex flex-row">
-                    <h6>Tu as dit {{ session.game.userAnswer }} au lieu de   </h6>
-                    <h3> {{ objectData['objectEndDate'] }}</h3>
-                </div>
+                     {% if session['game'].status != "Perfect" %}
+        <h6>Tu as dit {{ session.game.userAnswer }} au lieu de </h6><h3>{{ objectData['objectEndDate'] }}</h3>
+        {% else %}
+        <h6>Tu as dit {{ session.game.userAnswer }}, Bravo c'est exactement la bonne date</h6>
+        {% endif %}
                 <div class="d-flex flex-row justify-content-center text-center">
                     {% if session.game.status == 'Game Over' %}
                         <a class="btn btn-primary" href="/Game/gameover">Game Over</a>
@@ -52,6 +54,7 @@
                 </div>
             </div>
         </div>
+
         <div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">

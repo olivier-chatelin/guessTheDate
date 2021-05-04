@@ -3,6 +3,7 @@
     {{ parent() }} - Quizz
 {% endblock %}
 {% block content %}
+
     <div class="container-fluid game-content">
 
         <div class="row justify-content-between">
@@ -15,6 +16,7 @@
             <div class="totalpoints text-primary text-right mr-3">
                 <h2>Total<br>{{ session.game.currentScore}}</h2>
             </div>
+
         </div>
 
         <div class="row justify-content-center align-items-center">
@@ -55,7 +57,6 @@
                 </a>
             {%  endif %}
         </div>
-
 
         <div class="row justify-content-center">
             <div class="col-sm-6 col-md-4 text-center form-quizz ">

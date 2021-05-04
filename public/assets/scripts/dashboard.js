@@ -1,4 +1,3 @@
-
 const String2Date = response =>{
     let dateItems = response.split("/");
     let year = parseInt(dateItems[2]);
@@ -11,12 +10,11 @@ const addOneDay = date => {
     date.setDate(date.getDate()+1);
     return date;
 }
-const convertData = data =>{
-    setData(data,setXaxe(data));
-}
+
 const setXaxe = data =>{
     let DateA = String2Date(data.startDate);
     let DateB = String2Date(data.endDate);
+    DateB = addOneDay(DateB);
 
     let xAxeValues = [];
     while (DateA.toLocaleDateString() !== DateB.toLocaleDateString()){
@@ -27,7 +25,6 @@ const setXaxe = data =>{
     return xAxeValues;
 }
 const setData = (data , xAxe)=>{
-    console.log(data);
     let loginData = [];
     let gameData = [];
     let newPLayerData = [];
@@ -36,9 +33,6 @@ const setData = (data , xAxe)=>{
         (data['games'][date])? gameData.push(data['games'][date]):gameData.push(0);
         (data['newPlayers'][date])? newPLayerData.push(data['newPlayers'][date]):newPLayerData.push(0);
     }
-    console.log(loginData);
-    console.log(gameData);
-    console.log(newPLayerData);
     return {
         loginData:loginData,
         gameData:gameData,
@@ -105,37 +99,9 @@ const drawGraph = data => {
         }
     })
 }
-
-
-
-const ctx = document.getElementById('myChart')
-const dateSubmit = document.getElementById('date-submit');
-const startDate = document.getElementById('date-start');
-const endDate = document.getElementById('date-end');
-const displayError = document.getElementById('display-error');
-
-dateSubmit.addEventListener('click',(e) => {
-    // e.preventDefault();
-    if (!startDate.value || !endDate.value) {
-        displayError.innerHTML = 'Veuillez entrer une date valide';
-    } else {
-        displayError.innerHTML = '';
-        const dateData = {
-            startDate :startDate.value,
-            endDate:endDate.value
-        }
-
-        const options = {
-            method: 'POST',
-            body: JSON.stringify(dateData),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }
-            fetch('/Admin/graphData',options)
-            .then(response => response.json())
-            .then(data => drawGraph(data));
-
-    }
-})
+const ctx = document.getElementById('myChart');
+const title = document.getElementById('graphTitle');
+const dataSource = JSON.parse(ctx.dataset.source);
+title.innerHTML = `Période du ${dataSource.startDate} au ${dataSource.endDate}`
+drawGraph(dataSource);
 
