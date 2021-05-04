@@ -51,7 +51,7 @@ class AvatarController extends AbstractController
             };
             header('Location:/avatar/index');
         }
-        return $this->twig->render('Avatar/show.html.twig', [
+        return $this->twig->render('Avatar/index.html.twig', [
             'user' => $user,
         ]);
     }
