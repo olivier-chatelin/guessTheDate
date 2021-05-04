@@ -1,0 +1,11 @@
+.heart-logo{
+    position: absolute;
+    bottom: 6px;
+    right: 26px;
+    font-size: 40px;
+    color: var(--secondary-color);
+}
+
+#img-contain {
+    position: relative;
+}
