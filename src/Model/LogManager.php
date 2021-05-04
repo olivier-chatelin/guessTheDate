@@ -52,7 +52,10 @@ class LogManager extends AbstractManager
                 $whereCondition .= " OR ";
             }
         }
-        $query = "SELECT * FROM log WHERE " . $whereCondition . " AND created_at BETWEEN :startDate AND :endDate ";
+        $query = "SELECT * FROM log 
+                WHERE " . $whereCondition . " 
+                AND created_at BETWEEN :startDate 
+                AND :endDate ORDER BY created_at ASC";
         $statement = $this->pdo->prepare($query);
         foreach ($parameters['logsToFollow'] as $index => $logName) {
             $statement->bindValue("logNAme" . $index, $logName, \PDO::PARAM_STR);

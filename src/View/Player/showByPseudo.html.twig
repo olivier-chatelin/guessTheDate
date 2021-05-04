@@ -1,0 +1,43 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <div class="container">
+        <h2 class="text-primary h2"> Exploits de {{ pseudo }}</h2>
+        <h3 class="text-primary h3"> Ses Badges</h3>
+        <div class="row">
+        {% for badge in badges %}
+            <div class="card col-6 col-md-4 col-lg-3" style="width: 18rem;">
+                <img src="/assets/images/badges/{{ badge.image }}" class="card-img-top" alt="{{ badge.name }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ badge.name }}</h5>
+                    <p class="card-text">{{ badge.description }}</p>
+                </div>
+            </div>
+            {% else %}
+            <p>Pas de badge pour le moment</p>
+        {% endfor %}
+        </div>
+        <h3 class="text-primary h3"> Ses Scores</h3>
+        <div class="row justify-content-center">
+            <table class="table " >
+                <thead>
+                <tr class="bg-primary text-secondary">
+                    <td> Département</td>
+                    <td>Meilleur Score</td>
+                </tr>
+                </thead>
+                <tbody>
+                {% for score in scores %}
+                    <tr>
+                        <td>{{ score.title }}</td>
+                        <td>{{ score.best_score }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+
+    </div>
+
+{% endblock %}
