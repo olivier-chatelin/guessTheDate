@@ -1,3 +1,22 @@
 .menu a:hover {
     border-bottom: 3px solid var(--light-color);
 }
+
+.menu a {
+    border-bottom: 3px solid var(--primary-color);
+}
+
+.avatar-img :hover{
+    box-shadow: 10px 5px 5px var(--primary-color);
+    text-decoration: none;
+}
+
+nav a:hover {
+    text-decoration: none;
+}
+
+.navimg {
+    max-width: 50px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
