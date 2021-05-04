@@ -35,4 +35,32 @@ class LogManager extends AbstractManager
         $statement->execute();
         return  $statement->fetchAll(\PDO::FETCH_ASSOC);
     }
+    public function getLogsALl(): array
+    {
+        $query = "SELECT DISTINCT log_name FROM log";
+        $statement = $this->pdo->query($query);
+        return  $statement->fetchAll(\PDO::FETCH_COLUMN);
+    }
+
+    public function getLogsbyLogNamesInAPeriod(array $parameters)
+    {
+        $whereCondition = "";
+        $logsLength = count($parameters['logsToFollow']);
+        foreach ($parameters['logsToFollow'] as $index => $logName) {
+            $whereCondition .= "log_name = :logNAme" . $index;
+            if ($index < $logsLength - 1) {
+                $whereCondition .= " OR ";
+            }
+        }
+        $query = "SELECT * FROM log WHERE " . $whereCondition . " AND created_at BETWEEN :startDate AND :endDate ";
+        $statement = $this->pdo->prepare($query);
+        foreach ($parameters['logsToFollow'] as $index => $logName) {
+            $statement->bindValue("logNAme" . $index, $logName, \PDO::PARAM_STR);
+        }
+            $statement->bindValue("startDate", $_POST['startDate'], \PDO::PARAM_STR);
+            $statement->bindValue("endDate", $_POST['endDate'], \PDO::PARAM_STR);
+
+        $statement->execute();
+        return  $statement->fetchAll(\PDO::FETCH_ASSOC);
+    }
 }

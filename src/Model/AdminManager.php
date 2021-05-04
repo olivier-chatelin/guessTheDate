@@ -44,7 +44,7 @@ class AdminManager extends AbstractManager
             $scores[$score['title']] =  $score['best_score'];
         }
         $query4 =
-            "SELECT id,image FROM badge
+            "SELECT id,image,name,description FROM badge
             WHERE image NOT IN(
             SELECT  b.image FROM user u
             JOIN user_badge ub ON u.id = ub.user_id 
@@ -211,30 +211,5 @@ class AdminManager extends AbstractManager
         $statement = $this->pdo->prepare("DELETE  FROM badge WHERE image =:image");
         $statement->bindValue('image', $image, \PDO::PARAM_STR);
         $statement->execute();
-    }
-    public function getLogsALl(): array
-    {
-        $query = "SELECT DISTINCT log_name FROM log";
-        $statement = $this->pdo->query($query);
-        return  $statement->fetchAll(\PDO::FETCH_COLUMN);
-    }
-
-    public function getLogsbyLogNamesInAPeriod(array $parameters)
-    {
-        $whereCondition = "";
-        $logsLength = count($parameters['logsToFollow']);
-        foreach ($parameters['logsToFollow'] as $index => $logName) {
-            $whereCondition .= "log_name = :logNAme" . $index;
-            if ($index < $logsLength - 1) {
-                $whereCondition .= " OR ";
-            }
-        }
-        $query = "SELECT * FROM log WHERE " . $whereCondition;
-        $statement = $this->pdo->prepare($query);
-        foreach ($parameters['logsToFollow'] as $index => $logName) {
-            $statement->bindValue("logNAme" . $index, $logName, \PDO::PARAM_STR);
-        }
-            $statement->execute();
-            return  $statement->fetchAll(\PDO::FETCH_ASSOC);
     }
 }

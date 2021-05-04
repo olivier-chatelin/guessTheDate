@@ -1,0 +1,55 @@
+.game-content{
+    height : calc(100vh - 150px);
+}
+
+.main-content{
+    min-height : calc(100vh - 150px);
+}
+
+.card-aside {
+    position:fixed;
+    z-index : 1;
+    width:15vw;
+}
+
+.carousel-control-next, .carousel-control-prev {
+    filter: invert(100%);
+}
+.img-car{
+    height: 50vh;
+    z-index: -1;
+}
+
+.answer-form{
+    line-height: 3;
+    width:100px;
+}
+
+.div-podium{
+    background-image: url("/assets/images/laurier.png");
+    background-size: cover;
+}
+
+.table-secondary{
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+}
+
+.image-clignotante {
+    animation-duration: .8s;
+    animation-name: clignoter;
+    animation-iteration-count: infinite;
+    transition: none;
+}
+
+@keyframes clignoter {
+    0% {
+        opacity: 1;
+    }
+    40% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}

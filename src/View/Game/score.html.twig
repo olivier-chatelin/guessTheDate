@@ -3,8 +3,7 @@
     {{ parent() }} - Score
 {% endblock %}
 {% block content %}
-
-    <div class="container  img-car mt-5" >
+    <div class="container main-content mt-5" >
         <div class="row h-100 border-bottom border-dark">
             <div class="col-4 d-flex flex-column justify-content-end align-items-center  text-primary h-100">
                 {% if scores|length > 1 %}
@@ -39,7 +38,7 @@
             <div class="input-group">
                 <select name = "idDepartmentSelected" class="custom-select w-50" id="inputGroupSelect04" aria-label="Example select with button addon">
                     {% for department in  departments|slice(0,12) %}
-                    {% set selected = ''%}
+                        {% set selected = ''%}
                         {% if department.id ==  idSelected %}
                             {{ department.id }} = {{ idSelected }}
                             {% set selected = 'selected'%}
@@ -64,8 +63,6 @@
                     </tr>
 
                 {% endfor %}
-
-
             </tbody>
         </table>
     </div>
