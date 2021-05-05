@@ -10,6 +10,7 @@
 
 namespace App\Controller;
 
+use App\Model\LogManager;
 use App\Service\LogRecorder;
 use Twig\Environment;
 use Twig\Extension\DebugExtension;
@@ -39,5 +40,12 @@ abstract class AbstractController
         $this->twig->addExtension(new DebugExtension());
         $this->twig->addGlobal('session', $_SESSION);
         $this->logRecorder = new LogRecorder();
+        $logManager = new LogManager();
+        $commentsData = $logManager->getLast5PublicLogs();
+        $comments = [];
+        foreach ($commentsData as $commentsDatum) {
+            $comments[] = $commentsDatum['pseudo'] . ' ' . $commentsDatum['associated_text'];
+        }
+        $this->twig->addGlobal('comments', $comments);
     }
 }

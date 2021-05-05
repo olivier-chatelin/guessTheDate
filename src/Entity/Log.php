@@ -12,11 +12,15 @@ class Log
     public const PERFECT_ANSWER = 'Perfect answer!!';
     public const NEW_LOG = 'New signup';
     public const LAST_STAGE = 'Last Stage!!';
+    public const CHEAT = 'is trying to cheat';
+    public const NEW_FIRST = 'New First!!!';
 
     private string $logName;
     private ?string $pseudo;
     private ?int $departmentNumber;
     protected bool $isAnomaly = false;
+    protected bool $isPublic = false;
+    protected ?string $associatedText = "";
 
     public function __construct($logName = self::UNKNOWN_LOG)
     {
@@ -66,5 +70,26 @@ class Log
     {
         $this->isAnomaly = $isAnomaly;
         return $this;
+    }
+
+    public function isPublic(): bool
+    {
+        return $this->isPublic;
+    }
+
+    public function setIsPublic(bool $isPublic): void
+    {
+        $this->isPublic = $isPublic;
+    }
+
+    public function getAssociatedText(): ?string
+    {
+        return $this->associatedText;
+    }
+
+
+    public function setAssociatedText(?string $associatedText): void
+    {
+        $this->associatedText = $associatedText;
     }
 }

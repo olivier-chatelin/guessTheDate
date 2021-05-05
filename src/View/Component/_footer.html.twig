@@ -1,6 +1,19 @@
 <footer>
     <div class="container-fluid">
         <div class="row bg-light justify-content-end align-items-center" style="height:50px">
+            <div id="carouselExampleSlidesOnly" class="carousel slide w-50 " data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        {{ comments[0] }}
+                    </div>
+                    {% for i in 1..4 %}
+                        <div class="carousel-item">
+                            {{ comments[ i ] }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+            </div>
             Follow Us
             <a class="mx-2" href="https://www.facebook.com/metmuseum" target="_blank"><i class="fab fa-facebook-square footer-fa" ></i></a>
             <a class="mx-2" href="https://twitter.com/metmuseum" target="_blank"><i class="fab fa-twitter footer-fa"></i></a>

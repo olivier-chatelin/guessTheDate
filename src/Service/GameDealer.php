@@ -55,7 +55,6 @@ class GameDealer
             $_SESSION['game']['nbPoints'] = 0;
             $_SESSION['game']['status'] = 'Game Over';
             $logRecorder = new LogRecorder();
-
             $logRecorder->recordEndOfGame();
         } else {
             $_SESSION['game']['status'] = 'Good Answer';

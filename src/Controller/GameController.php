@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use App\Model\AbstractManager;
 use App\Model\DepartmentManager;
 use App\Model\ScoreManager;
 use App\Service\ConnexionAPI;
 use App\Service\GameDealer;
+use App\Service\LogRecorder;
 
 class GameController extends AbstractController
 {
@@ -53,6 +55,7 @@ class GameController extends AbstractController
     {
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
             if ($_SESSION['game']['acArt'] !== $_POST['objectId']) {
+                $this->logRecorder->recordIsCheating();
                 header('Location: /Error/cheater');
             }
             $_SESSION['game']['ac'] = 0;
@@ -67,6 +70,12 @@ class GameController extends AbstractController
 
             if ($_SESSION['game']['status'] === 'Game Over') {
                 $scoreManager = new ScoreManager();
+                $departmentManager = new DepartmentManager();
+                $deptId = $departmentManager->selectOneByDeptId($_SESSION['deptId'])['id'];
+                $highestScoreRecorded = 0;
+                if ($scoreManager->getScoresByDepartment($deptId)) {
+                    $highestScoreRecorded = (int)$scoreManager->getScoresByDepartment($deptId)[0]['best_score'];
+                }
                 $scores = $scoreManager->checkScoreAlreadyExists($_SESSION['id'], $_SESSION['deptId']);
                 if (empty($scores)) {
                     $scoreManager = new ScoreManager();
@@ -82,6 +91,9 @@ class GameController extends AbstractController
                         $_SESSION['deptId'],
                         $_SESSION['game']['currentScore']
                     );
+                }
+                if ($_SESSION['game']['currentScore'] > $highestScoreRecorded) {
+                    $this->logRecorder->recordNewFirst();
                 }
             }
 
