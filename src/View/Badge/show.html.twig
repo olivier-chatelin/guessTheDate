@@ -1,5 +1,7 @@
 {% extends 'layout.html.twig' %}
-
+{% block title %}
+    {{ parent() }} - Badges
+{% endblock %}
 {% block content %}
     <div class="container">
 
@@ -33,6 +35,25 @@
                 <p>Tu as tout gagné Bravo</p>
             {% endfor %}
         </div>
-    </div>
+    <div class="row justify-content-center">
+        <table class="table w-75" >
+            <thead>
+                <tr class="bg-primary text-secondary">
+                    <td> Département</td>
+                    <td>Meilleur Score</td>
+                </tr>
+            </thead>
+           <tbody>
+            {% for score in scores %}
+                <tr>
+                    <td>{{ score.title }}</td>
+                    <td>{{ score.best_score }}</td>
+                </tr>
+            {% endfor %}
+           </tbody>
+        </table>
+</div>
+</div>
+
 
 {% endblock %}

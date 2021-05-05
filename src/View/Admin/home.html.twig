@@ -1,5 +1,7 @@
 {% extends 'layout.html.twig' %}
-
+{% block title %}
+    {{ parent() }} - Admin
+{% endblock %}
 {% block content %}
     <div class="container">
         <h2 class="mt-5 text-primary">Contrôle utilisateur</h2>
@@ -96,7 +98,6 @@
             </div>
         </div>
     </div>
-
-
     </div>
+    <script src="/assets/scripts/upload.js"></script>
 {% endblock  %}

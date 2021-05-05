@@ -44,6 +44,7 @@ class GameController extends AbstractController
             $_SESSION['game']['acArt'] = $pickedObject->getObjectId();
             $_SESSION['game']['ac'] = 1;
         }
+        $_SESSION['game']['HavePointsBeenScored'] = false;
         $this->twig->addGlobal('session', $_SESSION);
         return $this->twig->render('Game/quizz.html.twig', ['pickedObject' => $pickedObject]);
     }
@@ -59,8 +60,11 @@ class GameController extends AbstractController
             $objectData = $connexionApi->showObjectById(intval($_POST['objectId']));
             $gameDealer = new GameDealer();
             $gameDealer->scoreByAnswer($_POST['answer'], $objectData['objectEndDate']);
-            $this->twig->addGlobal('session', $_SESSION);
-            $_SESSION['game']['currentScore'] = $_SESSION['game']['currentScore'] + $_SESSION['game']['nbPoints'];
+
+            if ($_SESSION['game']['HavePointsBeenScored'] === false) {
+                $_SESSION['game']['currentScore'] = $_SESSION['game']['currentScore'] + $_SESSION['game']['nbPoints'];
+            }
+
             if ($_SESSION['game']['status'] === 'Game Over') {
                 $scoreManager = new ScoreManager();
                 $scores = $scoreManager->checkScoreAlreadyExists($_SESSION['id'], $_SESSION['deptId']);
@@ -82,6 +86,7 @@ class GameController extends AbstractController
             }
 
             $this->twig->addGlobal('session', $_SESSION);
+            $_SESSION['game']['HavePointsBeenScored'] = true;
             return $this->twig->render('Game/solution.html.twig', ['objectData' => $objectData]);
         }
         header('Location: /');
