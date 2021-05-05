@@ -25,7 +25,7 @@
                 <tr>
                     <td>Avatar</td>
                     <td><img src="/assets/images/{{ user_data.profileInfo.image }}"  alt="image {{ user_data.profileInfo.pseudo }}" width="50px">
-                        <i class="ml-2 fas fa-pen fas-tab" ></i>
+                        <i class="ml-2 fas fa-pen fas-tab clickable" data-toggle="modal" data-target="#avatarsModal"></i>
                     </td>
                 </tr>
                 <tr>
@@ -48,7 +48,7 @@
                         {% else %}
                             Non
                         {% endif %}
-                        <i class="ml-2 fas fa-pen fas-tab " ></i></td>
+                        <a href="/Admin/isAdmin/{{ user_data.profileInfo.pseudo }}"><i class="ml-2 fas fa-pen fas-tab clickable" ></i></a></td>
                     </td>
                 </tr>
                 <tr>
