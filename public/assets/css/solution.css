@@ -2,8 +2,17 @@
     position: absolute;
     bottom: 6px;
     right: 26px;
-    font-size: 40px;
+
+}
+
+.clicked{
+    color : red;
+    font-size: 35px;
+}
+
+.unclicked{
     color: var(--primary-color);
+    font-size: 30px;
 }
 
 #img-contain {

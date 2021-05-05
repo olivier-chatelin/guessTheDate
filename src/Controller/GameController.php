@@ -82,7 +82,11 @@ class GameController extends AbstractController
             }
 
             $this->twig->addGlobal('session', $_SESSION);
-            return $this->twig->render('Game/solution.html.twig', ['objectData' => $objectData]);
+            $stringObjectData = json_encode($objectData);
+            return $this->twig->render('Game/solution.html.twig', [
+                'objectData' => $objectData,
+                'stringObjectData' => $stringObjectData
+            ]);
         }
         header('Location: /');
     }

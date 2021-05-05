@@ -3,6 +3,7 @@
 @import "header.css";
 @import "anim.css";
 @import "solution.css";
+@import "gallery.css";
 
 header {
     z-index: 1000;

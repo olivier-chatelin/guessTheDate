@@ -26,8 +26,8 @@
 
     <div class="container w-25" id="img-contain">
         <img class="img-car d-block img-fluid m-auto shadow p-1  bg-primary rounded"  src="{{ objectData['primaryImageSmall'] }}" alt="{{ objectData['title']}} " >
-        <div id ="heart-logo">
-            <i class="far fa-heart" ></i>
+        <div>
+            <i data-tosend="{{ stringObjectData }}" class="far fa-heart unclicked" id ="heart-logo"></i>
         </div>
     </div>
     <div class="container text-center w-75">

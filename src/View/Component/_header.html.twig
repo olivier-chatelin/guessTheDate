@@ -17,7 +17,7 @@
                 <div class="nav-item dropdown d-flex flex-column align-items-center">
                     <a class="dropdown-toggle text-secondary" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {% if session.avatar is defined %}
-                            <img class="navimg" src="/assets/images/{{ session.avatar }}" alt="{{  session.avatar }}">
+                            <img class="navimg" src="/assets/images/avatars/{{ session.avatar }}" alt="{{  session.avatar }}">
                         {% else %}
                             <i class="fas fa-user-circle"></i>
                         {% endif %}
