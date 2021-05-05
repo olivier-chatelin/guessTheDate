@@ -7,6 +7,11 @@
     --dark-color:#333;
 }
 
+body{
+    overflow-x: hidden;
+}
+
+
 .fas{
     font-size: 30px;
     color: var(--secondary-color);
