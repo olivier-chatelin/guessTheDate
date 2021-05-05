@@ -5,6 +5,7 @@
 
 header {
     position:relative;
+    z-index:1070;
 }
 
 .header-content{
