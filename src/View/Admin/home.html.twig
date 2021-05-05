@@ -34,6 +34,7 @@
 
         <div class="row">
             {% for id, badge in badges%}
+                {% set deletable = 0 %}
                 <div  class="card col-6 col-md-3" style="width: 18rem;">
                     <img src="/assets/images/badges/{{ badge.image }}" class="card-img-top" alt="...">
                     <div class="card-body">
