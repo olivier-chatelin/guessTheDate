@@ -73,10 +73,10 @@ class GameController extends AbstractController
             if ($_SESSION['game']['HavePointsBeenScored'] === false) {
                 $_SESSION['game']['currentScore'] = $_SESSION['game']['currentScore'] + $_SESSION['game']['nbPoints'];
             }
-            $shouldReceivedTheBadge = 0;
+            $shouldReceivedBadge = 0;
             if ($_SESSION['game']['status'] === 'Perfect') {
                 $badgeDealer = new BadgeDealer();
-                $shouldReceivedTheBadge = $badgeDealer->CheckFirstPerfect($_SESSION['id'],self::BADGE_PERFECT);
+                $shouldReceivedBadge = $badgeDealer->checkFirstPerfect($_SESSION['id'], self::BADGE_PERFECT);
             }
 
             if ($_SESSION['game']['status'] === 'Game Over') {
@@ -103,7 +103,7 @@ class GameController extends AbstractController
             $_SESSION['game']['HavePointsBeenScored'] = true;
             return $this->twig->render('Game/solution.html.twig', [
                 'objectData' => $objectData,
-                'shouldReceiveTheBadge' => $shouldReceivedTheBadge ]);
+                'shouldReceiveBadge' => $shouldReceivedBadge ]);
         }
         header('Location: /');
     }
