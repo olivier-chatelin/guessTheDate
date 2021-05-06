@@ -37,6 +37,11 @@ class GameController extends AbstractController
 
     public function quizz($departmentId): string
     {
+        $departmentManager = new DepartmentManager();
+        $availableIds = $departmentManager->getAllDepartmentNumbers();
+        if (!in_array($departmentId, $availableIds)) {
+            return $this->twig->render('/Errors/404.html.twig');
+        }
 
         if (($_SESSION['game']['status'] === 'ToStart') || ($_SESSION['game']['status'] === 'Game Over')) {
             $_SESSION['deptId'] = intval($departmentId);
