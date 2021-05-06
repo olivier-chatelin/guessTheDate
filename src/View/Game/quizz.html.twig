@@ -4,7 +4,7 @@
 {% endblock %}
 {% block content %}
 
-    <div class="container-fluid game-content">
+    <div class="container-fluid game-content" xmlns="">
 
         <div class="row justify-content-between">
             <div class="numquestion rounded-circle bg-primary text-light m-2 p-2 text-center" style="width:50px; height:50px">
@@ -15,6 +15,7 @@
             </div>
             <div class="totalpoints text-primary text-right mr-3">
                 <h2>Total<br>{{ session.game.currentScore}}</h2>
+
             </div>
 
         </div>
@@ -61,7 +62,7 @@
         <div class="row justify-content-center">
             <div class="col-sm-6 col-md-4 text-center form-quizz ">
                 <form action="/Game/solution" method="post">
-                    <input class="answer-form" name="answer" type="number" value="" minlength="4" maxlength="5" autofocus required class="mt-1">
+                    <input class="answer-form" id="answer" name="answer" type="number" value="" minlength="4" maxlength="5" autofocus required class="mt-1">
                     <input name="objectId" type="hidden" value="{{ pickedObject.objectId}}" >
                     <button type="submit" class="btn btn-outline-primary" >
                         <i class="fas fa-check"></i>
@@ -70,4 +71,6 @@
             </div>
         </div>
     </div>
+
+<script src="/assets/scripts/answer.js"></script>
 {% endblock %}

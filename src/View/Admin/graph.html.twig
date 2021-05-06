@@ -1,5 +1,7 @@
 {% extends 'layout.html.twig' %}
-
+{% block title %}
+    {{ parent() }} - stats
+{% endblock %}
 {% block content %}
     <div class="container-fluid">
         <div class="row">
@@ -21,4 +23,6 @@
             </main>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/assets/scripts/dashboard.js"></script>
 {% endblock  %}

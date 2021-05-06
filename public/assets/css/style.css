@@ -5,8 +5,8 @@
 @import "solution.css";
 
 header {
-    z-index: 1000;
     position:relative;
+    z-index:1070;
 }
 
 .header-content{
@@ -51,4 +51,10 @@ a.text-secondary:hover{
 .cloudy{
     filter:brightness(0%);
     -webkit-filter: brightness(0%);
+}
+.carousel-control-next, .carousel-control-prev{
+    display: block;
+    width:25vw;
+    height: 0vh;
+    top:50vh
 }

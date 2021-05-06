@@ -5,7 +5,7 @@
 .clicked{
     position: absolute;
     bottom: 10px;
-    left: 70px;
+    left: 10px;
     z-index: 1;
     color : var(--primary-color);
     font-size: 2em;
@@ -14,7 +14,7 @@
 .unclicked{
     position: absolute;
     bottom: 10px;
-    left: 70px;
+    left: 10px;
     z-index: 2;
     color: var(--secondary-color);
     font-size: 2em;

@@ -1,5 +1,7 @@
 {% extends 'layout.html.twig' %}
-
+{% block title %}
+    {{ parent() }} - Admin
+{% endblock %}
 {% block content %}
     <div class="container">
         <h2 class="mt-5 text-primary">Contrôle utilisateur</h2>
@@ -32,6 +34,7 @@
 
         <div class="row">
             {% for id, badge in badges%}
+                {% set deletable = 0 %}
                 <div  class="card col-6 col-md-3" style="width: 18rem;">
                     <img src="/assets/images/badges/{{ badge.image }}" class="card-img-top" alt="...">
                     <div class="card-body">
@@ -96,7 +99,6 @@
             </div>
         </div>
     </div>
-
-
     </div>
+    <script src="/assets/scripts/upload.js"></script>
 {% endblock  %}

@@ -1,10 +1,7 @@
-
 const areas = document.getElementsByClassName('area');
 const image = document.getElementById('Image-Maps-Com-image-maps');
 const cardImage = document.getElementById('card-img');
 const cardText = document.getElementById('card-text');
-const addBadgeButton = document.getElementById('addBadgeButton');
-const uploadForm = document.getElementById('uploadForm');
 
 
 for (const area of areas) {
@@ -27,9 +24,7 @@ function initSize(){
     image.style.transform = `scale(${scale}) translate(${step}px)`;
 }
 
-addBadgeButton.addEventListener('click',()=>{
-    uploadForm.classList.toggle('d-none');
-})
+
 
 initSize();
 
