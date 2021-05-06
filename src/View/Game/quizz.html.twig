@@ -4,7 +4,7 @@
 {% endblock %}
 {% block content %}
 
-    <div class="container-fluid game-content">
+    <div class="container-fluid game-content" xmlns="">
 
         <div class="row justify-content-between">
             <div class="numquestion rounded-circle bg-primary text-light m-2 p-2 text-center" style="width:50px; height:50px">
@@ -15,6 +15,7 @@
             </div>
             <div class="totalpoints text-primary text-right mr-3">
                 <h2>Total<br>{{ session.game.currentScore}}</h2>
+
             </div>
 
         </div>
@@ -70,5 +71,6 @@
             </div>
         </div>
     </div>
-    <script src="/assets/scripts/answer.js"></script>
+    
+<script src="/assets/scripts/answer.js"></script>
 {% endblock %}
