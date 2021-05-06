@@ -98,12 +98,14 @@ class GameController extends AbstractController
                     );
                 }
             }
-
             $this->twig->addGlobal('session', $_SESSION);
+            $stringObjectData = json_encode($objectData);
             $_SESSION['game']['HavePointsBeenScored'] = true;
             return $this->twig->render('Game/solution.html.twig', [
                 'objectData' => $objectData,
-                'shouldReceiveBadge' => $shouldReceivedBadge ]);
+                'stringObjectData' => $stringObjectData,
+                'shouldReceiveBadge' => $shouldReceivedBadge
+            ]);
         }
         header('Location: /');
     }

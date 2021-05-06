@@ -1,0 +1,26 @@
+{% extends 'layout.html.twig' %}
+{% block title %}
+{{ parent() }} - Galerie
+{% endblock %}
+{% block content %}
+    <div class="container mt-5 mb-5">
+        <div class="row">
+            {% for painting in paintings %}
+                <div class=" col-sm-8  col-md-4 col-lg-3 card border-0 ">
+                    <img src="{{ painting.image }}" class="card-img-top shadow p-2  bg-primary rounded " alt="{{ painting.title }}">
+                    <div class="card-body text-center">
+                        <p class="card-title h3">{{ painting.title }}</p>
+                        <p class="card-text h4">
+                            {{ painting.artist_name }} <br>
+                            {{ painting.end_date }}
+                        </p>
+                    </div>
+                </div>
+            {% else %}
+                <p>
+                    Tu n'as pas encore liké d'oeuvre
+                </p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
