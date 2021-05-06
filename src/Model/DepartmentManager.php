@@ -30,4 +30,10 @@ class DepartmentManager extends AbstractManager
         $statement->execute();
         return $statement->fetch();
     }
+
+    public function getAllDepartmentNumbers(): array
+    {
+        $statement = $this->pdo->query('SELECT dept_nb FROM department');
+        return $statement ->fetchAll(\PDO::FETCH_COLUMN);
+    }
 }
