@@ -23,6 +23,9 @@
             </main>
         </div>
     </div>
+{% endblock  %}
+{% block javascript %}
+    {{ parent() }}
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="/assets/scripts/dashboard.js"></script>
-{% endblock  %}
+{% endblock %}
