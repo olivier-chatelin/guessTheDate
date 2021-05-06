@@ -5,10 +5,10 @@
 {% block content %}
     <div class="container-fluid game-content game-content">
         <div class="row justify-content-between">
-            <div class="col-sm-1 numquestion rounded-circle bg-primary text-light m-2 p-2 text-center" style="width:50px; height:50px">
+            <div class="numquestion rounded-circle bg-primary text-light m-2 p-2 text-center" style="width:50px; height:50px">
                 <h2 class="m-auto">{{ session.game.numQuestion }}</h2>
             </div>
-            <div class="col-sm-10 d-flex flex-row justify-content-center">
+            <div class="d-flex flex-row justify-content-center">
                 {% if session.game.status == 'Good Answer' or session.game.status == 'Perfect'  %}
                     <div class="anim-points">+ {{ session.game.nbPoints }}</div>
                     <div class="anim-coeff">x {{ session.game.coeffQuestion }}</div>
@@ -20,10 +20,11 @@
                     <div class="anim-game-over"> Game Over</div>
                 {% endif %}
             </div>
-            <div class="col-sm-2 totalpoints text-primary text-right pr-3">
+            <div class="totalpoints text-primary text-right pr-3">
                 <h2>Total<br>{{ session.game.currentScore}}</h2>
             </div>
         </div>
+
 
         <div class="row justify-content-center">
             <div class="d-flex flex-column align-items-center">
@@ -81,6 +82,16 @@
             </div>
         </div>
     </div>
+
+    {% if not shouldReceiveBadge == 0 %}
+        <script>
+            $(document).ready(function(){
+                $("#badgeModal").modal('show');
+            });
+        </script>
+        {% include '/Component/_badgeModal.html.twig' %}
+    {% endif %}
+
 {% endblock %}
 
 {% blockscript %}
