@@ -85,7 +85,10 @@ class GameController extends AbstractController
             }
 
             $gameChecker = new GameChecker();
-            $shouldReceivedBadge = $gameChecker->checkStatus();
+            $gameChecker->checkStatus();
+
+            $badgeDealer = new BadgeDealer();
+            $shouldReceivedBadge = $badgeDealer->checkBadgePerfect();
 
             $this->twig->addGlobal('session', $_SESSION);
             $stringObjectData = json_encode($objectData);
