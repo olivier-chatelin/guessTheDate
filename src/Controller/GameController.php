@@ -5,12 +5,21 @@ namespace App\Controller;
 use App\Model\AbstractManager;
 use App\Model\DepartmentManager;
 use App\Model\ScoreManager;
+use App\Service\BadgeDealer;
 use App\Service\ConnexionAPI;
 use App\Service\GameDealer;
 use App\Service\LogRecorder;
 
 class GameController extends AbstractController
 {
+    public const BADGE_PERFECT = 4;
+    public const BADGE_100K = 8;
+    public const BADGE_FIRSTBESTSCORE = 1;
+    public const BADGE_EASTER = 10;
+    public const BADGE_ALLDEPTS = 3;
+
+
+
     public function department(): string
     {
         if (!isset($_SESSION['pseudo'])) {
@@ -67,6 +76,11 @@ class GameController extends AbstractController
             if ($_SESSION['game']['HavePointsBeenScored'] === false) {
                 $_SESSION['game']['currentScore'] = $_SESSION['game']['currentScore'] + $_SESSION['game']['nbPoints'];
             }
+            $shouldReceivedBadge = 0;
+            if ($_SESSION['game']['status'] === 'Perfect') {
+                $badgeDealer = new BadgeDealer();
+                $shouldReceivedBadge = $badgeDealer->checkFirstPerfect($_SESSION['id'], self::BADGE_PERFECT);
+            }
 
             if ($_SESSION['game']['status'] === 'Game Over') {
                 $scoreManager = new ScoreManager();
@@ -96,10 +110,14 @@ class GameController extends AbstractController
                     $this->PublicLogRecorder->recordNewFirst();
                 }
             }
-
             $this->twig->addGlobal('session', $_SESSION);
+            $stringObjectData = json_encode($objectData);
             $_SESSION['game']['HavePointsBeenScored'] = true;
-            return $this->twig->render('Game/solution.html.twig', ['objectData' => $objectData]);
+            return $this->twig->render('Game/solution.html.twig', [
+                'objectData' => $objectData,
+                'stringObjectData' => $stringObjectData,
+                'shouldReceiveBadge' => $shouldReceivedBadge
+            ]);
         }
         header('Location: /');
     }

@@ -24,18 +24,16 @@
                 <h2>Total<br>{{ session.game.currentScore}}</h2>
             </div>
         </div>
-
         <div class="row justify-content-center">
-            <div class="d-flex flex-column align-items-center">
+            <div class="d-flex flex-column align-items-center position-relative">
                 <img class="img-car d-block img-fluid m-auto shadow p-1  bg-primary rounded"  src="{{ objectData['primaryImageSmall'] }}" alt="{{ objectData['title']}} " >
-            </div>
-            <div class="position-relative">
+                <i data-tosend="{{ stringObjectData }}" class="fas fa-heart unclicked position-absolute" id ="heart-logo"></i>
+                <i class="fas fa-heart clicked position-absolute" ></i>
                 <a class="clickable" data-toggle="modal" data-target="#infoModal">
                     <i class="fas fa-info-circle position-absolute" style="right:10px; bottom:10px"></i>
                 </a>
             </div>
         </div>
-
         <div class="row justify-content-center">
             <div class="d-flex flex-column p-2">
                 <div class="justify-content-center align-items-center d-flex flex-row">
@@ -54,7 +52,6 @@
                 </div>
             </div>
         </div>
-
         <div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -81,5 +78,14 @@
             </div>
         </div>
     </div>
+    {% if not shouldReceiveBadge == 0 %}
+        <script>
+            $(document).ready(function(){
+                $("#badgeModal").modal('show');
+            });
+        </script>
+        {% include '/Component/_badgeModal.html.twig' %}
+    {% endif %}
+<script src="/assets/scripts/like.js"></script>
 {% endblock %}
 

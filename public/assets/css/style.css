@@ -2,6 +2,7 @@
 @import "game.css";
 @import "header.css";
 @import "anim.css";
+@import "solution.css";
 
 header {
     position:relative;

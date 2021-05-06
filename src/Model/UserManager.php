@@ -73,4 +73,20 @@ class UserManager extends AbstractManager
         $statement->bindValue('pseudo', $pseudo, \PDO::PARAM_STR);
         return $statement->fetch(\PDO::FETCH_COLUMN);
     }
+
+    public function addPointsToTotalPoints(int $userId, int $points)
+    {
+        $query = 'UPDATE user SET count_totalpoints=count_totalpoints+' . $points . ' WHERE id=' . $userId;
+        $statement = $this->pdo->query($query);
+        $statement->execute();
+        return $statement;
+    }
+
+    public function addOneGameToTotalGames(int $userId)
+    {
+        $query = 'UPDATE user SET count_game=count_game+1 WHERE id=' . $userId;
+        $statement = $this->pdo->query($query);
+        $statement->execute();
+        return $statement;
+    }
 }

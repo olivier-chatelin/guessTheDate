@@ -1,11 +1,21 @@
-.heart-logo{
-    position: absolute;
-    bottom: 6px;
-    right: 26px;
-    font-size: 40px;
-    color: var(--secondary-color);
-}
-
 #img-contain {
     position: relative;
+}
+
+.clicked{
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    z-index: 1;
+    color : var(--primary-color);
+    font-size: 2em;
+}
+
+.unclicked{
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    z-index: 2;
+    color: var(--secondary-color);
+    font-size: 2em;
 }
