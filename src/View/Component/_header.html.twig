@@ -26,15 +26,15 @@
                     </a>
                     <span class="text-light mt-1">{{ session.pseudo }}</span>
                     {% if session.pseudo %}
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="/Avatar/index">Avatar</a>
-                            <a class="dropdown-item" href="/Badge/show">Exploits</a>
-                            <a class="dropdown-item" href="/Home/logout">Log Out</a>
-                            {% endif %}
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="/Avatar/index">Avatar</a>
+                        <a class="dropdown-item" href="/Badge/show">Exploits</a>
+                        <a class="dropdown-item" href="/Home/logout">Log Out</a>
+                        {% endif %}
                         {% if session.is_admin == 1 %}
                             <a class="dropdown-item" href="/Admin/home">Admin</a>
                         {% endif %}
-                            {% if session.pseudo %}
+                        {% if session.pseudo %}
                     </div>
                     {% endif %}
                 </div>
