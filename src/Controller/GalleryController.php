@@ -6,15 +6,21 @@ use App\Model\GalleryManager;
 
 class GalleryController extends AbstractController
 {
-    public function index()
+    public function action()
     {
         $galleryData = file_get_contents('php://input');
         $galleryData = json_decode($galleryData, true);
-        var_dump($galleryData);
-//        $galleryManager = new GalleryManager();
-//        $gallery = $galleryManager->selectAll();
-//        return $this->twig->render('Gallery/index.html.twig', [
-//            'gallery' => $gallery
-//        ]);
+        $galleryManager = new GalleryManager();
+        $paintingId = $galleryManager->insert($galleryData);
+        $galleryManager->attributePainting($_SESSION['id'], $paintingId);
+    }
+
+    public function show($pseudo)
+    {
+        $galleryManager = new GalleryManager();
+        $paintings = $galleryManager->showPaintingByPseudo($pseudo);
+        return $this->twig->render('Gallery/show.html.twig', [
+            'paintings' => $paintings
+            ]);
     }
 }

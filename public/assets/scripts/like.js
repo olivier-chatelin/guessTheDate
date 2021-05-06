@@ -10,6 +10,6 @@ const options = {
 likeButton.addEventListener('click', e => {
     likeButton.classList.toggle('clicked')
     likeButton.classList.toggle('unclicked')
-    fetch('/Gallery/index', options)
+    fetch('/Gallery/action', options)
         .then(response => response.json())
 })

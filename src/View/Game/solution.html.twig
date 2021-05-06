@@ -26,9 +26,8 @@
 
     <div class="container w-25" id="img-contain">
         <img class="img-car d-block img-fluid m-auto shadow p-1  bg-primary rounded"  src="{{ objectData['primaryImageSmall'] }}" alt="{{ objectData['title']}} " >
-        <div>
-            <i data-tosend="{{ stringObjectData }}" class="far fa-heart unclicked" id ="heart-logo"></i>
-        </div>
+        <i data-tosend="{{ stringObjectData }}" class="fas fa-heart unclicked" id ="heart-logo"></i>
+        <i class="fas fa-heart clicked" ></i>
     </div>
     <div class="container text-center w-75">
         {% if session['game'].status != "Perfect" %}
