@@ -25,6 +25,7 @@
             </div>
         </div>
 
+
         <div class="row justify-content-center">
             <div class="d-flex flex-column align-items-center">
                 <img class="img-car d-block img-fluid m-auto shadow p-1  bg-primary rounded"  src="{{ objectData['primaryImageSmall'] }}" alt="{{ objectData['title']}} " >
@@ -81,5 +82,15 @@
             </div>
         </div>
     </div>
+
+    {% if not shouldReceiveBadge == 0 %}
+        <script>
+            $(document).ready(function(){
+                $("#badgeModal").modal('show');
+            });
+        </script>
+        {% include '/Component/_badgeModal.html.twig' %}
+    {% endif %}
+
 {% endblock %}
 
