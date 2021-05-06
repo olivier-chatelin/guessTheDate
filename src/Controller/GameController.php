@@ -88,7 +88,8 @@ class GameController extends AbstractController
             $gameChecker->checkStatus();
 
             $badgeDealer = new BadgeDealer();
-            $shouldReceivedBadge = $badgeDealer->checkBadgePerfect();
+            $shouldReceiveBadge = $badgeDealer->checkBadgePerfect();
+            $shouldReceiveBadge = $badgeDealer->checkBadgeBestScore();
 
             $this->twig->addGlobal('session', $_SESSION);
             $stringObjectData = json_encode($objectData);
@@ -96,7 +97,7 @@ class GameController extends AbstractController
             return $this->twig->render('Game/solution.html.twig', [
                 'objectData' => $objectData,
                 'stringObjectData' => $stringObjectData,
-                'shouldReceiveBadge' => $shouldReceivedBadge
+                'shouldReceiveBadge' => $shouldReceiveBadge
             ]);
         }
         header('Location: /');

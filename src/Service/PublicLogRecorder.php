@@ -30,7 +30,7 @@ class PublicLogRecorder extends LogRecorder
     {
         $this->log->setLogName(Log::NEW_FIRST);
         $department = $this->departmentManager->selectOneByDeptId($_SESSION['deptId']);
-        $this->log->setAssociatedText("est le nouveau boss du département" . $department['title']);
+        $this->log->setAssociatedText("est le nouveau boss du département " . $department['title']);
         $this->logManager->insertNewLog($this->log);
     }
     public function recordPerfectAnswer()
@@ -38,6 +38,15 @@ class PublicLogRecorder extends LogRecorder
         $this->log->setLogName(Log::PERFECT_ANSWER);
         $department = $this->departmentManager->selectOneByDeptId($_SESSION['deptId']);
         $this->log->setAssociatedText("a fait un perfect dans le département " . $department['title']);
+        $this->logManager->insertNewLog($this->log);
+    }
+
+    public function recordNewBadgeGiven($badgeName)
+    {
+        $this->log->setLogName(Log::NEW_BADGE);
+        $department = $this->departmentManager->selectOneByDeptId($_SESSION['deptId']);
+        $this->log->setAssociatedText("vient d'obtenir le badge "
+            . $badgeName . ' dans le département ' . $department['title']);
         $this->logManager->insertNewLog($this->log);
     }
 }
