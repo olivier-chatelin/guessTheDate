@@ -67,5 +67,8 @@
         </div>
     </div>
     </div>
-    <script src="/assets/scripts/script.js"></script>
+{% endblock %}
+{% block javascript %}
+{{ parent() }}
+    <script src="/assets/scripts/upload.js"></script>
 {% endblock %}
