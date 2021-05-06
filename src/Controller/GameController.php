@@ -71,14 +71,17 @@ class GameController extends AbstractController
             $_SESSION['game']['ac'] = 0;
             $connexionApi = new ConnexionAPI();
             $objectData = $connexionApi->showObjectById(intval($_POST['objectId']));
+
             $gameDealer = new GameDealer();
             $gameDealer->scoreByAnswer($_POST['answer'], $objectData['objectEndDate']);
 
             if ($_SESSION['game']['HavePointsBeenScored'] === false) {
                 $_SESSION['game']['currentScore'] = $_SESSION['game']['currentScore'] + $_SESSION['game']['nbPoints'];
             }
+
             $gameChecker = new GameChecker();
             $shouldReceivedBadge = $gameChecker->checkStatus();
+
             $this->twig->addGlobal('session', $_SESSION);
             $stringObjectData = json_encode($objectData);
             $_SESSION['game']['HavePointsBeenScored'] = true;

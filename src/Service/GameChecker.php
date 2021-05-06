@@ -18,6 +18,7 @@ class GameChecker
         $shouldReceivedBadge = 0;
         if ($_SESSION['game']['status'] === 'Perfect') {
             $badgeDealer = new BadgeDealer();
+
             $shouldReceivedBadge = $badgeDealer->checkFirstPerfect($_SESSION['id'], self::BADGE_PERFECT);
         }
 

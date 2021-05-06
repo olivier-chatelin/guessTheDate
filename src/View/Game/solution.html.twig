@@ -3,6 +3,9 @@
     {{ parent() }} - Solution
 {% endblock %}
 {% block content %}
+    {% include '/Component/_badgeModal.html.twig' %}
+
+
     <div class="container-fluid game-content game-content">
         <div class="row justify-content-between">
             <div class="numquestion rounded-circle bg-primary text-light m-2 p-2 text-center" style="width:50px; height:50px">
@@ -52,6 +55,8 @@
                 </div>
             </div>
         </div>
+
+
         <div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -78,14 +83,12 @@
             </div>
         </div>
     </div>
-    {% if not shouldReceiveBadge == 0 %}
-        <script>
-            $(document).ready(function(){
-                $("#badgeModal").modal('show');
-            });
-        </script>
-        {% include '/Component/_badgeModal.html.twig' %}
-    {% endif %}
+
+
+{% endblock %}
+{% block javascript %}
+{{ parent() }}
 <script src="/assets/scripts/like.js"></script>
+<script src="/assets/scripts/showBadgeModal.js"></script>
 {% endblock %}
 

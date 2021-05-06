@@ -54,8 +54,7 @@ class BadgeManager extends AbstractManager
     public function giveNewBadgeToUser(int $userId, int $badgeId)
     {
         $query = 'INSERT INTO user_badge (user_id, badge_id) VALUES (' . $userId . ', ' . $badgeId . ')';
-        $statement = $this->pdo->query($query);
-        $statement->execute();
-        return $statement;
+        $this->pdo->query($query);
+        return $this->pdo->lastInsertId();
     }
 }
