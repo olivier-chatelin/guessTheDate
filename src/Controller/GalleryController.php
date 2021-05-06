@@ -23,4 +23,11 @@ class GalleryController extends AbstractController
             'paintings' => $paintings
             ]);
     }
+
+    public function deletePainting(string $pseudo, string $id)
+    {
+        $galleryManager = new GalleryManager();
+        $galleryManager->deletePainting($pseudo, $id);
+        header('Location: /gallery/show/' . $pseudo);
+    }
 }

@@ -58,3 +58,7 @@ a.text-secondary:hover{
     height: 0vh;
     top:50vh
 }
+
+.frame {
+    box-shadow: 0px 0px 10px 11px rgba(26, 36, 1, 0.45);
+}

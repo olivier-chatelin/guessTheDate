@@ -68,12 +68,36 @@
                     </div>
                     <div class="modal-body text-left">
                         <ul>
+                            {% if objectData.title == '' %}
+                            <li>Titre de l'oeuvre: unknown</li>
+                            {% else %}
                             <li>Titre de l'oeuvre: {{ objectData['title'] }}</li>
+                            {% endif %}
+                            {% if objectData.artistDisplayName == '' %}
+                            <li>Artiste: unknown</li>
+                            {% else %}
                             <li>Artiste: {{ objectData['artistDisplayName'] }}</li>
+                            {% endif %}
+                            {% if objectData.medium == '' %}
+                            <li>Matériau: unknown</li>
+                            {% else %}
                             <li>Matériau: {{ objectData['medium'] }}</li>
+                            {% endif %}
+                            {% if objectData.artistDisplayBio == '' %}
+                            <li>Biographie de l'artiste: unknown</li>
+                            {% else %}
                             <li>Biographie de l'artiste: {{ objectData['artistDisplayBio'] }}</li>
+                            {% endif %}
+                            {% if objectData.city == '' %}
+                            <li>Ville: unknown</li>
+                            {% else %}
                             <li>Ville: {{ objectData['city'] }}</li>
+                            {% endif %}
+                            {% if objectData.country == '' %}
+                            <li>Pays: unknown</li>
+                            {% else %}
                             <li>Pays: {{ objectData['country'] }}</li>
+                            {% endif %}
                         </ul>
                     </div>
                     <div class="modal-footer">

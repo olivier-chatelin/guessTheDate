@@ -3,24 +3,26 @@
 {{ parent() }} - Galerie
 {% endblock %}
 {% block content %}
-    <div class="container mt-5 mb-5">
+    <div class="container-fluid wall main-content">
         <div class="row">
             {% for painting in paintings %}
-                <div class=" col-sm-8  col-md-4 col-lg-3 card border-0 ">
-                    <img src="{{ painting.image }}" class="card-img-top shadow p-2  bg-primary rounded " alt="{{ painting.title }}">
-                    <div class="card-body text-center">
-                        <p class="card-title h3">{{ painting.title }}</p>
-                        <p class="card-text h4">
-                            {{ painting.artist_name }} <br>
+                <div class=" col-sm-8  col-md-4 col-lg-3 card border-0 bg-transparent mt-4">
+                    <img src="{{ painting.image }}" class="card-img-top frame" alt="{{ painting.title }}">
+                    <div class="card-body">
+                        <p class="card-title h5 text-center text-primary painting-title">{{ painting.title }}</p>
+                        <p class="card-text h6 text-center font-weight-bold bg-white">
+                            • {{ painting.artist_name }} •<br>
                             {{ painting.end_date }}
                         </p>
+                        <div class="d-flex justify-content-end"><a href="/Gallery/deletePainting/{{ session.pseudo }}/{{ painting.id }}"><i class="fas fa-paint-roller"></i></a></div>
                     </div>
                 </div>
             {% else %}
                 <p>
-                    Tu n'as pas encore liké d'oeuvre
+                    Tu n'as pas encore liké d'oeuvre ! Commence vite à jouer :)
                 </p>
             {% endfor %}
         </div>
     </div>
+
 {% endblock %}
