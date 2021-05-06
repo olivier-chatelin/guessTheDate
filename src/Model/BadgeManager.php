@@ -42,7 +42,7 @@ class BadgeManager extends AbstractManager
 
     public function getInfoBadgeToGive(int $userId, int $badgeId)
     {
-        $query = 'SELECT user.id, badge.id, badge.name, badge.image, badge.description FROM user 
+        $query = 'SELECT user.id, badge.id, badge.name, badge.image, badge.description, badge.dept_nb FROM user 
           JOIN user_badge ON user.id=user_badge.user_id
           JOIN badge ON user_badge.badge_id=badge.id
           WHERE user.id=' . $userId . ' AND badge.id=' . $badgeId;
@@ -56,5 +56,13 @@ class BadgeManager extends AbstractManager
         $query = 'INSERT INTO user_badge (user_id, badge_id) VALUES (' . $userId . ', ' . $badgeId . ')';
         $this->pdo->query($query);
         return $this->pdo->lastInsertId();
+    }
+
+    public function linkBestScoreBadgeAndDeptNb($deptNb)
+    {
+        $query = 'SELECT badge.id FROM badge WHERE badge.dept_nb=' . $deptNb;
+        $statement = $this->pdo->query($query);
+        $result = $statement->fetch(\PDO::FETCH_COLUMN);
+        return $result;
     }
 }

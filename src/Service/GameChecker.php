@@ -26,6 +26,15 @@ class GameChecker
                     $_SESSION['game']['currentScore']
                 );
             }
+
+            $highestScoreRecorded = 0;
+            if ($scoreManager->getScoresByDepartment($_SESSION['deptId'])) {
+                $highestScoreRecorded = (int)$scoreManager->getScoresByDepartment($_SESSION['deptId'])[0]['best_score'];
+            }
+            if ($_SESSION['game']['currentScore'] > $highestScoreRecorded) {
+                $publicLogRecorder = new PublicLogRecorder();
+                $publicLogRecorder->recordNewFirst();
+            }
         }
     }
 }

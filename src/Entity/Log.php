@@ -14,6 +14,7 @@ class Log
     public const LAST_STAGE = 'Last Stage!!';
     public const CHEAT = 'is trying to cheat';
     public const NEW_FIRST = 'New First!!!';
+    public const NEW_BADGE = 'received a new badge';
 
     private string $logName;
     private ?string $pseudo;
