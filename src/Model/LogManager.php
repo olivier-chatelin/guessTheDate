@@ -12,12 +12,14 @@ class LogManager extends AbstractManager
     {
         $statement = $this->pdo->prepare("INSERT INTO " . self::TABLE . " (
 
-        log_name, pseudo, dept_nb, is_anomaly, created_at) VALUES (
-        :logName, :pseudo, :deptNb, :isAnomaly, NOW())");
+        log_name, pseudo, dept_nb, is_anomaly, created_at, is_public, associated_text) VALUES (
+        :logName, :pseudo, :deptNb, :isAnomaly, NOW(), :isPublic, :associatedText)");
         $statement->bindValue(':logName', $log->getLogName(), \PDO::PARAM_STR);
         $statement->bindValue(':pseudo', $log->getUserName(), \PDO::PARAM_STR);
         $statement->bindValue(':deptNb', $log->getDepartmentNumber(), \PDO::PARAM_INT);
         $statement->bindValue(':isAnomaly', $log->isAnomaly(), \PDO::PARAM_BOOL);
+        $statement->bindValue(':isPublic', $log->isPublic(), \PDO::PARAM_BOOL);
+        $statement->bindValue(':associatedText', $log->getAssociatedText(), \PDO::PARAM_STR);
         $statement->execute();
         return (int)$this->pdo->lastInsertId();
     }
@@ -55,7 +57,7 @@ class LogManager extends AbstractManager
         $query = "SELECT * FROM log 
                 WHERE " . $whereCondition . " 
                 AND created_at BETWEEN :startDate 
-                AND :endDate ORDER BY created_at ASC";
+                AND :endDate ORDER BY created_at DESC";
         $statement = $this->pdo->prepare($query);
         foreach ($parameters['logsToFollow'] as $index => $logName) {
             $statement->bindValue("logNAme" . $index, $logName, \PDO::PARAM_STR);
@@ -65,5 +67,13 @@ class LogManager extends AbstractManager
 
         $statement->execute();
         return  $statement->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function getLast5PublicLogs(): array
+    {
+        $query = "SELECT pseudo, associated_text FROM log
+                   WHERE is_public = 1 ORDER BY created_at DESC LIMIT 5";
+        $statement = $this->pdo->query($query);
+        return $statement->fetchAll();
     }
 }

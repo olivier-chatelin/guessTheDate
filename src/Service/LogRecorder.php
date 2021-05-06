@@ -3,18 +3,21 @@
 namespace App\Service;
 
 use App\Entity\Anomaly;
+use App\Model\DepartmentManager;
 use App\Model\LogManager;
 use App\Entity\Log;
 
 class LogRecorder
 {
 
-    private Log $log;
-    private LogManager $logManager;
+    protected Log $log;
+    protected LogManager $logManager;
+    protected DepartmentManager $departmentManager;
 
     public function __construct()
     {
         $this->logManager = new LogManager();
+        $this->departmentManager = new DepartmentManager();
         $this->log = new Log();
     }
 
@@ -53,17 +56,6 @@ class LogRecorder
     public function recordEasterEgg()
     {
         $this->log->setLogName(Log::EASTER_EGG);
-        $this->logManager->insertNewLog($this->log);
-    }
-
-    public function recordPerfectAnswer()
-    {
-        $this->log->setLogName(Log::PERFECT_ANSWER);
-        $this->logManager->insertNewLog($this->log);
-    }
-    public function recordLastStage()
-    {
-        $this->log->setLogName(Log::LAST_STAGE);
         $this->logManager->insertNewLog($this->log);
     }
 }

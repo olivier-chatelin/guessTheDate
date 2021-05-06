@@ -2,11 +2,14 @@
 
 namespace App\Controller;
 
+use App\Model\AbstractManager;
 use App\Model\DepartmentManager;
 use App\Model\ScoreManager;
 use App\Service\BadgeDealer;
 use App\Service\ConnexionAPI;
+use App\Service\GameChecker;
 use App\Service\GameDealer;
+use App\Service\LogRecorder;
 
 class GameController extends AbstractController
 {
@@ -62,6 +65,7 @@ class GameController extends AbstractController
     {
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
             if ($_SESSION['game']['acArt'] !== $_POST['objectId']) {
+                $this->PublicLogRecorder->recordIsCheating();
                 header('Location: /Error/cheater');
             }
             $_SESSION['game']['ac'] = 0;
@@ -73,31 +77,8 @@ class GameController extends AbstractController
             if ($_SESSION['game']['HavePointsBeenScored'] === false) {
                 $_SESSION['game']['currentScore'] = $_SESSION['game']['currentScore'] + $_SESSION['game']['nbPoints'];
             }
-            $shouldReceivedBadge = 0;
-            if ($_SESSION['game']['status'] === 'Perfect') {
-                $badgeDealer = new BadgeDealer();
-                $shouldReceivedBadge = $badgeDealer->checkFirstPerfect($_SESSION['id'], self::BADGE_PERFECT);
-            }
-
-            if ($_SESSION['game']['status'] === 'Game Over') {
-                $scoreManager = new ScoreManager();
-                $scores = $scoreManager->checkScoreAlreadyExists($_SESSION['id'], $_SESSION['deptId']);
-                if (empty($scores)) {
-                    $scoreManager = new ScoreManager();
-                    $scoreManager->insertNewBestScoreOnDept(
-                        $_SESSION['id'],
-                        $_SESSION['deptId'],
-                        $_SESSION['game']['currentScore']
-                    );
-                } elseif ($_SESSION['game']['currentScore'] > $scores[0]['best_score']) {
-                    $scoreManager = new ScoreManager();
-                    $scoreManager->updateBestScoreByUserDept(
-                        $_SESSION['id'],
-                        $_SESSION['deptId'],
-                        $_SESSION['game']['currentScore']
-                    );
-                }
-            }
+            $gameChecker = new GameChecker();
+            $shouldReceivedBadge = $gameChecker->checkStatus();
             $this->twig->addGlobal('session', $_SESSION);
             $stringObjectData = json_encode($objectData);
             $_SESSION['game']['HavePointsBeenScored'] = true;

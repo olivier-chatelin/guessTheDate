@@ -27,8 +27,8 @@ class GameDealer
         if ($_SESSION['game']['currentErrorMargin'] <= self::LAST_STAGE_MARGIN) {
             $_SESSION['game']['currentErrorMargin'] = self::LAST_STAGE_MARGIN;
             $_SESSION['game']['status'] = 'Last Stage';
-            $logRecorder = new LogRecorder();
-            $logRecorder->recordLastStage();
+            $publicLogRecorder = new PublicLogRecorder();
+            $publicLogRecorder->recordLastStage();
         }
         return $_SESSION['game']['currentErrorMargin'];
     }
@@ -49,13 +49,12 @@ class GameDealer
         if ($_SESSION['game']['diff'] === 0) {
             $_SESSION['game']['nbPoints'] = $_SESSION['game']['nbPoints'] * 2;
             $_SESSION['game']['status'] = 'Perfect';
-            $logRecorder = new LogRecorder();
-            $logRecorder->recordPerfectAnswer();
+            $publicLogRecorder = new PublicLogRecorder();
+            $publicLogRecorder->recordPerfectAnswer();
         } elseif ($_SESSION['game']['diff'] > $_SESSION['game']['currentErrorMargin']) {
             $_SESSION['game']['nbPoints'] = 0;
             $_SESSION['game']['status'] = 'Game Over';
             $logRecorder = new LogRecorder();
-
             $logRecorder->recordEndOfGame();
         } else {
             $_SESSION['game']['status'] = 'Good Answer';
