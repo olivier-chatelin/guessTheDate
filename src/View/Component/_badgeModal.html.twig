@@ -1,4 +1,4 @@
-<div class="modal" id="badgeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal" id="badgeModal" tabindex="-1" data-shouldreceivebadge="{{ shouldReceiveBadge == 0 ? 0 : 1 }}" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -9,7 +9,6 @@
             </div>
             <div class="modal-body d-flex justify-content-center">
                 <img src="/assets/images/badges/{{ shouldReceiveBadge.image }}">
-                <p>{{ shouldReceiveBadge.name }}</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>

@@ -1,5 +1,4 @@
 const likeButton = document.getElementById('heart-logo');
-console.log(likeButton);
 const options = {
     method: "POST",
     body: likeButton.dataset.tosend,

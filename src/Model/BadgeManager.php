@@ -55,7 +55,6 @@ class BadgeManager extends AbstractManager
     {
         $query = 'INSERT INTO user_badge (user_id, badge_id) VALUES (' . $userId . ', ' . $badgeId . ')';
         $statement = $this->pdo->query($query);
-        $statement->execute();
-        return $statement;
+        return $this->pdo->lastInsertId();
     }
 }
