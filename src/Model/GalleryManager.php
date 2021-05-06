@@ -31,7 +31,7 @@ class GalleryManager extends AbstractManager
     public function showPaintingByPseudo($pseudo)
     {
         $query = "
-                SELECT p.image, p.artist_name, p.end_date, p.title FROM painting p
+                SELECT p.id, p.image, p.artist_name, p.end_date, p.title FROM painting p
                  JOIN user_paint up ON p.id = up.paint_id
                  JOIN  user u ON up.user_id = u.id
                  WHERE u.pseudo= :pseudo";
@@ -39,5 +39,18 @@ class GalleryManager extends AbstractManager
         $statement->bindValue('pseudo', $pseudo, \PDO::PARAM_STR);
         $statement->execute();
         return $statement->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function deletePainting(string $pseudo, string $id)
+    {
+        $query = "DELETE  up FROM user_paint up
+                JOIN user u ON up.user_id = u.id
+                JOIN painting p ON up.paint_id = p.id
+                WHERE u.pseudo = :pseudo AND p.id = :id";
+        $statement = $this->pdo->prepare($query);
+
+        $statement->bindValue('pseudo', $pseudo, \PDO::PARAM_STR);
+        $statement->bindValue('id', $id, \PDO::PARAM_STR);
+        $statement->execute();
     }
 }
