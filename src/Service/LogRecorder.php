@@ -10,9 +10,9 @@ use App\Entity\Log;
 class LogRecorder
 {
 
-    private Log $log;
-    private LogManager $logManager;
-    private DepartmentManager $departmentManager;
+    protected Log $log;
+    protected LogManager $logManager;
+    protected DepartmentManager $departmentManager;
 
     public function __construct()
     {
@@ -56,36 +56,6 @@ class LogRecorder
     public function recordEasterEgg()
     {
         $this->log->setLogName(Log::EASTER_EGG);
-        $this->logManager->insertNewLog($this->log);
-    }
-
-    public function recordPerfectAnswer()
-    {
-        $this->log->setLogName(Log::PERFECT_ANSWER);
-        $this->logManager->insertNewLog($this->log);
-    }
-    public function recordLastStage()
-    {
-        $this->log->setLogName(Log::LAST_STAGE);
-        $this->log->setIsPublic(true);
-        $department = $this->departmentManager->selectOneByDeptId($_SESSION['deptId']);
-        $this->log->setAssociatedText("est arrivé au dernier niveau du département " . $department['title']);
-        $this->logManager->insertNewLog($this->log);
-    }
-    public function recordIsCheating()
-    {
-        $this->log->setLogName(Log::CHEAT);
-        $this->log->setIsPublic(true);
-        $department = $this->departmentManager->selectOneByDeptId($_SESSION['deptId']);
-        $this->log->setAssociatedText("a tenté de tricher dans le département " . $department['title']);
-        $this->logManager->insertNewLog($this->log);
-    }
-    public function recordNewFirst()
-    {
-        $this->log->setLogName(Log::NEW_FIRST);
-        $this->log->setIsPublic(true);
-        $department = $this->departmentManager->selectOneByDeptId($_SESSION['deptId']);
-        $this->log->setAssociatedText("est le nouveau boss du département" . $department['title']);
         $this->logManager->insertNewLog($this->log);
     }
 }

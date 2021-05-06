@@ -55,7 +55,7 @@ class GameController extends AbstractController
     {
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
             if ($_SESSION['game']['acArt'] !== $_POST['objectId']) {
-                $this->logRecorder->recordIsCheating();
+                $this->PublicLogRecorder->recordIsCheating();
                 header('Location: /Error/cheater');
             }
             $_SESSION['game']['ac'] = 0;
@@ -93,7 +93,7 @@ class GameController extends AbstractController
                     );
                 }
                 if ($_SESSION['game']['currentScore'] > $highestScoreRecorded) {
-                    $this->logRecorder->recordNewFirst();
+                    $this->PublicLogRecorder->recordNewFirst();
                 }
             }
 
