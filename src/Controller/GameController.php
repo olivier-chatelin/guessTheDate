@@ -38,17 +38,18 @@ class GameController extends AbstractController
 
     public function quizz($departmentId): string
     {
+        $shouldReceiveBadge = 0;
         if ($departmentId === self::EASTER_DEPT) {
             $this->PublicLogRecorder->recordEasterEgg();
+            $badgeDealer = new BadgeDealer();
+            $shouldReceiveBadge = $badgeDealer->checkBadgeAttribution($_SESSION['id'], self::BADGE_EASTER);
         }
-        $badgeDealer = new BadgeDealer();
-        $badgeDealer->checkBadgeAttribution($_SESSION['id'], self::BADGE_EASTER);
+
         $departmentManager = new DepartmentManager();
         $availableIds = $departmentManager->getAllDepartmentNumbers();
         if (!in_array($departmentId, $availableIds)) {
             return $this->twig->render('/Errors/404.html.twig');
         }
-        $shouldReceiveBadge = 0;
 
         if (($_SESSION['game']['status'] === 'ToStart') || ($_SESSION['game']['status'] === 'Game Over')) {
             $_SESSION['deptId'] = intval($departmentId);
@@ -56,8 +57,11 @@ class GameController extends AbstractController
             $_SESSION['game']['currentScore'] = 0;
             $_SESSION['game']['diff'] = $_SESSION['game']['currentErrorMargin'] = $_SESSION['game']['nbPoints'] = null;
             $_SESSION['game']['userAnswer'] = $_SESSION['game']['rightAnswer'] = null;
-            $badgeDealer = new BadgeDealer();
-            $shouldReceiveBadge = $badgeDealer->checkBadgeGameNb();
+
+            if (!$shouldReceiveBadge) {
+                $badgeDealer = new BadgeDealer();
+                $shouldReceiveBadge = $badgeDealer->checkBadgeGameNb();
+            }
         } else {
             $_SESSION['game']['numQuestion']++;
         }
@@ -100,8 +104,10 @@ class GameController extends AbstractController
             $highestScoreRecorded = $gameChecker->checkStatus();
 
             $badgeDealer = new BadgeDealer();
-            $shouldReceiveBadge = $badgeDealer->checkBadgePerfect();
             $shouldReceiveBadge = $badgeDealer->checkBadgeBestScore($highestScoreRecorded);
+            if (!$shouldReceiveBadge) {
+                $shouldReceiveBadge = $badgeDealer->checkBadgePerfect();
+            }
 
             $this->twig->addGlobal('session', $_SESSION);
             $stringObjectData = json_encode($objectData);
