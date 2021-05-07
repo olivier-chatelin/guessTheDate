@@ -81,7 +81,7 @@ class AdminManager extends AbstractManager
     }
     public function getNames(): array
     {
-        $statement = $this->pdo->query('SELECT pseudo FROM user');
+        $statement = $this->pdo->query('SELECT pseudo FROM user ORDER BY pseudo');
         return $statement->fetchAll(\PDO::FETCH_COLUMN);
     }
 

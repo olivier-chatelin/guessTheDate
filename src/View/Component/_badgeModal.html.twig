@@ -1,14 +1,11 @@
-<div class="modal" id="badgeModal" tabindex="-1" data-shouldreceivebadge="{{ shouldReceiveBadge == 0 ? 0 : 1 }}" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal mt-3" id="badgeModal" tabindex="-1" data-shouldreceivebadge="{{ shouldReceiveBadge == 0 ? 0 : 1 }}" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
+        <div class="modal-content d-flex justify-content-center align-items-center" style="border-radius: 50px">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">{{ shouldReceiveBadge.name }}</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
             </div>
             <div class="modal-body d-flex justify-content-center">
-                <img src="/assets/images/badges/{{ shouldReceiveBadge.image }}">
+                <img src="/assets/images/badges/{{ shouldReceiveBadge.image }}" style="height:50vh">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>

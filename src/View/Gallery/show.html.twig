@@ -6,10 +6,10 @@
     <div class="container-fluid wall main-content">
         <div class="row">
             {% for painting in paintings %}
-                <div class=" col-sm-8  col-md-4 col-lg-3 card border-0 bg-transparent mt-4">
+                <div class=" col-sm-8  col-md-4 col-lg-3 card border-0 bg-transparent mt-4 p-5">
                     <img src="{{ painting.image }}" class="card-img-top frame" alt="{{ painting.title }}">
                     <div class="card-body">
-                        <p class="card-title h5 text-center text-primary painting-title">{{ painting.title }}</p>
+                        <p class="card-title h5 text-center painting-title">{{ painting.title }}</p>
                         <p class="card-text h6 text-center font-weight-bold bg-white">
                             • {{ painting.artist_name }} •<br>
                             {{ painting.end_date }}

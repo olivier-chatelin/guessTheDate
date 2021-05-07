@@ -25,15 +25,6 @@ body{
     color: var(--primary-color);
 }
 
-.fa-paint-roller {
-    font-size: 20px;
-    color: var(--primary-color);
-}
-
-.painting-title {
-    font-family: 'DM Serif Text', serif;
-}
-
 .btn-primary {
     background-color: var(--primary-color);
     color: var(--secondary-color) !important;
@@ -67,9 +58,4 @@ body{
     color: var(--secondary-color);
     background-color: var(--primary-hover) ;
     border-color:var(--primary-hover);
-}
-
-.wall {
-    background-image: url('../../assets/images/wall.jpg');
-    background-size: cover;
 }
