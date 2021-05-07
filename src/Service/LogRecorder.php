@@ -52,10 +52,4 @@ class LogRecorder
         $anomaly = new Anomaly(Anomaly::WRONG_NAME_ANOMALY);
         $this->logManager->insertNewLog($anomaly);
     }
-
-    public function recordEasterEgg()
-    {
-        $this->log->setLogName(Log::EASTER_EGG);
-        $this->logManager->insertNewLog($this->log);
-    }
 }

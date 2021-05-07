@@ -49,4 +49,10 @@ class PublicLogRecorder extends LogRecorder
             . $badgeName . ' dans le département ' . $department['title']);
         $this->logManager->insertNewLog($this->log);
     }
+    public function recordEasterEgg()
+    {
+        $this->log->setLogName(Log::EASTER_EGG);
+        $this->log->setAssociatedText("a découvert la salle secrète");
+        $this->logManager->insertNewLog($this->log);
+    }
 }
