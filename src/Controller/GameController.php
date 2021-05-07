@@ -48,6 +48,7 @@ class GameController extends AbstractController
         if (!in_array($departmentId, $availableIds)) {
             return $this->twig->render('/Errors/404.html.twig');
         }
+        $shouldReceiveBadge = 0;
 
         if (($_SESSION['game']['status'] === 'ToStart') || ($_SESSION['game']['status'] === 'Game Over')) {
             $_SESSION['deptId'] = intval($departmentId);
@@ -55,10 +56,12 @@ class GameController extends AbstractController
             $_SESSION['game']['currentScore'] = 0;
             $_SESSION['game']['diff'] = $_SESSION['game']['currentErrorMargin'] = $_SESSION['game']['nbPoints'] = null;
             $_SESSION['game']['userAnswer'] = $_SESSION['game']['rightAnswer'] = null;
-            $gameDealer = new GameDealer();
+            $badgeDealer = new BadgeDealer();
+            $shouldReceiveBadge = $badgeDealer->checkBadgeGameNb();
         } else {
             $_SESSION['game']['numQuestion']++;
         }
+
         $gameDealer = new GameDealer();
         $_SESSION['game']['currentErrorMargin'] = $gameDealer->getGameErrorMargin();
         $connexionAPI = new ConnexionAPI();
@@ -69,7 +72,10 @@ class GameController extends AbstractController
         }
         $_SESSION['game']['HavePointsBeenScored'] = false;
         $this->twig->addGlobal('session', $_SESSION);
-        return $this->twig->render('Game/quizz.html.twig', ['pickedObject' => $pickedObject]);
+        return $this->twig->render('Game/quizz.html.twig', [
+            'pickedObject' => $pickedObject,
+            'shouldReceiveBadge' => $shouldReceiveBadge
+        ]);
     }
 
     public function solution()

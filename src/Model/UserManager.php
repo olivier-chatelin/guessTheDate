@@ -77,16 +77,14 @@ class UserManager extends AbstractManager
     public function addPointsToTotalPoints(int $userId, int $points)
     {
         $query = 'UPDATE user SET count_totalpoints=count_totalpoints+' . $points . ' WHERE id=' . $userId;
-        $statement = $this->pdo->query($query);
-        $statement->execute();
-        return $statement;
+        $this->pdo->query($query);
+        return $this->pdo->lastInsertId();
     }
 
     public function addOneGameToTotalGames(int $userId)
     {
         $query = 'UPDATE user SET count_game=count_game+1 WHERE id=' . $userId;
-        $statement = $this->pdo->query($query);
-        $statement->execute();
-        return $statement;
+        $this->pdo->query($query);
+        return $this->pdo->lastInsertId();
     }
 }
