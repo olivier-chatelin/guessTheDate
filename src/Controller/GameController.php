@@ -18,6 +18,7 @@ class GameController extends AbstractController
     public const BADGE_FIRSTBESTSCORE = 1;
     public const BADGE_EASTER = 10;
     public const BADGE_ALLDEPTS = 3;
+    public const EASTER_DEPT = "21";
 
 
 
@@ -37,6 +38,11 @@ class GameController extends AbstractController
 
     public function quizz($departmentId): string
     {
+        if ($departmentId === self::EASTER_DEPT) {
+            $this->PublicLogRecorder->recordEasterEgg();
+        }
+        $badgeDealer = new BadgeDealer();
+        $badgeDealer->checkBadgeAttribution($_SESSION['id'], self::BADGE_EASTER);
         $departmentManager = new DepartmentManager();
         $availableIds = $departmentManager->getAllDepartmentNumbers();
         if (!in_array($departmentId, $availableIds)) {
