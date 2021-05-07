@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Model\BadgeManager;
+use App\Model\UserManager;
 use App\Model\ScoreManager;
 use App\Service\PublicLogRecorder;
 
@@ -13,6 +14,9 @@ class BadgeDealer
     public const BADGE_FIRSTBESTSCORE = 1;
     public const BADGE_EASTER = 10;
     public const BADGE_ALLDEPTS = 3;
+    public const GAMES_NB10 = 11;
+    public const GAMES_NB50 = 12;
+    public const GAMES_NB100 = 13;
 
     public function checkBadgeAttribution(int $userId, int $badgeId)
     {
@@ -50,5 +54,20 @@ class BadgeDealer
                 return $shouldReceivedBadge;
             }
         }
+    }
+
+    public function checkBadgeGameNb()
+    {
+        $shouldReceiveBadge = 0;
+        $userManager = new UserManager();
+        $infoUser = $userManager->selectOneByPseudo($_SESSION['pseudo']);
+        if ($infoUser['count_game'] >= 101) {
+            $shouldReceiveBadge = $this->checkBadgeAttribution($_SESSION['id'], self::GAMES_NB100);
+        } elseif ($infoUser['count_game'] >= 51) {
+            $shouldReceiveBadge = $this->checkBadgeAttribution($_SESSION['id'], self::GAMES_NB50);
+        } elseif ($infoUser['count_game'] >= 11) {
+            $shouldReceiveBadge = $this->checkBadgeAttribution($_SESSION['id'], self::GAMES_NB10);
+        }
+        return $shouldReceiveBadge;
     }
 }

@@ -3,6 +3,7 @@
     {{ parent() }} - Quizz
 {% endblock %}
 {% block content %}
+    {% include '/Component/_badgeModal.html.twig' %}
 
     <div class="container-fluid game-content" xmlns="">
 
@@ -78,5 +79,6 @@
 {% block javascript %}
 {{ parent() }}
 <script src="/assets/scripts/answer.js"></script>
+<script src="/assets/scripts/showBadgeModal.js"></script>
 {% endblock %}
 

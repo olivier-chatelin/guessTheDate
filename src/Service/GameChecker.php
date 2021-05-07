@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Model\ScoreManager;
+use App\Model\UserManager;
 
 class GameChecker
 {
@@ -14,6 +15,9 @@ class GameChecker
             if ($scoreManager->getScoresByDepartment($_SESSION['deptId'])) {
                 $highestScoreRecorded = (int)$scoreManager->getScoresByDepartment($_SESSION['deptId'])[0]['best_score'];
             }
+
+            $userManager = new UserManager();
+            $userManager->addOneGameToTotalGames($_SESSION['id']);
 
             $scoreManager = new ScoreManager();
             $scores = $scoreManager->checkScoreAlreadyExists($_SESSION['id'], $_SESSION['deptId']);
@@ -34,7 +38,6 @@ class GameChecker
             }
 
             if ($_SESSION['game']['currentScore'] > $highestScoreRecorded) {
-                var_dump('je suis meilleur score');
                 $publicLogRecorder = new PublicLogRecorder();
                 $publicLogRecorder->recordNewFirst();
             }
