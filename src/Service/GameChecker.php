@@ -8,7 +8,13 @@ class GameChecker
 {
     public function checkStatus()
     {
+        $highestScoreRecorded = 0;
         if ($_SESSION['game']['status'] === 'Game Over') {
+            $scoreManager = new ScoreManager();
+            if ($scoreManager->getScoresByDepartment($_SESSION['deptId'])) {
+                $highestScoreRecorded = (int)$scoreManager->getScoresByDepartment($_SESSION['deptId'])[0]['best_score'];
+            }
+
             $scoreManager = new ScoreManager();
             $scores = $scoreManager->checkScoreAlreadyExists($_SESSION['id'], $_SESSION['deptId']);
             if (empty($scores)) {
@@ -27,14 +33,12 @@ class GameChecker
                 );
             }
 
-            $highestScoreRecorded = 0;
-            if ($scoreManager->getScoresByDepartment($_SESSION['deptId'])) {
-                $highestScoreRecorded = (int)$scoreManager->getScoresByDepartment($_SESSION['deptId'])[0]['best_score'];
-            }
             if ($_SESSION['game']['currentScore'] > $highestScoreRecorded) {
+                var_dump('je suis meilleur score');
                 $publicLogRecorder = new PublicLogRecorder();
                 $publicLogRecorder->recordNewFirst();
             }
         }
+        return $highestScoreRecorded;
     }
 }

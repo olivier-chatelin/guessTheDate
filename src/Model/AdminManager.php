@@ -33,7 +33,7 @@ class AdminManager extends AbstractManager
         $query3 =
             "SELECT d.title, ud.best_score FROM user u
             JOIN user_department ud ON u.id = ud.user_id
-            JOIN department d ON ud.department_id = d.id
+            JOIN department d ON ud.department_id = d.dept_nb
             WHERE u.pseudo = :pseudo";
         $statement = $this->pdo->prepare($query3);
         $statement->bindValue('pseudo', $pseudo, \PDO::PARAM_STR);
