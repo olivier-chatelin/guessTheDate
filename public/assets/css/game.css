@@ -16,6 +16,8 @@
     width:15vw;
 }
 
+
+
 .carousel-control-next, .carousel-control-prev {
     filter: invert(100%);
 }

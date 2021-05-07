@@ -59,6 +59,25 @@ a.text-secondary:hover{
     top:50vh
 }
 
-.frame {
+.fa-paint-roller {
+    font-size: 20px;
+    color: var(--light-color);
+}
+
+.painting-title {
+    font-family: 'DM Serif Text', serif;
+    color: var(--light-color);
+}
+
+.wall {
+    background-image: url('../../assets/images/wall2.jpg');
+    background-size: cover;
+}
+
+.frame2 {
     box-shadow: 0px 0px 10px 11px rgba(26, 36, 1, 0.45);
+}
+
+.frame {
+    box-shadow: 0px 0px 10px 11px rgba(251, 243, 217, 1);
 }
