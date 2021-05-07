@@ -12,7 +12,7 @@ class ScoreManager extends AbstractManager
         $query = "SELECT u.pseudo ,  ud.best_score , u.avatar_id FROM user u
             JOIN user_department ud ON u.id = ud.user_id
             JOIN department d ON ud.department_id = d.dept_nb
-            WHERE d.id = :id
+            WHERE d.dept_nb = :id
             ORDER BY ud.best_score DESC LIMIT " . self::MAXDISPLAY;
         $statement = $this->pdo->prepare($query);
         $statement->bindValue('id', $idDepartment, \PDO::PARAM_STR);
@@ -57,18 +57,6 @@ class ScoreManager extends AbstractManager
         $query = "  SELECT d.title, ud.best_score FROM user u
             JOIN user_department ud ON u.id = ud.user_id
             JOIN department d ON ud.department_id = d.dept_nb
-            WHERE u.pseudo = :pseudo";
-        $statement = $this->pdo->prepare($query);
-        $statement->bindValue(':pseudo', $pseudo, \PDO::PARAM_STR);
-        $statement->execute();
-        return $statement->fetchAll(\PDO::FETCH_ASSOC);
-    }
-
-    public function hasTheUserBestScoreOnDepartment(string $pseudo): array
-    {
-        $query = "  SELECT d.title, ud.best_score FROM user u
-            JOIN user_department ud ON u.id = ud.user_id
-            JOIN department d ON ud.department_id = d.id
             WHERE u.pseudo = :pseudo";
         $statement = $this->pdo->prepare($query);
         $statement->bindValue(':pseudo', $pseudo, \PDO::PARAM_STR);

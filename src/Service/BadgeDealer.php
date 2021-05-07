@@ -38,14 +38,9 @@ class BadgeDealer
         return $shouldReceivedBadge;
     }
 
-    public function checkBadgeBestScore()
+    public function checkBadgeBestScore($highestScoreRecorded)
     {
         if ($_SESSION['game']['status'] === 'Game Over') {
-            $highestScoreRecorded = 0;
-            $scoreManager = new ScoreManager();
-            if ($scoreManager->getScoresByDepartment($_SESSION['deptId'])) {
-                $highestScoreRecorded = (int)$scoreManager->getScoresByDepartment($_SESSION['deptId'])[0]['best_score'];
-            }
             if ($_SESSION['game']['currentScore'] > $highestScoreRecorded) {
                 $shouldReceivedBadge = 0;
                 $badgeManager = new BadgeManager();

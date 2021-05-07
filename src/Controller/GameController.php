@@ -85,11 +85,11 @@ class GameController extends AbstractController
             }
 
             $gameChecker = new GameChecker();
-            $gameChecker->checkStatus();
+            $highestScoreRecorded = $gameChecker->checkStatus();
 
             $badgeDealer = new BadgeDealer();
             $shouldReceiveBadge = $badgeDealer->checkBadgePerfect();
-            $shouldReceiveBadge = $badgeDealer->checkBadgeBestScore();
+            $shouldReceiveBadge = $badgeDealer->checkBadgeBestScore($highestScoreRecorded);
 
             $this->twig->addGlobal('session', $_SESSION);
             $stringObjectData = json_encode($objectData);
@@ -103,7 +103,7 @@ class GameController extends AbstractController
         header('Location: /');
     }
 
-    public function score($idSelected): string
+    public function score($deptNb): string
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             //TODO POST data to secure
@@ -112,11 +112,11 @@ class GameController extends AbstractController
         $departmentManager = new DepartmentManager();
         $departments = $departmentManager->selectAll();
         $scoreManager = new ScoreManager();
-        $scores = $scoreManager->getScoresByDepartment($idSelected);
+        $scores = $scoreManager->getScoresByDepartment($deptNb);
 
         return $this->twig->render('Game/score.html.twig', [
             'departments' => $departments,
-            'idSelected' => $idSelected,
+            'deptNb' => $deptNb,
             'scores' => $scores
         ]);
     }

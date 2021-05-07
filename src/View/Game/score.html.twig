@@ -40,11 +40,11 @@
                     <select name = "idDepartmentSelected" class="custom-select w-50" id="inputGroupSelect04" aria-label="Example select with button addon">
                         {% for department in  departments|slice(0,12) %}
                             {% set selected = ''%}
-                            {% if department.id ==  idSelected %}
-                                {{ department.id }} = {{ idSelected }}
+                            {% if department.dept_nb ==  deptNb %}
+                                {{ department.dept_nb }} = {{ deptNb }}
                                 {% set selected = 'selected'%}
                             {% endif %}
-                            <option {{ selected }} value={{ department.id }}>{{ department.title }}</option>
+                            <option {{ selected }} value={{ department.dept_nb }}>{{ department.title }}</option>
                         {% endfor %}
                     </select>
                     <div class="input-group-append">
