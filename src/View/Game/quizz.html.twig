@@ -65,7 +65,7 @@
         <div class="row justify-content-center">
             <div class="col-sm-6 col-md-4 text-center form-quizz ">
                 <form action="/Game/solution" method="post">
-                    <input class="answer-form" id="answer" name="answer" type="text" inputmode="numeric" value="" minlength="4" maxlength="5" autofocus required class="mt-1">
+                    <input class="answer-form" id="answer" name="answer" type="number" inputmode="numeric" value="" minlength="4" maxlength="5" autofocus required class="mt-1">
                     <input name="objectId" type="hidden" value="{{ pickedObject.objectId}}" >
                     <button type="submit" class="btn btn-outline-primary" >
                         <i class="fas fa-check"></i>
@@ -78,7 +78,6 @@
 {% endblock %}
 {% block javascript %}
 {{ parent() }}
-<script src="/assets/scripts/answer.js"></script>
 <script src="/assets/scripts/showBadgeModal.js"></script>
 {% endblock %}
 
