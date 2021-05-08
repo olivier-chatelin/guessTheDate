@@ -10,7 +10,6 @@
         <div class="row justify-content-between">
             <div class="numquestion rounded-circle bg-primary text-light m-2 p-2 text-center" style="width:50px; height:50px">
                 <h2 class="m-auto">{{ session.game.numQuestion }}</h2>
-                <span style="color:lightgray">{{ pickedObject.objectEndDate }}</span>
             </div>
             <div>
                 <h4 class="text-primary">Marge d'erreur :<br> + ou - {{ session.game.currentErrorMargin }} ans</h4>
@@ -65,7 +64,7 @@
         <div class="row justify-content-center">
             <div class="col-sm-6 col-md-4 text-center form-quizz ">
                 <form action="/Game/solution" method="post">
-                    <input class="answer-form" id="answer" name="answer" type="number" inputmode="numeric" value="" minlength="4" maxlength="5" autofocus required class="mt-1">
+                    <input class="answer-form" id="answer" name="answer" type="number" inputmode="numeric" pattern="\-?[0-9]*" value="" minlength="4" maxlength="5" autofocus required class="mt-1">
                     <input name="objectId" type="hidden" value="{{ pickedObject.objectId}}" >
                     <button type="submit" class="btn btn-outline-primary" >
                         <i class="fas fa-check"></i>

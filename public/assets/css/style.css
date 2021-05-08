@@ -66,11 +66,11 @@ a.text-secondary:hover{
 
 .painting-title {
     font-family: 'DM Serif Text', serif;
-    color: var(--light-color);
+    color: var(--primary-color);
 }
 
 .wall {
-    background-image: url('../../assets/images/wall2.jpg');
+    background-image: url('../../assets/images/wall.jpg');
     background-size: cover;
 }
 
