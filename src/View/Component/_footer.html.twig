@@ -1,26 +1,25 @@
 <footer>
     <div class="container-fluid">
-        <div class="row bg-light justify-content-end align-items-center" style="height:50px">
-            <div id="carouselExampleSlidesOnly" class="carousel slide w-50 " data-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        {{ comments[0] }}
-                    </div>
-                    {% for i in 1..4 %}
-                        <div class="carousel-item">
-                            {{ comments[ i ] }}
+        <div class="row bg-light justify-content-end align-items-start" style="height:50px">
+            <div class="col-12">
+                <div id="carouselExampleSlidesOnly" class="carousel slide w-100 " data-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            {{ comments[0] }}
                         </div>
-                    {% endfor %}
+                        {% for i in 1..4 %}
+                            <div class="carousel-item">
+                                {{ comments[ i ] }}
+                            </div>
+                        {% endfor %}
 
+                    </div>
                 </div>
             </div>
-            Follow Us
-            <a class="mx-2" href="https://www.facebook.com/metmuseum" target="_blank"><i class="fab fa-facebook-square footer-fa" ></i></a>
-            <a class="mx-2" href="https://twitter.com/metmuseum" target="_blank"><i class="fab fa-twitter footer-fa"></i></a>
-            <a class="mx-2" href="https://www.pinterest.fr/metmuseum/" target="_blank"><i class="fab fa-pinterest footer-fa"></i></a>
-            <a class="mx-2" href="https://www.instagram.com/metmuseum/" target="_blank"><i class="fab fa-instagram footer-fa"></i></a>
-            <a class="mx-2" href="https://cutt.ly/9vuE2A8" target="_blank"><i class="fab fa-youtube footer-fa" ></i></a>
-            <a class="mx-2" href="https://github.com/WildCodeSchool/2021-march-bordeaux-met" target="_blank"><i class="fab fa-github footer-fa" ></i></a>
+{#            <div class="col-4" >#}
+{#                <a class="mx-2" href="https://www.facebook.com/metmuseum" target="_blank"><i class="fab fa-facebook-square footer-fa" ></i></a>#}
+{#                <a class="mx-2" href="https://www.instagram.com/metmuseum/" target="_blank"><i class="fab fa-instagram footer-fa"></i></a>#}
+{#            </div>#}
         </div>
     </div>
 </footer>
