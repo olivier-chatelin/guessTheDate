@@ -27,8 +27,6 @@ class BadgeDealer
         if (!$alreadyGotTheBadge) {
             $badgeManager->giveNewBadgeToUser($userId, $badgeId);
             $badgeInfo = $badgeManager->getInfoBadgeToGive($userId, $badgeId);
-            $publicLogRecorder = new PublicLogRecorder();
-            $publicLogRecorder->recordNewBadgeGiven($badgeInfo['name']);
         }
         return $badgeInfo;
     }

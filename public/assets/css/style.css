@@ -61,7 +61,7 @@ a.text-secondary:hover{
 
 .fa-paint-roller {
     font-size: 20px;
-    color: var(--light-color);
+    color: var(--primary-color);
 }
 
 .painting-title {
