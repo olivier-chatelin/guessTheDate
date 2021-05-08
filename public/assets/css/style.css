@@ -5,8 +5,10 @@
 @import "solution.css";
 
 header {
-    position:relative;
     z-index:1070;
+    position: sticky;
+    top: 0;
+    width: 100vw;
 }
 
 .header-content{
@@ -15,7 +17,10 @@ header {
 
 footer {
     height: 50px;
+    position: fixed;
+    bottom: 0;
     overflow: hidden;
+    width: 100vw;
 }
 
 h1 {
@@ -57,8 +62,15 @@ a.text-secondary:hover{
     display: block;
     width:25vw;
     height: 0vh;
-    top:50vh
+    top:25vh;
 }
+.carousel-control-next dept, .carousel-control-prev dept{
+    display: block;
+    width:25vw;
+    height: 0vh;
+    top:25%;
+}
+
 
 .fa-paint-roller {
     font-size: 20px;
