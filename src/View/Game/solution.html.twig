@@ -6,12 +6,12 @@
     {% include '/Component/_badgeModal.html.twig' %}
 
 
-    <div class="container-fluid game-content game-content">
-        <div class="row justify-content-between">
+    <div class="container-fluid game-content game-content wall">
+        <div class="row justify-content-between ">
             <div class="numquestion rounded-circle bg-primary text-light m-2 p-2 text-center" style="width:50px; height:50px">
                 <h2 class="m-auto">{{ session.game.numQuestion }}</h2>
             </div>
-            <div class="d-flex flex-row justify-content-center">
+            <div class="d-flex flex-row justify-content-center ">
                 {% if session.game.status == 'Good Answer' or session.game.status == 'Perfect'  %}
                     <div class="anim-points">+ {{ session.game.nbPoints }}</div>
                     <div class="anim-coeff">x {{ session.game.coeffQuestion }}</div>
@@ -27,9 +27,9 @@
                 <h2>Total<br>{{ session.game.currentScore}}</h2>
             </div>
         </div>
-        <div class="row justify-content-center">
-            <div class="d-flex flex-column align-items-center position-relative">
-                <img class="img-car d-block img-fluid m-auto shadow p-1  bg-primary rounded"  src="{{ objectData['primaryImageSmall'] }}" alt="{{ objectData['title']}} " >
+        <div class="row justify-content-center ">
+            <div class="d-flex flex-column align-items-center position-relative frame3">
+                <img class="img-car d-block img-fluid  rounded"  src="{{ objectData['primaryImageSmall'] }}" alt="{{ objectData['title']}} " >
                 <i data-tosend="{{ stringObjectData }}" class="fas fa-heart unclicked position-absolute" id ="heart-logo"></i>
                 <i class="fas fa-heart clicked position-absolute" ></i>
                 <a class="clickable" data-toggle="modal" data-target="#infoModal">
@@ -69,34 +69,34 @@
                     <div class="modal-body text-left">
                         <ul>
                             {% if objectData.title == '' %}
-                            <li>Titre de l'oeuvre: unknown</li>
+                                <li>Titre de l'oeuvre: unknown</li>
                             {% else %}
-                            <li>Titre de l'oeuvre: {{ objectData['title'] }}</li>
+                                <li>Titre de l'oeuvre: {{ objectData['title'] }}</li>
                             {% endif %}
                             {% if objectData.artistDisplayName == '' %}
-                            <li>Artiste: unknown</li>
+                                <li>Artiste: unknown</li>
                             {% else %}
-                            <li>Artiste: {{ objectData['artistDisplayName'] }}</li>
+                                <li>Artiste: {{ objectData['artistDisplayName'] }}</li>
                             {% endif %}
                             {% if objectData.medium == '' %}
-                            <li>Matériau: unknown</li>
+                                <li>Matériau: unknown</li>
                             {% else %}
-                            <li>Matériau: {{ objectData['medium'] }}</li>
+                                <li>Matériau: {{ objectData['medium'] }}</li>
                             {% endif %}
                             {% if objectData.artistDisplayBio == '' %}
-                            <li>Biographie de l'artiste: unknown</li>
+                                <li>Biographie de l'artiste: unknown</li>
                             {% else %}
-                            <li>Biographie de l'artiste: {{ objectData['artistDisplayBio'] }}</li>
+                                <li>Biographie de l'artiste: {{ objectData['artistDisplayBio'] }}</li>
                             {% endif %}
                             {% if objectData.city == '' %}
-                            <li>Ville: unknown</li>
+                                <li>Ville: unknown</li>
                             {% else %}
-                            <li>Ville: {{ objectData['city'] }}</li>
+                                <li>Ville: {{ objectData['city'] }}</li>
                             {% endif %}
                             {% if objectData.country == '' %}
-                            <li>Pays: unknown</li>
+                                <li>Pays: unknown</li>
                             {% else %}
-                            <li>Pays: {{ objectData['country'] }}</li>
+                                <li>Pays: {{ objectData['country'] }}</li>
                             {% endif %}
                         </ul>
                     </div>
