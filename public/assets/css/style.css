@@ -18,11 +18,10 @@ header {
 
 footer {
     height: 50px;
-    position: fixed;
+    position: sticky;
     bottom: 0;
     overflow: hidden;
     width: 100vw;
-    z-index: -1;
 }
 
 h1 {
