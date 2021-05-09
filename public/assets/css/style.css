@@ -18,7 +18,7 @@ header {
 
 footer {
     height: 50px;
-    position: sticky;
+    position: fixed;
     bottom: 0;
     overflow: hidden;
     width: 100vw;
