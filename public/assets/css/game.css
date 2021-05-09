@@ -33,10 +33,7 @@
     width:100px;
 }
 
-.div-podium{
-    background-image: url("/assets/images/laurier.png");
-    background-size: cover;
-}
+
 
 .table-secondary{
     background-color: var(--primary-color);
