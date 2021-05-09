@@ -60,15 +60,15 @@ a.text-secondary:hover{
 }
 .carousel-control-next, .carousel-control-prev{
     display: block;
-    width:25vw;
+    width:10%;
     height: 0vh;
-    top:25vh;
+    top:90%;
 }
-.carousel-control-next dept, .carousel-control-prev dept{
+.carousel-control-next.dept, .carousel-control-prev.dept{
     display: block;
-    width:25vw;
+    width:5%;
     height: 0vh;
-    top:25%;
+    top:250px;
 }
 
 
