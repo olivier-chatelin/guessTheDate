@@ -95,8 +95,13 @@ a.text-secondary:hover{
 .frame {
     box-shadow: 0px 0px 10px 11px rgba(251, 243, 217, 1);
 }
-.modal {
+#infoModal{
     max-width: 100vw !important;
     max-height: 100vh !important;
     top: 30%;
+}
+#badgeModal{
+    max-width: 100vw !important;
+    max-height: 100vh !important;
+    top: 0%;
 }
