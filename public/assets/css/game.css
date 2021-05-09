@@ -16,14 +16,16 @@
     width:15vw;
 }
 
-
+.form-quizz {
+    z-index: 1;
+}
 
 .carousel-control-next, .carousel-control-prev {
     filter: invert(100%);
 }
 .img-car{
     height: 50vh;
-    z-index: -1;
+    z-index: 0;
 }
 
 .answer-form{

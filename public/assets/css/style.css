@@ -87,7 +87,10 @@ a.text-secondary:hover{
     background-image: url('../../assets/images/wall.jpg');
     background-size: cover;
     position: relative;
-    z-index: -2;
+    z-index: 0;
+}
+#answer{
+
 }
 
 .frame2 {
