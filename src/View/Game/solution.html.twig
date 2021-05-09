@@ -46,7 +46,7 @@
                         <h6>Tu as dit {{ session.game.userAnswer }}, Bravo c'est exactement la bonne date</h6>
                     {% endif %}
                 </div>
-                <div class="d-flex flex-row justify-content-center text-center">
+                <div class="d-flex flex-row justify-content-center text-center mb-5">
                     {% if session.game.status == 'Game Over' %}
                         <a class="btn btn-primary" href="/Game/gameover">Game Over</a>
                     {% else %}
